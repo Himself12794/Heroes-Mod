@@ -1,17 +1,16 @@
 package com.himself12794.heroesmod.proxy;
 
-import com.himself12794.heroesmod.HeroesMod;
-import com.himself12794.heroesmod.Powers;
-import com.himself12794.heroesmod.events.PowerEffectHandler;
-import com.himself12794.heroesmod.powerfx.PowerEffects;
-import com.himself12794.powersapi.item.ModItems;
-
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
+
+import com.himself12794.heroesmod.HeroesMod;
+import com.himself12794.heroesmod.Powers;
+import com.himself12794.heroesmod.events.PowerEffectHandler;
+import com.himself12794.heroesmod.powerfx.PowerEffects;
 
 public class CommonProxy {
 
@@ -21,7 +20,7 @@ public class CommonProxy {
 			HeroesMod.logger.info("Loading Powers");
 			Powers.registerPowers();
 			PowerEffects.registerEffects();
-			ModItems.addItems();
+			com.himself12794.heroesmod.item.ModItems.addItems();
 		
 		} else {
 			

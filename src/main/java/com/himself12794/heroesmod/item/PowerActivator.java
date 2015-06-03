@@ -17,6 +17,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import com.himself12794.heroesmod.HeroesMod;
 import com.himself12794.powersapi.PowersAPI;
 import com.himself12794.powersapi.power.Power;
 import com.himself12794.powersapi.util.Reference;
@@ -29,7 +30,7 @@ public class PowerActivator extends Item {
 		setHasSubtypes(true);
 		GameRegistry.registerItem(this, name);
 		setUnlocalizedName(Reference.MODID + "_" + name);
-		setCreativeTab(PowersAPI.powersAPI);
+		setCreativeTab(HeroesMod.heroesMod);
 	}
     
     @Override

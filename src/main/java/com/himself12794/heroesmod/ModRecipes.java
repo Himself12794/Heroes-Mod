@@ -4,7 +4,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-import com.himself12794.powersapi.item.ModItems;
+import com.himself12794.heroesmod.item.ModItems;
 
 public class ModRecipes {
 	public final static int NUMBER = 1;
