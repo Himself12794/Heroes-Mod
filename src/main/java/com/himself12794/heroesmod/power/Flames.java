@@ -12,7 +12,7 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
-import com.himself12794.powersapi.Config;
+import com.himself12794.powersapi.config.Config;
 import com.himself12794.powersapi.entity.EntitySpell;
 import com.himself12794.powersapi.power.PowerRanged;
 import com.himself12794.powersapi.util.UsefulMethods;
@@ -51,9 +51,9 @@ public class Flames extends PowerRanged {
 				
 			}
 			
-		} else if (Config.flamethrowing > 0){
-			
-			//System.out.println("Flamethrowing config value: " + Config.flamethrowing);
+		}
+		
+		if (Config.flamethrowing > 0){
 			
 			BlockPos blockPos = UsefulMethods.getBlockFromSide( target.getBlockPos(), target.sideHit);
 			Block block = UsefulMethods.getBlockAtPos(blockPos, world);
@@ -89,7 +89,6 @@ public class Flames extends PowerRanged {
 			
 			if (distTraveled >= 5) {
 				
-				//if (PowersAPI.proxy.getSide() == Side.CLIENT) spell.setVelocity(0.0D, 0.0D, 0.0D);
 				spell.setDead();
 				
 			}
@@ -108,8 +107,6 @@ public class Flames extends PowerRanged {
 								spell.prevPosZ + (spell.motionZ * j));
 						
 						if (UsefulMethods.getBlockAtPos(pos, world).getMaterial().isSolid()) break;
-						
-						//if (cont);
 							
 						world.spawnParticle(EnumParticleTypes.FLAME,
 							spell.prevPosX + (spell.motionX * j) - world.rand.nextFloat() * 0.5F,

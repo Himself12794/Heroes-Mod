@@ -1,22 +1,22 @@
 package com.himself12794.heroesmod;
 
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import org.apache.logging.log4j.Logger;
 
 import com.himself12794.heroesmod.proxy.CommonProxy;
 import com.himself12794.heroesmod.util.Reference;
-
+/**
+ * This mod is meant to emulate many of the different abilities found in the heroes universe.
+ * 
+ * @author phwhitin
+ *
+ */
 @Mod(modid = Reference.MODID, version = Reference.VERSION, name = Reference.NAME, dependencies = "required-after:powersAPI")
 public class HeroesMod {    
 
