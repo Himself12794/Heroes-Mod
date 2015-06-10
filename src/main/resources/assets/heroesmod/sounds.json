@@ -1,4 +1,4 @@
 {
-    "flamethrower":{"sounds":[{"name":"flamethrower","stream":false}],"category":"master"},
+    "flamethrower":{"sounds":[{"name":"flamethrower","stream":false}],"category":"player"},
     "flamethrower2":{"sounds":[{"name":"flamethrower2","stream":false}],"category":"master"}
 }

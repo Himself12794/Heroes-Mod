@@ -19,7 +19,7 @@ public class Powers {
 	public static Push push;
 	public static Telekinesis telekinesis;
 	
-	public static void registerPowers(){
+	public static void registerPowers() {
 
 		damage = Power.registerPower(new PowerInstant().setUnlocalizedName("damage"));	
 		death = Power.registerPower(new PowerInstant().setUnlocalizedName("death").setPower(1000.0F).setCoolDown(178));	

@@ -4,6 +4,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
+import com.himself12794.heroesmod.powerfx.PowerEffects;
 import com.himself12794.powersapi.power.PowerInstant;
 import com.himself12794.powersapi.util.UsefulMethods;
 
@@ -28,11 +29,11 @@ public class Telekinesis extends PowerInstant {
 		//entity.jumpMovementFactor = 0.0F;
 		entity.moveForward = 0.0F;
 		entity.moveStrafing = 0.0F;
-		entity.isAirBorne = true;
+		//entity.isAirBorne = true;
 		
-		//SpellEffect.levitate.addTo((EntityLivingBase) target.entityHit, 40, caster);
+		PowerEffects.levitate.addTo((EntityLivingBase) target.entityHit, 40, caster);
 		//target.entityHit.moveEntity(x, y, z);
-		if (distance < 5) {
+		/*if (distance < 5) {
 			
 			double dx = target.entityHit.posX - caster.posX;
 			double dy = target.entityHit.posY - caster.posY;
@@ -40,7 +41,7 @@ public class Telekinesis extends PowerInstant {
 			//setThrowableHeading(dx, dy, dz, getVelocity(), 0.0F);
 			UsefulMethods.setMovingDirection((EntityLivingBase) target.entityHit, dx, dy, dz, 2.0F);
 			
-		} else if (distance > 5) {
+		} else*/ if (distance > 5) {
 			
 			double dx = target.entityHit.posX - caster.posX;
 			double dy = target.entityHit.posY - caster.posY;

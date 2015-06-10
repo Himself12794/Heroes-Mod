@@ -9,6 +9,7 @@ import net.minecraftforge.fml.relauncher.Side;
 
 import com.himself12794.heroesmod.HeroesMod;
 import com.himself12794.heroesmod.Powers;
+import com.himself12794.heroesmod.ability.AbilitySet;
 import com.himself12794.heroesmod.events.PowerEffectHandler;
 import com.himself12794.heroesmod.powerfx.PowerEffects;
 
@@ -19,8 +20,7 @@ public class CommonProxy {
 			
 			HeroesMod.logger.info("Loading Powers");
 			Powers.registerPowers();
-			PowerEffects.registerEffects();
-			com.himself12794.heroesmod.item.ModItems.addItems();
+			//ModItems.addItems();
 		
 		} else {
 			
@@ -31,10 +31,14 @@ public class CommonProxy {
 
 	public void init(FMLInitializationEvent event) {
 		if (Loader.isModLoaded("powersAPI")) {
+			HeroesMod.logger.info("Registering power effects");
+			PowerEffects.registerEffects();
 			
-			HeroesMod.logger.info("Loading events");
+			HeroesMod.logger.info("Registering events");
+			MinecraftForge.EVENT_BUS.register(new PowerEffectHandler());
 			
-	    	MinecraftForge.EVENT_BUS.register(new PowerEffectHandler());
+			HeroesMod.logger.info("Registering ability sets");
+			AbilitySet.registerAbilitySets();
 		
 		} else {
 			

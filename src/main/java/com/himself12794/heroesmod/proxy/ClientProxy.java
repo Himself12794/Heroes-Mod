@@ -7,7 +7,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
 import com.himself12794.heroesmod.events.PowerEffectHandler;
-import com.himself12794.heroesmod.item.ModItems;
 
 public class ClientProxy extends CommonProxy {
 	
@@ -22,8 +21,10 @@ public class ClientProxy extends CommonProxy {
 
     	super.init(event);
     	if (Loader.isModLoaded("powersAPI")) {
+    		
     		MinecraftForge.EVENT_BUS.register(new PowerEffectHandler());
-    		ModItems.registerTextures(event);
+    		//ModItems.registerTextures(event);
+    		
     	}
     	
     }

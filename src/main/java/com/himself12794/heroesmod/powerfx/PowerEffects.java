@@ -1,6 +1,8 @@
 package com.himself12794.heroesmod.powerfx;
 
-import com.himself12794.powersapi.powerfx.PowerEffect;
+import net.minecraft.entity.EntityLivingBase;
+
+import com.himself12794.powersapi.power.PowerEffect;
 
 public class PowerEffects {
 	
@@ -15,7 +17,13 @@ public class PowerEffects {
 		rapidCellularRegeneration = PowerEffect.registerEffect(new RapidCellularRegeneration());
 		lift = PowerEffect.registerEffect(new Lift());
 		slam = PowerEffect.registerEffect(new Slam());
-		levitate = PowerEffect.registerEffect(new Levitate());
+		levitate = PowerEffect.registerEffect(new PowerEffect(){
+
+			@Override
+			public void onUpdate(EntityLivingBase entity, int timeLeft,	EntityLivingBase caster) {
+				entity.jumpMovementFactor = 0.0F;
+				
+			}});
 		paralysis = PowerEffect.registerEffect(new Paralysis());
 		
 	}

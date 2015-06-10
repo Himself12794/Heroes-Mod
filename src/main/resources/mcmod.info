@@ -1,19 +1,20 @@
 [
 {
-  "modid" : "powersAPI",
-  "name" : "Powers API",
-  "version" : "1.0",
+  "modid" : "HeroesMod",
+  "name" : "Heroes Mod",
+  "version" : "0.5",
   "url" : "",
   "credits" : "",
-  "authors": "Himself12794",
-  "description": "Makes it easier to add spells/powers to Minecraft",
+  "authors": ["Himself12794"],
+  "description": "An emulation of the powers from the TV Show Heroes",
   "logoFile" : "",
   "updateUrl" : "",
   "parent" : "",
   "screenshots": [
   ],
   "dependancies": [
-    "Forge"
+    "Forge",
+    "Powers API"
   ]
 }
 ]

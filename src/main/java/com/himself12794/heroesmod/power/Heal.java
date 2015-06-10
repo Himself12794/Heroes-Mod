@@ -1,11 +1,16 @@
 package com.himself12794.heroesmod.power;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
 import com.himself12794.powersapi.power.PowerBuff;
+import com.himself12794.heroesmod.AbilitySets;
+import com.himself12794.heroesmod.HeroesMod;
+import com.himself12794.heroesmod.gui.PowersGUI;
 import com.himself12794.heroesmod.powerfx.PowerEffects;
 
 public class Heal extends PowerBuff {
@@ -20,11 +25,22 @@ public class Heal extends PowerBuff {
 	
 	public boolean onCast(World world, EntityLivingBase caster, ItemStack stack, float modifier) {
 		boolean flag = false;
-		PowerEffects.rapidCellularRegeneration.addTo(caster, -1, caster);
 		if (caster.getHealth() < caster.getMaxHealth()) {
 			flag = true;
 			caster.heal(getPower() * modifier);
 		}
+		
+		if (HeroesMod.proxy.getSide().isClient() && caster instanceof EntityPlayer) {
+			
+			//Minecraft.getMinecraft().displayGuiScreen(new PowersGUI((EntityPlayer) caster));
+			try {
+				stack.getItem().getFontRenderer(stack).drawString(AbilitySets.pyrokinesis.getUnlocalizedName(), 87, 16, 4210752);
+			} catch (Exception e) {
+				System.out.println(AbilitySets.pyrokinesis.getUnlocalizedName());
+			}
+			
+		}
+		
 		return flag;
 	}
 	

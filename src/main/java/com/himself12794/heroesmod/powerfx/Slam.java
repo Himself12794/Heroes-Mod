@@ -6,8 +6,6 @@ import net.minecraft.util.EnumParticleTypes;
 
 public class Slam extends Lift {
 
-	public Slam() {}
-
 	@Override
 	public void onRemoval(EntityLivingBase entity, EntityLivingBase caster) {
 		
