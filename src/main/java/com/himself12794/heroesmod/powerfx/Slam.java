@@ -10,7 +10,7 @@ public class Slam extends Lift {
 	public void onRemoval(EntityLivingBase entity, EntityLivingBase caster) {
 		
 		//System.out.println("is client " + !entity.worldObj.isRemote);
-		if (!(entity instanceof EntityFlying)) {
+		if (!(entity instanceof EntityFlying) && entity != null) {
 			entity.motionY = -4.0D;
 			//entity.fall(10.0F, 1.0F);
 			entity.fallDistance = 9.0F;

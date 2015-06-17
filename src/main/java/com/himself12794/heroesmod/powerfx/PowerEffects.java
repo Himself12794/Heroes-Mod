@@ -11,6 +11,9 @@ public class PowerEffects {
 	public static PowerEffect slam;
 	public static PowerEffect levitate;
 	public static PowerEffect paralysis;
+	public static PowerEffect enhancedStrength;
+	public static PowerEffect flight;
+	public static PowerEffect phasing;
 	
 	public static void registerEffects() {
 		
@@ -23,8 +26,13 @@ public class PowerEffects {
 			public void onUpdate(EntityLivingBase entity, int timeLeft,	EntityLivingBase caster) {
 				entity.jumpMovementFactor = 0.0F;
 				
-			}});
+			}
+		});
+		
 		paralysis = PowerEffect.registerEffect(new Paralysis());
+		enhancedStrength = PowerEffect.registerEffect( new EnhancedStrength());
+		flight = PowerEffect.registerEffect(new Flight());
+		phasing = PowerEffect.registerEffect(new PhasingFx());
 		
 	}
 

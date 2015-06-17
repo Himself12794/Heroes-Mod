@@ -8,6 +8,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
 import com.himself12794.powersapi.power.PowerBuff;
+import com.himself12794.powersapi.power.PowerEffect;
 import com.himself12794.heroesmod.AbilitySets;
 import com.himself12794.heroesmod.HeroesMod;
 import com.himself12794.heroesmod.gui.PowersGUI;
@@ -30,7 +31,16 @@ public class Heal extends PowerBuff {
 			caster.heal(getPower() * modifier);
 		}
 		
-		if (HeroesMod.proxy.getSide().isClient() && caster instanceof EntityPlayer) {
+		PowerEffect.negated.clearFrom(caster, caster);
+		
+		PowerEffects.enhancedStrength.addTo(caster, -1, caster);
+		
+		System.out.println(PowerEffects.enhancedStrength.isEffecting(caster));
+		
+		//if (!PowerEffects.enhancedStrength.isEffecting(caster)) PowerEffects.enhancedStrength.addTo(caster, -1, caster);
+		//else PowerEffects.enhancedStrength.clearFrom(caster, caster);
+		
+		/*if (HeroesMod.proxy.getSide().isClient() && caster instanceof EntityPlayer) {
 			
 			//Minecraft.getMinecraft().displayGuiScreen(new PowersGUI((EntityPlayer) caster));
 			try {
@@ -39,7 +49,7 @@ public class Heal extends PowerBuff {
 				System.out.println(AbilitySets.pyrokinesis.getUnlocalizedName());
 			}
 			
-		}
+		}*/
 		
 		return flag;
 	}
