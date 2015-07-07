@@ -15,6 +15,7 @@ public class PhasingFx extends PowerEffect implements IPlayerOnly {
 		if (!entity.capabilities.allowFlying) {
 			
 			entity.motionY = 0.0D;
+			entity.jumpMovementFactor = 0.0F;
 			entity.noClip = true;
 			
 		} else {

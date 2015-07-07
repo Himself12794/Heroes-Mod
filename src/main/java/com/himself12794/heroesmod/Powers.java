@@ -18,6 +18,7 @@ public class Powers {
 	public static Slam slam;
 	public static Push push;
 	public static Telekinesis telekinesis;
+	public static Phasing phasing;
 	
 	public static void registerPowers() {
 
@@ -33,6 +34,7 @@ public class Powers {
 		slam = (Slam) Power.registerPower(new Slam());
 		push = (Push) Power.registerPower(new Push());
 		telekinesis = (Telekinesis) Power.registerPower(new Telekinesis());
+		phasing = (Phasing) Power.registerPower(new Phasing());
 		
 	}
 }

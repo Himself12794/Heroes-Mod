@@ -6,7 +6,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
 import com.himself12794.powersapi.power.PowerRanged;
-import com.himself12794.heroesmod.powerfx.PowerEffects;
+import com.himself12794.heroesmod.PowerEffects;
 
 public class Dummy extends PowerRanged {
 	

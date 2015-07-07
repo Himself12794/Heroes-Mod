@@ -11,8 +11,8 @@ import com.himself12794.powersapi.power.PowerBuff;
 import com.himself12794.powersapi.power.PowerEffect;
 import com.himself12794.heroesmod.AbilitySets;
 import com.himself12794.heroesmod.HeroesMod;
+import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.heroesmod.gui.PowersGUI;
-import com.himself12794.heroesmod.powerfx.PowerEffects;
 
 public class Heal extends PowerBuff {
 	

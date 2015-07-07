@@ -9,8 +9,8 @@ import net.minecraft.util.StatCollector;
 
 import com.google.common.collect.Maps;
 import com.himself12794.heroesmod.HeroesMod;
+import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.heroesmod.Powers;
-import com.himself12794.heroesmod.powerfx.PowerEffects;
 import com.himself12794.powersapi.PowersAPI;
 import com.himself12794.powersapi.power.Power;
 import com.himself12794.powersapi.power.PowerEffect;
@@ -129,7 +129,14 @@ public class AbilitySet {
 				.setDescription("The ability to recover near-instantly from any wound, fatal or non-fatal.")
 				);
 		
-		registerAbilitySet(new AbilitySet("spaceTimeManipulation"));
+		registerAbilitySet(new AbilitySet("spaceTimeManipulation")
+				.setDescription("The ability to teleport and slow/stop time.")
+				);
+		
+		registerAbilitySet(new AbilitySet("flight")
+				.addPassivePower(PowerEffects.flight)
+				.setDescription("The ability of flight.")
+				);
 		
 		HeroesMod.logger.info("Registered " + abilitySetsCount + " ability set(s)");
 	}

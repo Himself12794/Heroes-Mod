@@ -1,7 +1,14 @@
-package com.himself12794.heroesmod.powerfx;
+package com.himself12794.heroesmod;
 
 import net.minecraft.entity.EntityLivingBase;
 
+import com.himself12794.heroesmod.powerfx.EnhancedStrength;
+import com.himself12794.heroesmod.powerfx.Flight;
+import com.himself12794.heroesmod.powerfx.Lift;
+import com.himself12794.heroesmod.powerfx.Paralysis;
+import com.himself12794.heroesmod.powerfx.PhasingFx;
+import com.himself12794.heroesmod.powerfx.RapidCellularRegeneration;
+import com.himself12794.heroesmod.powerfx.Slam;
 import com.himself12794.powersapi.power.PowerEffect;
 
 public class PowerEffects {

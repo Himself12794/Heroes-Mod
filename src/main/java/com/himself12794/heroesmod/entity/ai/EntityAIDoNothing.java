@@ -3,7 +3,7 @@ package com.himself12794.heroesmod.entity.ai;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAIBase;
 
-import com.himself12794.heroesmod.powerfx.PowerEffects;
+import com.himself12794.heroesmod.PowerEffects;
 
 public class EntityAIDoNothing extends EntityAIBase {
 
