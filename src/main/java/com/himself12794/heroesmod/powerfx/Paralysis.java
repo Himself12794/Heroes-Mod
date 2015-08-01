@@ -5,8 +5,8 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 
-import com.himself12794.powersapi.power.PowerEffect;
 import com.himself12794.heroesmod.entity.ai.EntityAIDoNothing;
+import com.himself12794.powersapi.power.PowerEffect;
 
 public class Paralysis extends PowerEffect {
 

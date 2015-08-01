@@ -1,8 +1,18 @@
 package com.himself12794.heroesmod;
 
+import com.himself12794.heroesmod.power.Dummy;
+import com.himself12794.heroesmod.power.DummyHoming;
+import com.himself12794.heroesmod.power.Flames;
+import com.himself12794.heroesmod.power.Heal;
+import com.himself12794.heroesmod.power.Immortalize;
+import com.himself12794.heroesmod.power.Incinerate;
+import com.himself12794.heroesmod.power.Lightning;
+import com.himself12794.heroesmod.power.Phasing;
+import com.himself12794.heroesmod.power.Push;
+import com.himself12794.heroesmod.power.Slam;
+import com.himself12794.heroesmod.power.Telekinesis;
 import com.himself12794.powersapi.power.Power;
 import com.himself12794.powersapi.power.PowerInstant;
-import com.himself12794.heroesmod.power.*;
 
 public class Powers {
 	

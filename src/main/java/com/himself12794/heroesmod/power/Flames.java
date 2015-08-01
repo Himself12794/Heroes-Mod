@@ -10,13 +10,14 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.World;
 
+import com.himself12794.heroesmod.util.Reference;
 import com.himself12794.powersapi.config.Config;
 import com.himself12794.powersapi.entity.EntitySpell;
 import com.himself12794.powersapi.power.PowerRanged;
 import com.himself12794.powersapi.util.UsefulMethods;
-import com.himself12794.heroesmod.util.Reference;
 
 public class Flames extends PowerRanged {
 	
@@ -52,7 +53,7 @@ public class Flames extends PowerRanged {
 			
 		} 
 		
-		if (Config.flamethrowing > 0 && target.getBlockPos() != null){
+		if (Config.flamethrowing > 0 && target.typeOfHit == MovingObjectType.BLOCK){
 			
 			BlockPos blockPos = UsefulMethods.getBlockFromSide( target.getBlockPos(), target.sideHit);
 			Block block = UsefulMethods.getBlockAtPos(blockPos, world);

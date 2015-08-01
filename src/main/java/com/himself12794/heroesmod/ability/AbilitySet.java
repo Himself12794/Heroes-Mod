@@ -11,7 +11,6 @@ import com.google.common.collect.Maps;
 import com.himself12794.heroesmod.HeroesMod;
 import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.heroesmod.Powers;
-import com.himself12794.powersapi.PowersAPI;
 import com.himself12794.powersapi.power.Power;
 import com.himself12794.powersapi.power.PowerEffect;
 
@@ -21,7 +20,7 @@ public class AbilitySet {
 	private final List<PowerEffect> passivePowerEffects = new ArrayList<PowerEffect>();
 	private final List<Integer> potionEffects = new ArrayList<Integer>();
 	private final String unlocalizedName;
-	private String description; 
+	private String description = ""; 
 	
 	AbilitySet(String name) {
 		this.unlocalizedName = name;
@@ -66,7 +65,6 @@ public class AbilitySet {
 	
 	/**
 	 * Returns a copy of the active powers attributed to this Ability Set.
-	 * Changing this will not affect the powers in this set.
 	 * 
 	 * @return
 	 */
@@ -76,7 +74,6 @@ public class AbilitySet {
 	
 	/**
 	 * Returns a copy of the passive powers attributed to this Ability Set.
-	 * Changing this will not affect the powers in this set.
 	 * 
 	 * @return
 	 */
@@ -86,7 +83,6 @@ public class AbilitySet {
 	
 	/**
 	 * Returns a copy of the passive powers (Potion effects) attributed to this Ability Set.
-	 * Changing this will not affect the powers in this set.
 	 * 
 	 * @return
 	 */
@@ -95,7 +91,7 @@ public class AbilitySet {
 	}
 	
 	public String getUnlocalizedName() {
-		return unlocalizedName;
+		return "ability." + unlocalizedName;
 	}
 	
 	public String getDisplayName() {

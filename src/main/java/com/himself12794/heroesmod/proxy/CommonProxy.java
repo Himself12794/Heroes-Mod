@@ -12,7 +12,6 @@ import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.heroesmod.Powers;
 import com.himself12794.heroesmod.ability.AbilitySet;
 import com.himself12794.heroesmod.events.PowerEffectHandler;
-import com.himself12794.powersapi.power.PowerEffect;
 
 public class CommonProxy {
 

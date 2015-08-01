@@ -1,10 +1,10 @@
 package com.himself12794.heroesmod.powerfx;
 
-import com.himself12794.powersapi.power.PowerEffect;
-
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+
+import com.himself12794.powersapi.power.PowerEffect;
 
 public class RapidCellularRegeneration extends PowerEffect {
 	
