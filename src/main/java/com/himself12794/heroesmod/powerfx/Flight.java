@@ -9,6 +9,12 @@ import com.himself12794.powersapi.power.PowerEffect;
 
 public class Flight extends PowerEffect implements IPlayerOnly {
 	
+	private static final String NAME = "flight";
+	
+	public Flight() {
+		setUnlocalizedName(NAME);
+	}
+	
 	@Override
 	public void onApplied(EntityLivingBase entity, int time, EntityLivingBase caster) {
 		

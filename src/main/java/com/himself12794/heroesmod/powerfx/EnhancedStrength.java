@@ -7,6 +7,12 @@ import net.minecraft.util.MathHelper;
 import com.himself12794.powersapi.power.PowerEffect;
 
 public class EnhancedStrength extends PowerEffect {
+	
+	private static final String NAME = "enhancedStrength";
+	
+	public EnhancedStrength() {
+		setUnlocalizedName(NAME);
+	}
 
 	@Override
 	public float onAttack(EntityLivingBase target, DamageSource damageSource, float amount, EntityLivingBase caster) {
