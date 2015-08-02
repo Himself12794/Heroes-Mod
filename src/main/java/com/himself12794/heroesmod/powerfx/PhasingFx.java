@@ -8,6 +8,12 @@ import com.himself12794.powersapi.power.IPlayerOnly;
 import com.himself12794.powersapi.power.PowerEffect;
 
 public class PhasingFx extends PowerEffect implements IPlayerOnly {
+	
+	private static final String NAME = "phasing";
+	
+	public PhasingFx() {
+		setUnlocalizedName(NAME);
+	}
 
 	@Override
 	public void onUpdate(EntityPlayer entity, int timeLeft, EntityLivingBase caster) {

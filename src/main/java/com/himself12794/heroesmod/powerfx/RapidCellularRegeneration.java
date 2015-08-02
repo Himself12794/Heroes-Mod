@@ -8,7 +8,10 @@ import com.himself12794.powersapi.power.PowerEffect;
 
 public class RapidCellularRegeneration extends PowerEffect {
 	
+	private static final String name = "rapidCellularRegeneration";
+	
 	public RapidCellularRegeneration() {
+		setUnlocalizedName(name);
 		setNegateable(true);
 	}
 	

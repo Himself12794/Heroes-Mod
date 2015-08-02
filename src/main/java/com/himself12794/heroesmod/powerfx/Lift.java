@@ -8,7 +8,13 @@ import com.himself12794.powersapi.util.UsefulMethods;
 
 public class Lift extends PowerEffect {
 	
-	private double liftHeight = 5.0D;
+	private static final String NAME = "lift";
+	
+	public Lift() {
+		setUnlocalizedName(NAME);
+	}
+	
+	private static final double LIFT_HEIGHT = 5.0D;
 
 	@Override
 	public void onUpdate(EntityLivingBase entity, int timeLeft,	EntityLivingBase caster) {
@@ -21,7 +27,7 @@ public class Lift extends PowerEffect {
 				
 				double groundDistance = UsefulMethods.distanceAboveGround(entity);
 				
-				if (groundDistance < liftHeight) entity.motionY = 1.0D;
+				if (groundDistance < LIFT_HEIGHT) entity.motionY = 1.0D;
 				else entity.motionY = 0.0D;//entity.jumpMovementFactor = 0.0F;
 			}
 		}

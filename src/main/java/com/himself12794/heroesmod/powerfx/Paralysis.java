@@ -10,7 +10,11 @@ import com.himself12794.powersapi.power.PowerEffect;
 
 public class Paralysis extends PowerEffect {
 
-	public Paralysis() {}
+	private static final String NAME = "paralysis";
+	
+	public Paralysis() {
+		setUnlocalizedName(NAME);
+	}
 
 	@Override
 	public void onUpdate(EntityLivingBase entity, int timeLeft, EntityLivingBase caster) {
