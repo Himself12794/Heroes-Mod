@@ -15,3 +15,9 @@
 /libs/
 /lib/
 /eclipse/
+/config/
+/crash-reports/
+/logs/
+/saves/
+/options.txt
+/usernamecache.json
