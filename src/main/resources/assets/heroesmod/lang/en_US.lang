@@ -24,5 +24,7 @@ power.telekinesis.name=Telekinesis
 power.telekinesis.description=Pulls and levitates targets
 power.push.name=Push
 power.push.description=Throws enemies away
+power.phasing.name=Phasing
+power.phasing.description=You can walk through blocks, and cannot be damaged.
 
 itemGroup.powersAPI=Powers API

@@ -2,6 +2,7 @@ package com.himself12794.heroesmod;
 
 import com.himself12794.heroesmod.power.Dummy;
 import com.himself12794.heroesmod.power.DummyHoming;
+import com.himself12794.heroesmod.power.ExplodingFireball;
 import com.himself12794.heroesmod.power.Flames;
 import com.himself12794.heroesmod.power.Heal;
 import com.himself12794.heroesmod.power.Immortalize;
@@ -15,36 +16,45 @@ import com.himself12794.powersapi.power.Power;
 import com.himself12794.powersapi.power.PowerInstant;
 
 public class Powers {
-	
-	public static final Power damage;
-	public static final Incinerate incinerate;
-	public static final Lightning lightning;
-	public static final Heal heal;
-	public static final Power death;
-	public static final Dummy dummy;
-	public static final Immortalize immortalize;
-	public static final Flames flames;
-	public static final DummyHoming dummyHoming;
-	public static final Slam slam;
-	public static final Push push;
-	public static final Telekinesis telekinesis;
-	public static final Phasing phasing;
-	
+
+	public static final Power DAMAGE;
+	public static final Incinerate INCINERATE;
+	public static final Lightning LIGHTNING;
+	public static final Heal HEAL;
+	public static final Power DEATH;
+	public static final Dummy DUMMY;
+	public static final Immortalize IMMORTALIZE;
+	public static final Flames FLAMES;
+	public static final DummyHoming DUMMY_HOMING;
+	public static final Slam SLAM;
+	public static final Push PUSH;
+	public static final Telekinesis TELEKINESIS;
+	public static final Phasing PHASING;
+	public static final ExplodingFireball EXPLODING_FIREBALL;
+
 	static {
 
-		damage = Power.lookupPower("damage");	
-		death = Power.lookupPower("power");	
-		incinerate = (Incinerate) Power.lookupPower("incinerate");
-		lightning = (Lightning) Power.lookupPower("lightning");
-		heal = (Heal) Power.lookupPower("heal");
-		dummy = (Dummy) Power.lookupPower("dummy");
-		immortalize = (Immortalize) Power.lookupPower("immortalize");
-		flames = (Flames) Power.lookupPower("flames");
-		dummyHoming = (DummyHoming) Power.lookupPower("dummyHoming");
-		slam = (Slam) Power.lookupPower("slam");
-		push = (Push) Power.lookupPower("push");
-		telekinesis = (Telekinesis) Power.lookupPower("telekinesis");
-		phasing = (Phasing) Power.lookupPower("phasing");
-		
+		if (HeroesMod.instance.isInitialized()) {
+
+			DAMAGE = Power.lookupPower("damage");
+			DEATH = Power.lookupPower("power");
+			INCINERATE = (Incinerate) Power.lookupPower("incinerate");
+			LIGHTNING = (Lightning) Power.lookupPower("lightning");
+			HEAL = (Heal) Power.lookupPower("heal");
+			DUMMY = (Dummy) Power.lookupPower("dummy");
+			IMMORTALIZE = (Immortalize) Power.lookupPower("immortalize");
+			FLAMES = (Flames) Power.lookupPower("flames");
+			DUMMY_HOMING = (DummyHoming) Power.lookupPower("dummyHoming");
+			SLAM = (Slam) Power.lookupPower("slam");
+			PUSH = (Push) Power.lookupPower("push");
+			TELEKINESIS = (Telekinesis) Power.lookupPower("telekinesis");
+			PHASING = (Phasing) Power.lookupPower("phasing");
+			EXPLODING_FIREBALL = Power.lookupPower(ExplodingFireball.class);
+
+		} else {
+			throw new RuntimeException(
+					"References accessed before initialization");
+		}
+
 	}
 }

@@ -20,6 +20,7 @@ public class Powers {
 		Power.registerPower(new Push());
 		Power.registerPower(new Telekinesis());
 		Power.registerPower(new Phasing());
+		Power.registerPower(new ExplodingFireball());
 		
 	}
 }

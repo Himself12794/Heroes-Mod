@@ -108,16 +108,16 @@ public class AbilitySet {
 	public static void registerAbilitySets() {
 		
 		registerAbilitySet((new AbilitySet("pyrokinesis"))
-				.addActivePower(Powers.flames)
-				.addActivePower(Powers.incinerate)
+				.addActivePower(Powers.FLAMES)
+				.addActivePower(Powers.INCINERATE)
 				.addPassivePower(Potion.fireResistance)
 				.setDescription("The ability to manipulate and resist fire.")
 				);
 		
 		registerAbilitySet((new AbilitySet("telekinesis"))
-				.addActivePower(Powers.push)
-				.addActivePower(Powers.slam)
-				.addActivePower(Powers.telekinesis)
+				.addActivePower(Powers.PUSH)
+				.addActivePower(Powers.SLAM)
+				.addActivePower(Powers.TELEKINESIS)
 				.setDescription("The ability to move things with the mind.")
 				);
 		
