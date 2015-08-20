@@ -25,7 +25,6 @@ public class Powers {
 	public static final Dummy DUMMY;
 	public static final Immortalize IMMORTALIZE;
 	public static final Flames FLAMES;
-	public static final DummyHoming DUMMY_HOMING;
 	public static final Slam SLAM;
 	public static final Push PUSH;
 	public static final Telekinesis TELEKINESIS;
@@ -38,17 +37,16 @@ public class Powers {
 
 			DAMAGE = Power.lookupPower("damage");
 			DEATH = Power.lookupPower("power");
-			INCINERATE = (Incinerate) Power.lookupPower("incinerate");
-			LIGHTNING = (Lightning) Power.lookupPower("lightning");
-			HEAL = (Heal) Power.lookupPower("heal");
-			DUMMY = (Dummy) Power.lookupPower("dummy");
-			IMMORTALIZE = (Immortalize) Power.lookupPower("immortalize");
-			FLAMES = (Flames) Power.lookupPower("flames");
-			DUMMY_HOMING = (DummyHoming) Power.lookupPower("dummyHoming");
-			SLAM = (Slam) Power.lookupPower("slam");
-			PUSH = (Push) Power.lookupPower("push");
-			TELEKINESIS = (Telekinesis) Power.lookupPower("telekinesis");
-			PHASING = (Phasing) Power.lookupPower("phasing");
+			INCINERATE = Power.lookupPower(Incinerate.class);
+			LIGHTNING = Power.lookupPower(Lightning.class);
+			HEAL = Power.lookupPower(Heal.class);
+			DUMMY = Power.lookupPower(Dummy.class);
+			IMMORTALIZE = Power.lookupPower(Immortalize.class);
+			FLAMES = Power.lookupPower(Flames.class);
+			SLAM = Power.lookupPower(Slam.class);
+			PUSH = Power.lookupPower(Push.class);
+			TELEKINESIS = Power.lookupPower(Telekinesis.class);
+			PHASING = Power.lookupPower(Phasing.class);
 			EXPLODING_FIREBALL = Power.lookupPower(ExplodingFireball.class);
 
 		} else {
