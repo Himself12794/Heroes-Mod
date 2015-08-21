@@ -9,6 +9,7 @@ import java.util.Random;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import com.himself12794.heroesmod.util.MagicalExplosionDamage;
 import com.himself12794.heroesmod.util.Reference;
 
 import net.minecraft.block.Block;
@@ -16,25 +17,32 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentProtection;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.IChatComponent;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.StatCollector;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
 /**
- *Damages like a regular explosion, but its particles and sound are different,
- *and it doesn't damage the caster.
+ * Damages like a regular explosion, but its particles and sound are different,
+ * and it doesn't damage the caster.
  * 
  * @author Himself12794
  *
  */
 public class MagicalExplosion extends Explosion {
+
 	/** whether or not the explosion sets fire to blocks around it */
 	private final boolean isFlaming;
 	/** whether or not this explosion spawns smoke particles */
@@ -78,6 +86,7 @@ public class MagicalExplosion extends Explosion {
 	 * Does the first part of the explosion (destroy blocks)
 	 */
 	public void doExplosionA() {
+		
 		HashSet hashset = Sets.newHashSet();
 		boolean flag = true;
 		int j;
@@ -151,8 +160,8 @@ public class MagicalExplosion extends Explosion {
 		for (int l1 = 0; l1 < list.size(); ++l1) {
 			Entity entity = (Entity) list.get(l1);
 
-			if (entity.equals(exploder))
-				continue;
+			//if (entity.equals(exploder))
+			//	continue;
 
 			if (!entity.func_180427_aV()) {
 				double d12 = entity.getDistance(this.explosionX,
@@ -173,8 +182,7 @@ public class MagicalExplosion extends Explosion {
 						double d14 = (double) this.worldObj.getBlockDensity(
 								vec3, entity.getEntityBoundingBox());
 						double d10 = (1.0D - d12) * d14;
-						entity.attackEntityFrom(
-								DamageSource.setExplosionSource(this),
+						entity.attackEntityFrom(MagicalExplosionDamage.explosionFrom(exploder),
 								(float) ((int) ((d10 * d10 + d10) / 2.0D * 8.0D
 										* (double) f3 + 1.0D)));
 						double d11 = EnchantmentProtection.func_92092_a(entity,
@@ -203,27 +211,21 @@ public class MagicalExplosion extends Explosion {
 						.nextFloat()) * 0.2F) * 0.7F);
 
 		if (doParticles) {
-			if (this.explosionSize >= 2.0F && isSmoking) {
-				// this.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE,
-				// this.explosionX, this.explosionY, this.explosionZ, 1.0D,
-				// 0.0D, 0.0D, new int[0]);
+			if (this.explosionSize >= 2.0F && isSmoking)
 				doParticles(250);
-			} else {
+			else
 				doParticles(150);
-				// this.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE,
-				// this.explosionX, this.explosionY, this.explosionZ, 1.0D,
-				// 0.0D, 0.0D, new int[0]);
-			}
+
 		}
 	}
 
 	protected void doParticles(int amount) {
 
 		for (int i = 0; i < amount; i++) {
-			worldObj.spawnParticle(EnumParticleTypes.SPELL_INSTANT, 
-					explosionX + this.explosionRNG.nextGaussian() * 1.5F, 
-					explosionY + this.explosionRNG.nextGaussian() * 1.5F, 
-					explosionZ + this.explosionRNG.nextGaussian() * 1.5F, 0, 0, 0);
+			worldObj.spawnParticle(EnumParticleTypes.SPELL_INSTANT, explosionX
+					+ this.explosionRNG.nextGaussian() * 1.5F, explosionY
+					+ this.explosionRNG.nextGaussian() * 1.5F, explosionZ
+					+ this.explosionRNG.nextGaussian() * 1.5F, 0, 0, 0);
 		}
 
 	}

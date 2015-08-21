@@ -14,11 +14,11 @@ import com.himself12794.powersapi.entity.EntitySpell;
 import com.himself12794.powersapi.power.PowerRanged;
 
 // TODO make magical explosion
-public class ExplodingFireball extends PowerRanged {
+public class ExplodingBolt extends PowerRanged {
 
-	public static final String NAME = "explodingFireball";
+	public static final String NAME = "explodingBolt";
 
-	public ExplodingFireball() {
+	public ExplodingBolt() {
 		setPower(8.0F);
 		setCoolDown(100);
 		setDuration(8 * 20);
@@ -33,7 +33,7 @@ public class ExplodingFireball extends PowerRanged {
 		// target.hitVec.yCoord, target.hitVec.zCoord, 3.0F, false, false);
 		MagicalExplosion magicalExplosion = new MagicalExplosion(world, caster,
 				target.hitVec.xCoord, target.hitVec.yCoord,
-				target.hitVec.zCoord, 3.0F, false, true);
+				target.hitVec.zCoord, 5.0F, false, true);
 		
 		magicalExplosion.doExplosionA();
 		magicalExplosion.doExplosionB(true);

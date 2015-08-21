@@ -25,6 +25,11 @@ power.telekinesis.description=Pulls and levitates targets
 power.push.name=Push
 power.push.description=Throws enemies away
 power.phasing.name=Phasing
-power.phasing.description=You can walk through blocks, and cannot be damaged.
+power.phasing.description=You are intangible.
+power.explodingBolt.name=Exploding Bolt
+power.explodingBolt.description=Generates a magical explosion
+
+
+death.attack.player.magicalExplosion.power=%1$s was reduced to an ethereal mist by %2$s
 
 itemGroup.powersAPI=Powers API
