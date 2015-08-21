@@ -7,21 +7,21 @@ import java.util.Map;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.StatCollector;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.himself12794.heroesmod.HeroesMod;
-import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.heroesmod.Powers;
-import com.himself12794.powersapi.PowersAPI;
+import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.powersapi.power.Power;
 import com.himself12794.powersapi.power.PowerEffect;
 
 public class AbilitySet {
 	
-	private final List<Power> activePowers = new ArrayList<Power>();
-	private final List<PowerEffect> passivePowerEffects = new ArrayList<PowerEffect>();
-	private final List<Integer> potionEffects = new ArrayList<Integer>();
+	private final List<Power> activePowers = Lists.newArrayList();
+	private final List<PowerEffect> passivePowerEffects = Lists.newArrayList();
+	private final List<Integer> potionEffects = Lists.newArrayList();
 	private final String unlocalizedName;
-	private String description; 
+	private String description = ""; 
 	
 	AbilitySet(String name) {
 		this.unlocalizedName = name;
@@ -66,7 +66,6 @@ public class AbilitySet {
 	
 	/**
 	 * Returns a copy of the active powers attributed to this Ability Set.
-	 * Changing this will not affect the powers in this set.
 	 * 
 	 * @return
 	 */
@@ -76,7 +75,6 @@ public class AbilitySet {
 	
 	/**
 	 * Returns a copy of the passive powers attributed to this Ability Set.
-	 * Changing this will not affect the powers in this set.
 	 * 
 	 * @return
 	 */
@@ -86,7 +84,6 @@ public class AbilitySet {
 	
 	/**
 	 * Returns a copy of the passive powers (Potion effects) attributed to this Ability Set.
-	 * Changing this will not affect the powers in this set.
 	 * 
 	 * @return
 	 */
@@ -95,7 +92,7 @@ public class AbilitySet {
 	}
 	
 	public String getUnlocalizedName() {
-		return unlocalizedName;
+		return "ability." + unlocalizedName;
 	}
 	
 	public String getDisplayName() {
@@ -111,16 +108,16 @@ public class AbilitySet {
 	public static void registerAbilitySets() {
 		
 		registerAbilitySet((new AbilitySet("pyrokinesis"))
-				.addActivePower(Powers.flames)
-				.addActivePower(Powers.incinerate)
+				.addActivePower(Powers.FLAMES)
+				.addActivePower(Powers.INCINERATE)
 				.addPassivePower(Potion.fireResistance)
 				.setDescription("The ability to manipulate and resist fire.")
 				);
 		
 		registerAbilitySet((new AbilitySet("telekinesis"))
-				.addActivePower(Powers.push)
-				.addActivePower(Powers.slam)
-				.addActivePower(Powers.telekinesis)
+				.addActivePower(Powers.PUSH)
+				.addActivePower(Powers.SLAM)
+				.addActivePower(Powers.TELEKINESIS)
 				.setDescription("The ability to move things with the mind.")
 				);
 		

@@ -5,6 +5,12 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.EnumParticleTypes;
 
 public class Slam extends Lift {
+	
+	private static final String NAME = "slam";
+	
+	public Slam() {
+		setUnlocalizedName(NAME);
+	}
 
 	@Override
 	public void onRemoval(EntityLivingBase entity, EntityLivingBase caster) {

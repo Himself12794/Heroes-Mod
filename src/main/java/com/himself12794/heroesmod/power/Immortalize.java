@@ -5,8 +5,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
-import com.himself12794.powersapi.power.PowerBuff;
 import com.himself12794.heroesmod.PowerEffects;
+import com.himself12794.powersapi.power.PowerBuff;
 
 public class Immortalize extends PowerBuff {
 	

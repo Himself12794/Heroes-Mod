@@ -1,18 +1,13 @@
 package com.himself12794.heroesmod.power;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
+import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.powersapi.power.PowerBuff;
 import com.himself12794.powersapi.power.PowerEffect;
-import com.himself12794.heroesmod.AbilitySets;
-import com.himself12794.heroesmod.HeroesMod;
-import com.himself12794.heroesmod.PowerEffects;
-import com.himself12794.heroesmod.gui.PowersGUI;
 
 public class Heal extends PowerBuff {
 	

@@ -2,16 +2,14 @@ package com.himself12794.heroesmod.gui;
 
 import java.io.IOException;
 
-import com.himself12794.heroesmod.ability.AbilitySet;
-
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.achievement.GuiAchievements;
 import net.minecraft.client.gui.achievement.GuiStats;
-import net.minecraft.client.gui.inventory.GuiContainerCreative;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
+
+import com.himself12794.heroesmod.ability.AbilitySet;
 
 public class PowersGUI extends GuiInventory {
 

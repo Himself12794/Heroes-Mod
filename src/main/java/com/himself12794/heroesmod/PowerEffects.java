@@ -13,33 +13,31 @@ import com.himself12794.powersapi.power.PowerEffect;
 
 public class PowerEffects {
 	
-	public static PowerEffect rapidCellularRegeneration;
-	public static PowerEffect lift;
-	public static PowerEffect slam;
-	public static PowerEffect levitate;
-	public static PowerEffect paralysis;
-	public static PowerEffect enhancedStrength;
-	public static PowerEffect flight;
-	public static PowerEffect phasing;
+	public static final RapidCellularRegeneration rapidCellularRegeneration;
+	public static final Lift lift;
+	public static final Slam slam;
+	public static final PowerEffect levitate;
+	public static final Paralysis paralysis;
+	public static final EnhancedStrength enhancedStrength;
+	public static final PowerEffect flight;
+	public static final PowerEffect phasing;
 	
-	public static void registerEffects() {
+	static {
 		
-		rapidCellularRegeneration = PowerEffect.registerEffect(new RapidCellularRegeneration());
-		lift = PowerEffect.registerEffect(new Lift());
-		slam = PowerEffect.registerEffect(new Slam());
-		levitate = PowerEffect.registerEffect(new PowerEffect(){
-
-			@Override
-			public void onUpdate(EntityLivingBase entity, int timeLeft,	EntityLivingBase caster) {
-				entity.jumpMovementFactor = 0.0F;
-				
-			}
-		});
+		if (HeroesMod.instance.isInitialized()) {
 		
-		paralysis = PowerEffect.registerEffect(new Paralysis());
-		enhancedStrength = PowerEffect.registerEffect( new EnhancedStrength());
-		flight = PowerEffect.registerEffect(new Flight());
-		phasing = PowerEffect.registerEffect(new PhasingFx());
+			rapidCellularRegeneration = (RapidCellularRegeneration) PowerEffect.getPowerEffect("rapidCellularRegeneration");
+			lift = (Lift) PowerEffect.getPowerEffect("lift");
+			slam = (Slam) PowerEffect.getPowerEffect("slam");
+			levitate = PowerEffect.getPowerEffect("levitate");		
+			paralysis = (Paralysis) PowerEffect.getPowerEffect("paralysis");
+			enhancedStrength = (EnhancedStrength) PowerEffect.getPowerEffect("enhancedStrength");
+			flight = PowerEffect.getPowerEffect("flight");
+			phasing = PowerEffect.getPowerEffect("phasing");
+			
+		} else {
+			throw new RuntimeException("References accessed before registration");
+		}
 		
 	}
 

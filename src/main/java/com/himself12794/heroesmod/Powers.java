@@ -1,40 +1,58 @@
 package com.himself12794.heroesmod;
 
+import com.himself12794.heroesmod.power.Dummy;
+import com.himself12794.heroesmod.power.DummyHoming;
+import com.himself12794.heroesmod.power.ExplodingBolt;
+import com.himself12794.heroesmod.power.Flames;
+import com.himself12794.heroesmod.power.Heal;
+import com.himself12794.heroesmod.power.Immortalize;
+import com.himself12794.heroesmod.power.Incinerate;
+import com.himself12794.heroesmod.power.Lightning;
+import com.himself12794.heroesmod.power.Phasing;
+import com.himself12794.heroesmod.power.Push;
+import com.himself12794.heroesmod.power.Slam;
+import com.himself12794.heroesmod.power.Telekinesis;
 import com.himself12794.powersapi.power.Power;
 import com.himself12794.powersapi.power.PowerInstant;
-import com.himself12794.heroesmod.power.*;
 
 public class Powers {
-	
-	public static Power damage;
-	public static Incinerate incinerate;
-	public static Lightning lightning;
-	public static Heal heal;
-	public static Power death;
-	public static Dummy dummy;
-	public static Immortalize immortalize;
-	public static Flames flames;
-	public static DummyHoming dummyHoming;
-	public static Slam slam;
-	public static Push push;
-	public static Telekinesis telekinesis;
-	public static Phasing phasing;
-	
-	public static void registerPowers() {
 
-		damage = Power.registerPower(new PowerInstant().setUnlocalizedName("damage"));	
-		death = Power.registerPower(new PowerInstant().setUnlocalizedName("death").setPower(1000.0F).setCoolDown(178));	
-		incinerate = (Incinerate) Power.registerPower(new Incinerate());
-		lightning = (Lightning) Power.registerPower(new Lightning());
-		heal = (Heal) Power.registerPower(new Heal());
-		dummy = (Dummy) Power.registerPower(new Dummy());
-		immortalize = (Immortalize) Power.registerPower(new Immortalize());
-		flames = (Flames) Power.registerPower(new Flames());
-		dummyHoming = (DummyHoming) Power.registerPower(new DummyHoming());
-		slam = (Slam) Power.registerPower(new Slam());
-		push = (Push) Power.registerPower(new Push());
-		telekinesis = (Telekinesis) Power.registerPower(new Telekinesis());
-		phasing = (Phasing) Power.registerPower(new Phasing());
-		
+	public static final Power DAMAGE;
+	public static final Incinerate INCINERATE;
+	public static final Lightning LIGHTNING;
+	public static final Heal HEAL;
+	public static final Power DEATH;
+	public static final Dummy DUMMY;
+	public static final Immortalize IMMORTALIZE;
+	public static final Flames FLAMES;
+	public static final Slam SLAM;
+	public static final Push PUSH;
+	public static final Telekinesis TELEKINESIS;
+	public static final Phasing PHASING;
+	public static final ExplodingBolt EXPLODING_BOLT;
+
+	static {
+
+		if (HeroesMod.instance.isInitialized()) {
+
+			DAMAGE = Power.lookupPower("damage");
+			DEATH = Power.lookupPower("power");
+			INCINERATE = Power.lookupPower(Incinerate.class);
+			LIGHTNING = Power.lookupPower(Lightning.class);
+			HEAL = Power.lookupPower(Heal.class);
+			DUMMY = Power.lookupPower(Dummy.class);
+			IMMORTALIZE = Power.lookupPower(Immortalize.class);
+			FLAMES = Power.lookupPower(Flames.class);
+			SLAM = Power.lookupPower(Slam.class);
+			PUSH = Power.lookupPower(Push.class);
+			TELEKINESIS = Power.lookupPower(Telekinesis.class);
+			PHASING = Power.lookupPower(Phasing.class);
+			EXPLODING_BOLT = Power.lookupPower(ExplodingBolt.class);
+
+		} else {
+			throw new RuntimeException(
+					"References accessed before initialization");
+		}
+
 	}
 }
