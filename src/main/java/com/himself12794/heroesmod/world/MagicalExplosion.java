@@ -12,6 +12,7 @@ import com.google.common.collect.Sets;
 import com.himself12794.heroesmod.util.MagicalExplosionDamage;
 import com.himself12794.heroesmod.util.Reference;
 
+import com.himself12794.heroesmod.util.Reference.Sounds;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -59,6 +60,7 @@ public class MagicalExplosion extends Explosion {
 	private final Map field_77288_k;
 	private static final String __OBFID = "CL_00000134";
 	private final Vec3 position;
+	private float limit = 50.0F;
 
 	public MagicalExplosion(World worldIn, Entity p_i45754_2_,
 			double p_i45754_3_, double p_i45754_5_, double p_i45754_7_,
@@ -160,8 +162,7 @@ public class MagicalExplosion extends Explosion {
 		for (int l1 = 0; l1 < list.size(); ++l1) {
 			Entity entity = (Entity) list.get(l1);
 
-			//if (entity.equals(exploder))
-			//	continue;
+			if (entity.equals(exploder)) continue;
 
 			if (!entity.func_180427_aV()) {
 				double d12 = entity.getDistance(this.explosionX,
@@ -179,12 +180,14 @@ public class MagicalExplosion extends Explosion {
 						d5 /= d13;
 						d7 /= d13;
 						d9 /= d13;
-						double d14 = (double) this.worldObj.getBlockDensity(
-								vec3, entity.getEntityBoundingBox());
+						// Being inside of a block cannot protect from explosion
+						double d14 = 1.0F;
 						double d10 = (1.0D - d12) * d14;
+						float amount = (float) ((int) ((d10 * d10 + d10) / 5.0D * 8.0D
+								* (double) f3 + 1.0D));
+						
 						entity.attackEntityFrom(MagicalExplosionDamage.explosionFrom(exploder),
-								(float) ((int) ((d10 * d10 + d10) / 2.0D * 8.0D
-										* (double) f3 + 1.0D)));
+								amount > limit ? limit : amount);
 						double d11 = EnchantmentProtection.func_92092_a(entity,
 								d10);
 						entity.motionX += d5 * d11;
@@ -200,32 +203,74 @@ public class MagicalExplosion extends Explosion {
 			}
 		}
 	}
+	
+	private float calculateDamage(Entity entity) {
+		float f3 = this.explosionSize * 2.0F;
+		
+		float amount = 0.0F;
+
+		double d12 = entity.getDistance(this.explosionX,
+				this.explosionY, this.explosionZ) / (double) f3;
+
+		if (d12 <= 1.0D) {
+			double d5 = entity.posX - this.explosionX;
+			double d7 = entity.posY + (double) entity.getEyeHeight()
+					- this.explosionY;
+			double d9 = entity.posZ - this.explosionZ;
+			double d13 = (double) MathHelper.sqrt_double(d5 * d5 + d7
+					* d7 + d9 * d9);
+
+			if (d13 != 0.0D) {
+				d5 /= d13;
+				d7 /= d13;
+				d9 /= d13;
+				// Being inside of a block cannot protect from explosion
+				double d14 = 1.0F;
+				double d10 = (1.0D - d12) * d14;
+				amount = (float) ((int) ((d10 * d10 + d10) / 5.0D * 8.0D
+						* (double) f3 + 1.0D));
+			}
+		}
+		
+		return amount;
+		
+	}
 
 	/**
 	 * Does the second part of the explosion (sound, particles, drop spawn)
 	 */
 	public void doExplosionB(boolean doParticles) {
 		this.worldObj.playSoundEffect(this.explosionX, this.explosionY,
-				this.explosionZ, Reference.MODID + ":magical_explosion", 4.0F,
+				this.explosionZ, Sounds.MAGICAL_EXPLOSION, 4.0F,
 				(1.0F + (this.worldObj.rand.nextFloat() - this.worldObj.rand
 						.nextFloat()) * 0.2F) * 0.7F);
 
 		if (doParticles) {
 			if (this.explosionSize >= 2.0F && isSmoking)
-				doParticles(250);
+				doParticles(500);
 			else
-				doParticles(150);
+				doParticles(300);
 
 		}
+	}
+	
+	/**
+	 * Sets maximum damage for explosion.
+	 * 
+	 */
+	public void setLimit(float amount) {
+		limit = amount;
 	}
 
 	protected void doParticles(int amount) {
 
+		final float particleRange = explosionSize * 0.50F;
+		
 		for (int i = 0; i < amount; i++) {
 			worldObj.spawnParticle(EnumParticleTypes.SPELL_INSTANT, explosionX
-					+ this.explosionRNG.nextGaussian() * 1.5F, explosionY
-					+ this.explosionRNG.nextGaussian() * 1.5F, explosionZ
-					+ this.explosionRNG.nextGaussian() * 1.5F, 0, 0, 0);
+					+ this.explosionRNG.nextGaussian() * particleRange, explosionY
+					+ this.explosionRNG.nextGaussian() * particleRange, explosionZ
+					+ this.explosionRNG.nextGaussian() * particleRange, 0, 0, 0);
 		}
 
 	}
