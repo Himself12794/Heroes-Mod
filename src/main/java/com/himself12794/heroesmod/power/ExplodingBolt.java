@@ -15,7 +15,6 @@ import com.himself12794.powersapi.PowersAPI;
 import com.himself12794.powersapi.entity.EntitySpell;
 import com.himself12794.powersapi.power.PowerRanged;
 
-// TODO make magical explosion
 public class ExplodingBolt extends PowerRanged {
 
 	public static final String NAME = "explodingBolt";

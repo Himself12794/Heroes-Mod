@@ -15,6 +15,7 @@ public class Push extends PowerInstant {
 		setMaxConcentrationTime(10 * 20);
 		setCoolDown(60);
 		setUnlocalizedName("push");
+		setRange(20);
 		
 	}
 	

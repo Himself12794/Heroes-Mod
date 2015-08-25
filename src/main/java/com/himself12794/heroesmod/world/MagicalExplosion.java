@@ -62,26 +62,25 @@ public class MagicalExplosion extends Explosion {
 	private final Vec3 position;
 	private float limit = 50.0F;
 
-	public MagicalExplosion(World worldIn, Entity p_i45754_2_,
-			double p_i45754_3_, double p_i45754_5_, double p_i45754_7_,
-			float p_i45754_9_, boolean p_i45754_10_, boolean p_i45754_11_) {
+	public MagicalExplosion(World worldIn, Entity exploder,
+			double expX, double expY, double expZ,
+			float size, boolean isFlaming, boolean isSmoking) {
 
-		super(worldIn, p_i45754_2_, p_i45754_3_, p_i45754_5_, p_i45754_7_,
-				p_i45754_9_, p_i45754_10_, p_i45754_11_);
+		super(worldIn, exploder, expX, expY, expZ,
+				size, isFlaming, isSmoking);
 
 		this.explosionRNG = new Random();
 		this.affectedBlockPositions = Lists.newArrayList();
 		this.field_77288_k = Maps.newHashMap();
 		this.worldObj = worldIn;
-		this.exploder = p_i45754_2_;
-		this.explosionSize = p_i45754_9_;
-		this.explosionX = p_i45754_3_;
-		this.explosionY = p_i45754_5_;
-		this.explosionZ = p_i45754_7_;
-		this.isFlaming = p_i45754_10_;
-		this.isSmoking = p_i45754_11_;
+		this.exploder = exploder;
+		this.explosionSize = size;
+		this.explosionX = expX;
+		this.explosionY = expY;
+		this.explosionZ = expZ;
+		this.isFlaming = isFlaming;
+		this.isSmoking = isSmoking;
 		this.position = new Vec3(explosionX, explosionY, explosionZ);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
