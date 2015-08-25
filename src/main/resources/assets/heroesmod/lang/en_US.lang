@@ -28,6 +28,8 @@ power.phasing.name=Phasing
 power.phasing.description=You are intangible
 power.explodingBolt.name=Exploding Bolt
 power.explodingBolt.description=Detonates a devastating magical explosion
+power.eclipse.name=Eclipse
+power.eclipse.description=Percentage based attack that blinds
 
 
 death.attack.player.magicalExplosion.power=%1$s was reduced to an ethereal mist by %2$s

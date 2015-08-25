@@ -1,5 +1,6 @@
 {
     "flamethrower":{"sounds":[{"name":"flamethrower","stream":false}],"category":"player"},
     "magical_explosion":{"sounds":[{"name":"magical_explosion","stream":false}],"category":"player"},
-    "flamethrower2":{"sounds":[{"name":"flamethrower2","stream":false}],"category":"master"}
+    "flamethrower2":{"sounds":[{"name":"flamethrower2","stream":false}],"category":"master"},
+    "swoosh":{"sounds":[{"name":"swoosh","stream":false}],"category":"player"}
 }

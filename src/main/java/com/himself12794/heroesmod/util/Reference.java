@@ -18,20 +18,6 @@ public abstract class Reference {
     public static final String SERVER_PROXY = "com.himself12794.heroesmod.proxy.CommonProxy";
     
     /**
-     * Tags used in NBT data.
-     * 
-     * @author Himself12794
-     *
-     */
-    public static abstract class TagIdentifiers {
-    	
-    	public static final String power = MODID + ".power.currentPower";
-    	public static final String powerCooldowns = MODID + ".power.powerCooldowns";
-    	public static final String powerEffects = MODID + ".power.powerEffects";
-    	
-    }
-    
-    /**
      * References to sounds.
      * 
      * @author Philip
@@ -40,6 +26,7 @@ public abstract class Reference {
     public static abstract class Sounds {
     	
     	public static final String MAGICAL_EXPLOSION = MODID + ":magical_explosion";
+    	public static final String SWOOSH = MODID + ":swoosh";
     	public static final String FIREWORKS_LAUNCH = "fireworks.launch";
     	
     }

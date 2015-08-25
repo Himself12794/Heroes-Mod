@@ -12,7 +12,7 @@ import net.minecraft.world.World;
 import com.himself12794.heroesmod.util.Reference.Sounds;
 import com.himself12794.heroesmod.world.MagicalExplosion;
 import com.himself12794.powersapi.PowersAPI;
-import com.himself12794.powersapi.entity.EntitySpell;
+import com.himself12794.powersapi.entity.EntityPower;
 import com.himself12794.powersapi.power.PowerRanged;
 
 public class ExplodingBolt extends PowerRanged {
@@ -49,7 +49,7 @@ public class ExplodingBolt extends PowerRanged {
 	}
 
 	@Override
-	public void onUpdate(EntitySpell spell) {
+	public void onUpdate(EntityPower spell) {
 
 		World world = spell.worldObj;
 

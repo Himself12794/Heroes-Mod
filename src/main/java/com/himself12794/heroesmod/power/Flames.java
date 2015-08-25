@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 
 import com.himself12794.heroesmod.util.Reference;
 import com.himself12794.powersapi.config.Config;
-import com.himself12794.powersapi.entity.EntitySpell;
+import com.himself12794.powersapi.entity.EntityPower;
 import com.himself12794.powersapi.power.PowerRanged;
 import com.himself12794.powersapi.util.UsefulMethods;
 
@@ -79,7 +79,7 @@ public class Flames extends PowerRanged {
 		
 	}
 	
-	public void onUpdate(EntitySpell spell) {
+	public void onUpdate(EntityPower spell) {
 		
 		if (!spell.isInWater()) {
 			

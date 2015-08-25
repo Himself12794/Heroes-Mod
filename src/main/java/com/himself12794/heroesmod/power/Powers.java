@@ -21,6 +21,7 @@ public class Powers {
 		Power.registerPower(new Telekinesis());
 		Power.registerPower(new Phasing());
 		Power.registerPower(new ExplodingBolt());
+		Power.registerPower(new Eclipse());
 		
 	}
 }

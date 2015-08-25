@@ -2,6 +2,7 @@ package com.himself12794.heroesmod;
 
 import com.himself12794.heroesmod.power.Dummy;
 import com.himself12794.heroesmod.power.DummyHoming;
+import com.himself12794.heroesmod.power.Eclipse;
 import com.himself12794.heroesmod.power.ExplodingBolt;
 import com.himself12794.heroesmod.power.Flames;
 import com.himself12794.heroesmod.power.Heal;
@@ -30,6 +31,7 @@ public class Powers {
 	public static final Telekinesis TELEKINESIS;
 	public static final Phasing PHASING;
 	public static final ExplodingBolt EXPLODING_BOLT;
+	public static final Eclipse ECLIPSE;
 
 	static {
 
@@ -48,6 +50,7 @@ public class Powers {
 			TELEKINESIS = Power.lookupPower(Telekinesis.class);
 			PHASING = Power.lookupPower(Phasing.class);
 			EXPLODING_BOLT = Power.lookupPower(ExplodingBolt.class);
+			ECLIPSE = Power.lookupPower(Eclipse.class);
 
 		} else {
 			throw new RuntimeException(

@@ -5,7 +5,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
-import com.himself12794.powersapi.entity.EntitySpell;
+import com.himself12794.powersapi.entity.EntityPower;
 import com.himself12794.powersapi.power.IHomingPower;
 import com.himself12794.powersapi.power.PowerRanged;
 
@@ -31,7 +31,7 @@ public class DummyHoming extends PowerRanged implements IHomingPower {
 	}
 
 	@Override
-	public MovingObjectPosition getTarget(EntitySpell spell, MovingObjectPosition target) {
+	public MovingObjectPosition getTarget(EntityPower spell, MovingObjectPosition target) {
 
 		return null;
 	}
