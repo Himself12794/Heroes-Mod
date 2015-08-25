@@ -8,6 +8,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
 import com.himself12794.heroesmod.events.PowerEffectHandler;
+import com.himself12794.heroesmod.network.SpawnParticlesClient;
 import com.himself12794.powersapi.power.PowerEffect;
 
 public class ClientProxy extends CommonProxy {
@@ -15,6 +16,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void preinit(FMLPreInitializationEvent event) {
     	super.preinit(event);
+    	network.registerMessage(SpawnParticlesClient.Handler.class, SpawnParticlesClient.class, 0, Side.CLIENT);
     }
 
 
@@ -28,6 +30,7 @@ public class ClientProxy extends CommonProxy {
     		//ModItems.registerTextures(event);
     		
     	}
+    	
     	
     }
     
