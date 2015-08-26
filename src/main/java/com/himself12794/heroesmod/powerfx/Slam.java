@@ -20,16 +20,20 @@ public class Slam extends Lift {
 
 		// System.out.println("is client " + !entity.worldObj.isRemote);
 		if (!(entity instanceof EntityFlying) && entity != null) {
-			entity.motionY = -4.0D;
-			entity.fallDistance = 9.0F;
-			//entity.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE,
-			//		entity.posX, entity.posY, entity.posZ, 0, 0, 0);
+			//entity.motionY = -4.0D;
+			//entity.fallDistance = 9.0F;
 			if (!entity.worldObj.isRemote) {
 				HeroesMod.proxy.network.sendToAll(new SpawnParticlesClient(
 						EnumParticleTypes.EXPLOSION_LARGE, entity.posX,
 						entity.posY, entity.posZ));
 			}
 			entity.playSound("random.explode", 1, 1);
+			
+			double x = entity.getLookVec().xCoord;
+			double z = entity.getLookVec().zCoord;
+			
+			entity.motionX = 4.0D * x;
+			entity.motionZ = 4.0D * z;
 			
 		}
 
