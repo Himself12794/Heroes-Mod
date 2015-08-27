@@ -4,6 +4,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
+import com.himself12794.powersapi.power.Power;
 import com.himself12794.powersapi.power.PowerEffect;
 
 public class RapidCellularRegeneration extends PowerEffect {
@@ -16,7 +17,7 @@ public class RapidCellularRegeneration extends PowerEffect {
 	}
 	
 	@Override
-	public void onUpdate(EntityLivingBase entity, int timeleft, EntityLivingBase caster ) {
+	public void onUpdate(EntityLivingBase entity, int timeleft, EntityLivingBase caster, Power power ) {
 					
 		entity.removePotionEffect(Potion.poison.id);
 		entity.removePotionEffect(Potion.wither.id);
@@ -29,7 +30,7 @@ public class RapidCellularRegeneration extends PowerEffect {
 	}
 
 	@Override
-	public void onRemoval(EntityLivingBase entity, EntityLivingBase caster) {
+	public void onRemoval(EntityLivingBase entity, EntityLivingBase caster, Power power) {
 		
 		entity.addPotionEffect(new PotionEffect(Potion.wither.id, 20 * 60 * 5, 3));
 		

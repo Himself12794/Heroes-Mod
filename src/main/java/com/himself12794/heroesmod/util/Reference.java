@@ -1,6 +1,5 @@
 package com.himself12794.heroesmod.util;
 
-import com.himself12794.heroesmod.proxy.ClientProxy;
 
 /**
  * Strings constants used throughout the mod.

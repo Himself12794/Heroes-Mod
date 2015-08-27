@@ -3,6 +3,7 @@ package com.himself12794.heroesmod.powerfx;
 import net.minecraft.entity.EntityFlying;
 import net.minecraft.entity.EntityLivingBase;
 
+import com.himself12794.powersapi.power.Power;
 import com.himself12794.powersapi.power.PowerEffect;
 import com.himself12794.powersapi.util.UsefulMethods;
 
@@ -17,7 +18,7 @@ public class Lift extends PowerEffect {
 	private static final double LIFT_HEIGHT = 5.0D;
 
 	@Override
-	public void onUpdate(EntityLivingBase entity, int timeLeft,	EntityLivingBase caster) {
+	public void onUpdate(EntityLivingBase entity, int timeLeft,	EntityLivingBase caster, Power power) {
 		
 		if (entity != null) {
 			

@@ -10,8 +10,8 @@ import net.minecraft.util.StatCollector;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.himself12794.heroesmod.HeroesMod;
-import com.himself12794.heroesmod.Powers;
 import com.himself12794.heroesmod.PowerEffects;
+import com.himself12794.heroesmod.Powers;
 import com.himself12794.powersapi.power.Power;
 import com.himself12794.powersapi.power.PowerEffect;
 

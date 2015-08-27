@@ -29,7 +29,7 @@ public class Push extends PowerInstant {
 		double dy = target.entityHit.posY - caster.posY;
 		double dz = target.entityHit.posZ - caster.posZ;
 		//setThrowableHeading(dx, dy, dz, getVelocity(), 0.0F);
-		UsefulMethods.setMovingDirection((EntityLivingBase) target.entityHit, dx, dy, dz, 4.0F);
+		UsefulMethods.accelerateEntityTowards((EntityLivingBase) target.entityHit, dx, dy, dz, 4.0F);
 		
 		return true;
 		

@@ -2,11 +2,9 @@ package com.himself12794.heroesmod.events;
 
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import com.himself12794.heroesmod.PowerEffects;
-import com.himself12794.heroesmod.util.MagicalExplosionDamage;
 import com.himself12794.powersapi.power.PowerEffect;
 
 public class PowerEffectHandler {

@@ -1,7 +1,5 @@
 package com.himself12794.heroesmod.gui;
 
-import java.util.Collection;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
@@ -12,8 +10,6 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import org.lwjgl.opengl.GL11;
 
 import com.himself12794.powersapi.item.ModItems;
 import com.himself12794.powersapi.power.Power;
@@ -81,8 +77,6 @@ public class PowerOverlayGui extends Gui {
 		
 	}
 	
-
-
     /**
      * Render an ItemStack. Args : stack, x, y, format
      */

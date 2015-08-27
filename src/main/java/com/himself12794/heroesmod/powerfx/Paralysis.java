@@ -6,6 +6,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 
 import com.himself12794.heroesmod.entity.ai.EntityAIDoNothing;
+import com.himself12794.powersapi.power.Power;
 import com.himself12794.powersapi.power.PowerEffect;
 
 public class Paralysis extends PowerEffect {
@@ -17,7 +18,7 @@ public class Paralysis extends PowerEffect {
 	}
 
 	@Override
-	public void onUpdate(EntityLivingBase entity, int timeLeft, EntityLivingBase caster) {
+	public void onUpdate(EntityLivingBase entity, int timeLeft, EntityLivingBase caster, Power power) {
 		
 		if (entity instanceof EntityLiving) {
 			EntityLiving target = (EntityLiving)entity;

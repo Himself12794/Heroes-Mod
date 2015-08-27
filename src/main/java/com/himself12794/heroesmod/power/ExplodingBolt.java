@@ -1,17 +1,13 @@
 package com.himself12794.heroesmod.power;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
 import com.himself12794.heroesmod.util.Reference.Sounds;
 import com.himself12794.heroesmod.world.MagicalExplosion;
-import com.himself12794.powersapi.PowersAPI;
 import com.himself12794.powersapi.entity.EntityPower;
 import com.himself12794.powersapi.power.PowerRanged;
 

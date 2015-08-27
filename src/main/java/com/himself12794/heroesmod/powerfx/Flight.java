@@ -5,6 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 
 import com.himself12794.heroesmod.util.Reference;
 import com.himself12794.powersapi.power.IPlayerOnly;
+import com.himself12794.powersapi.power.Power;
 import com.himself12794.powersapi.power.PowerEffect;
 
 public class Flight extends PowerEffect implements IPlayerOnly {
@@ -16,7 +17,7 @@ public class Flight extends PowerEffect implements IPlayerOnly {
 	}
 	
 	@Override
-	public void onApplied(EntityLivingBase entity, int time, EntityLivingBase caster) {
+	public void onApplied(EntityLivingBase entity, int time, EntityLivingBase caster, Power power) {
 		
 		if (entity instanceof EntityPlayer) {
 			
@@ -42,7 +43,7 @@ public class Flight extends PowerEffect implements IPlayerOnly {
 	}
 	
 	@Override
-	public void onRemoval(EntityLivingBase entity, EntityLivingBase caster){
+	public void onRemoval(EntityLivingBase entity, EntityLivingBase caster, Power power){
 		
 		if (entity instanceof EntityPlayer) {
 			

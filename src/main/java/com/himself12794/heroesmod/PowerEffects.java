@@ -1,9 +1,6 @@
 package com.himself12794.heroesmod;
 
-import net.minecraft.entity.EntityLivingBase;
-
 import com.himself12794.heroesmod.powerfx.EnhancedStrength;
-import com.himself12794.heroesmod.powerfx.Flight;
 import com.himself12794.heroesmod.powerfx.Lift;
 import com.himself12794.heroesmod.powerfx.Paralysis;
 import com.himself12794.heroesmod.powerfx.PhasingFx;
@@ -20,7 +17,7 @@ public class PowerEffects {
 	public static final Paralysis paralysis;
 	public static final EnhancedStrength enhancedStrength;
 	public static final PowerEffect flight;
-	public static final PowerEffect phasing;
+	public static final PhasingFx phasing;
 	
 	static {
 		
@@ -33,7 +30,7 @@ public class PowerEffects {
 			paralysis = (Paralysis) PowerEffect.getPowerEffect("paralysis");
 			enhancedStrength = (EnhancedStrength) PowerEffect.getPowerEffect("enhancedStrength");
 			flight = PowerEffect.getPowerEffect("flight");
-			phasing = PowerEffect.getPowerEffect("phasing");
+			phasing = (PhasingFx) PowerEffect.getPowerEffect("phasing");
 			
 		} else {
 			throw new RuntimeException("References accessed before registration");

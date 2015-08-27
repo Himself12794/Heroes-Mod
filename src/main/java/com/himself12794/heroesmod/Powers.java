@@ -1,7 +1,6 @@
 package com.himself12794.heroesmod;
 
 import com.himself12794.heroesmod.power.Dummy;
-import com.himself12794.heroesmod.power.DummyHoming;
 import com.himself12794.heroesmod.power.Eclipse;
 import com.himself12794.heroesmod.power.ExplodingBolt;
 import com.himself12794.heroesmod.power.Flames;
@@ -14,7 +13,6 @@ import com.himself12794.heroesmod.power.Push;
 import com.himself12794.heroesmod.power.Slam;
 import com.himself12794.heroesmod.power.Telekinesis;
 import com.himself12794.powersapi.power.Power;
-import com.himself12794.powersapi.power.PowerInstant;
 
 public class Powers {
 

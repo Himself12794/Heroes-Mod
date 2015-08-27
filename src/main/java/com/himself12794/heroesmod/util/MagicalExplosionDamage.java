@@ -2,11 +2,9 @@ package com.himself12794.heroesmod.util;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.IChatComponent;
-import net.minecraft.util.StatCollector;
 
 
 public class MagicalExplosionDamage extends EntityDamageSource {
