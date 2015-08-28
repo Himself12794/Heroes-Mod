@@ -18,6 +18,8 @@ public class Lightning extends PowerInstant {
 	@Override
 	public boolean onStrike(World world, MovingObjectPosition target, EntityLivingBase caster, float modifier ) {
 		
+		if (!(target.entityHit instanceof EntityLivingBase)) return false;
+		
 		EntityLivingBase entity = (EntityLivingBase) target.entityHit;
 		EntityLightningBolt bolt = new EntityLightningBolt(world, entity.posX, entity.posY, entity.posZ);
 		boolean flag = world.addWeatherEffect(bolt);

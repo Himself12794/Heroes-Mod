@@ -4,6 +4,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.MovingObjectPosition;
 
 import com.himself12794.heroesmod.entity.ai.EntityAIDoNothing;
 import com.himself12794.powersapi.power.Power;
@@ -35,7 +36,7 @@ public class Paralysis extends PowerEffect {
 				
 	}
 	
-	public void onRemoval(EntityLivingBase entity, EntityLivingBase caster){
+	public void onRemoval(EntityLivingBase entity, EntityLivingBase caster, Power power){
 		
 		if (entity instanceof EntityLiving) {
 			EntityLiving target = (EntityLiving)entity;

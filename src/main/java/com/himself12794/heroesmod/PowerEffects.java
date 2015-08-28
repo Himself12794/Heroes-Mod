@@ -6,6 +6,7 @@ import com.himself12794.heroesmod.powerfx.Paralysis;
 import com.himself12794.heroesmod.powerfx.PhasingFx;
 import com.himself12794.heroesmod.powerfx.RapidCellularRegeneration;
 import com.himself12794.heroesmod.powerfx.Slam;
+import com.himself12794.heroesmod.powerfx.Telekinesis;
 import com.himself12794.powersapi.power.PowerEffect;
 
 public class PowerEffects {
@@ -18,6 +19,7 @@ public class PowerEffects {
 	public static final EnhancedStrength enhancedStrength;
 	public static final PowerEffect flight;
 	public static final PhasingFx phasing;
+	public static final Telekinesis telekinesis;
 	
 	static {
 		
@@ -31,6 +33,7 @@ public class PowerEffects {
 			enhancedStrength = (EnhancedStrength) PowerEffect.getPowerEffect("enhancedStrength");
 			flight = PowerEffect.getPowerEffect("flight");
 			phasing = (PhasingFx) PowerEffect.getPowerEffect("phasing");
+			telekinesis = (Telekinesis) PowerEffect.getPowerEffect("telekinesis");
 			
 		} else {
 			throw new RuntimeException("References accessed before registration");

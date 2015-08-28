@@ -1,19 +1,16 @@
 package com.himself12794.heroesmod.power;
 
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 import com.himself12794.heroesmod.PowerEffects;
-import com.himself12794.heroesmod.Powers;
-import com.himself12794.powersapi.power.PowerInstant;
+import com.himself12794.powersapi.power.PowerEffect;
+import com.himself12794.powersapi.power.PowerEffectActivatorInstant;
 import com.himself12794.powersapi.util.DataWrapper;
-import com.himself12794.powersapi.util.UsefulMethods;
 
-public class Telekinesis extends PowerInstant {
+public class Telekinesis extends PowerEffectActivatorInstant {
 
 	public Telekinesis() {
 
@@ -21,6 +18,7 @@ public class Telekinesis extends PowerInstant {
 		setMaxConcentrationTime(10 * 20);
 		setCoolDown(60);
 		setDuration(15 * 20);
+		setRange(100);
 		setUnlocalizedName("telekinesis");
 
 	}
@@ -28,46 +26,42 @@ public class Telekinesis extends PowerInstant {
 	@Override
 	public boolean onStrike(World world, MovingObjectPosition target,
 			EntityLivingBase caster, float modifier) {
-		
-		DataWrapper.get(caster).setSecondaryPower(Powers.SLAM);
 
 		if (target.entityHit != null) {
-			
+
+			if (target.entityHit instanceof EntityLivingBase)
+				DataWrapper.get((EntityLivingBase) target.entityHit)
+						.addPowerEffect(PowerEffects.paralysis, getDuration(), caster,
+								this);
+
 			if (target.entityHit.getDistanceToEntity(caster) > 5.0F) {
-			
+
 				Vec3 look = caster.getLookVec();
-	
-				target.entityHit.setVelocity(-look.xCoord * 1.25F, -look.yCoord * 1.25F, -look.zCoord * 1.25F);
+
+				target.entityHit.motionX = -look.xCoord * 2.0F;
+				target.entityHit.motionY = -look.yCoord * 2.0F; 
+				target.entityHit.motionZ = -look.zCoord * 2.0F;
 			} else {
-				target.entityHit.setVelocity(0.0D, 0.0D, 0.0D);
+				target.entityHit.motionX = 0.0D;
+				target.entityHit.motionY = 0.0D;
+				target.entityHit.motionZ = 0.0D;
 			}
-		
+
 			return true;
-		}
+		} 
 
 		return false;
 
 	}
 
-	public boolean onFinishedCastingEarly(ItemStack stack, World world,
-			EntityPlayer playerIn, int timeLeft, MovingObjectPosition pos) {
-
-		
-		if (pos.entityHit != null) {
-			pos.entityHit.setVelocity(0.0D, 0.0D, 0.0D);
-		}
-
-		return true;
+	@Override
+	public PowerEffect getPowerEffect() {
+		return PowerEffects.telekinesis;
 	}
 
-	public boolean onFinishedCasting(ItemStack stack, World world,
-			EntityPlayer caster, MovingObjectPosition pos) {
-
-		if (pos.entityHit != null) {
-			pos.entityHit.setVelocity(0.0D, 0.0D, 0.0D);
-		}
-
-		return true;
+	@Override
+	public int getEffectDuration() {
+		return -1;
 	}
 
 }

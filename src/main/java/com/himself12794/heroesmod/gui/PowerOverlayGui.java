@@ -11,6 +11,7 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import com.himself12794.powersapi.PowersAPI;
 import com.himself12794.powersapi.item.ModItems;
 import com.himself12794.powersapi.power.Power;
 import com.himself12794.powersapi.util.DataWrapper;
@@ -36,7 +37,6 @@ public class PowerOverlayGui extends Gui {
 
 	public PowerOverlayGui(Minecraft mc) {
 		super();
-		this.mc = mc;
 		this.itemRender = mc.getRenderItem();
 		this.fontRendererObj = mc.fontRendererObj;
 		this.primaryPower = new ItemStack(ModItems.powerActivator);
@@ -59,19 +59,19 @@ public class PowerOverlayGui extends Gui {
 		int xPos = 2;
 		int yPos = 2;
 		
-		DataWrapper wrapper = DataWrapper.get(mc.thePlayer);
+		DataWrapper wrapper = DataWrapper.get(PowersAPI.proxy.getPlayer());
 		Power powerPrimary = wrapper.getPrimaryPower();
 		Power powerSecondary = wrapper.getSecondaryPower();
 		
-		if (powerPrimary != null) { 
+		if (powerPrimary != null) {
 			powerPrimary.setPower(primaryPower);
-			drawItemStack(primaryPower, xPos, yPos, "");
+			drawItemStack(primaryPower, xPos, yPos, null);
 			xPos += BUFF_ICON_SPACING;
 		}
 		
 		if (powerSecondary != null) { 
 			powerSecondary.setPower(secondaryPower);
-			drawItemStack(secondaryPower, xPos, yPos, "");
+			drawItemStack(secondaryPower, xPos, yPos, null);
 		}
 
 		
@@ -86,10 +86,11 @@ public class PowerOverlayGui extends Gui {
         this.zLevel = 200.0F;
         this.itemRender.zLevel = 200.0F;
         FontRenderer font = null;
-        if (stack != null) font = stack.getItem().getFontRenderer(stack);
-        if (font == null) font = fontRendererObj;
+        //if (stack != null) font = stack.getItem().getFontRenderer(stack);
+        //if (font == null) font = fontRendererObj;
         this.itemRender.renderItemAndEffectIntoGUI(stack, x, y);
-        this.itemRender.renderItemOverlayIntoGUI(font, stack, x, y, altText);
+        // TODO fix text bluring
+        //this.itemRender.renderItemOverlayIntoGUI(font, stack, x, y, altText);
         this.zLevel = 0.0F;
         this.itemRender.zLevel = 0.0F;
         GlStateManager.popMatrix();

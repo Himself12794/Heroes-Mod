@@ -9,7 +9,7 @@ import com.himself12794.powersapi.power.PowerEffect;
 
 public class PowerEffectHandler {
 	
-	@SubscribeEvent
+	/*@SubscribeEvent
 	public void preventDeath(LivingDeathEvent event) {
 		if (PowerEffects.rapidCellularRegeneration.isEffecting(event.entityLiving)) {
 			
@@ -19,6 +19,6 @@ public class PowerEffectHandler {
 				event.setCanceled(true);
 			}
 		}
-	}
+	}*/
 	
 }

@@ -22,6 +22,9 @@ public class Eclipse extends PowerInstant {
 	
 	public boolean onStrike(World world, MovingObjectPosition target, EntityLivingBase caster, float modifier ) {
 		
+		if (target.entityHit == null) return false;
+		if (!(target.entityHit instanceof EntityLivingBase)) return false;
+		
 		EntityLivingBase targetHit = (EntityLivingBase) target.entityHit;
 		float health = targetHit.getHealth();
 		

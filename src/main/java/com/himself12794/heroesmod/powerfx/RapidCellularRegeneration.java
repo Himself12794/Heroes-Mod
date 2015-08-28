@@ -1,6 +1,7 @@
 package com.himself12794.heroesmod.powerfx;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
@@ -18,7 +19,9 @@ public class RapidCellularRegeneration extends PowerEffect {
 	
 	@Override
 	public void onUpdate(EntityLivingBase entity, int timeleft, EntityLivingBase caster, Power power ) {
-					
+
+
+		if (entity instanceof EntityPlayer) System.out.println(entity.worldObj.isRemote);
 		entity.removePotionEffect(Potion.poison.id);
 		entity.removePotionEffect(Potion.wither.id);
 		

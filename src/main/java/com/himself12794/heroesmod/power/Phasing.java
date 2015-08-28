@@ -1,8 +1,6 @@
 package com.himself12794.heroesmod.power;
 
 import com.himself12794.heroesmod.PowerEffects;
-import com.himself12794.powersapi.power.IEffectActivator;
-import com.himself12794.powersapi.power.PowerBuff;
 import com.himself12794.powersapi.power.PowerEffect;
 import com.himself12794.powersapi.power.PowerEffectActivatorBuff;
 

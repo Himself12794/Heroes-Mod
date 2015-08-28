@@ -31,6 +31,7 @@ public class PowerEffects {
 		PowerEffect.registerEffect(new EnhancedStrength());
 		PowerEffect.registerEffect(new Flight());
 		PowerEffect.registerEffect(new PhasingFx());
+		PowerEffect.registerEffect(new Telekinesis());
 		
 	}
 
