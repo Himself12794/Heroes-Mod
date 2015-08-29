@@ -22,6 +22,7 @@ public class Powers {
 		Power.registerPower(new Phasing());
 		Power.registerPower(new ExplodingBolt());
 		Power.registerPower(new Eclipse());
+		Power.registerPower(new Break());
 		
 	}
 }

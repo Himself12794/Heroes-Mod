@@ -64,4 +64,10 @@ public class Telekinesis extends PowerEffectActivatorInstant {
 		return -1;
 	}
 
+	@Override
+	public boolean isRemoveableByCaster(EntityLivingBase affected,
+			EntityLivingBase caster, int timeRemaining) {
+		return true;
+	}
+
 }

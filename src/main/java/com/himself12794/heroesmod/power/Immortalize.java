@@ -1,6 +1,7 @@
 package com.himself12794.heroesmod.power;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
@@ -24,6 +25,17 @@ public class Immortalize extends PowerEffectActivatorBuff {
 	@Override
 	public int getEffectDuration() {
 		return -1;
+	}
+
+	@Override
+	public boolean isRemoveableByCaster(EntityLivingBase affected,
+			EntityLivingBase caster, int timeRemaining) {
+		
+		if (affected instanceof EntityPlayer) {
+			return ((EntityPlayer)caster).capabilities.isCreativeMode;
+		}
+		
+		return true;
 	}
 
 }

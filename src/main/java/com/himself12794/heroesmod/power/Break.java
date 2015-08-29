@@ -1,35 +1,41 @@
 package com.himself12794.heroesmod.power;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 
 import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.powersapi.power.PowerEffect;
 import com.himself12794.powersapi.power.PowerEffectActivatorBuff;
+import com.himself12794.powersapi.power.PowerInstant;
 
-public class Phasing extends PowerEffectActivatorBuff {
+public class Break extends PowerEffectActivatorBuff {
 	
-	public Phasing() {
-		setPower(0.0F);
-		setCoolDown(100);
-		setDuration(getEffectDuration());
-		setUnlocalizedName("phasing");
-	}	
+	private final String name = "break";
+	
+	public Break() {
+		setUnlocalizedName(name);
+		setCoolDown(20 * 60);
+	}
+
 
 	@Override
 	public PowerEffect getPowerEffect() {
-		return PowerEffects.phasing;
+		return PowerEffects.breakFx;
 	}
 
 	@Override
 	public int getEffectDuration() {
-		return 100;
+		return 20 * 60 * 3;
 	}
+
 
 	@Override
 	public boolean isRemoveableByCaster(EntityLivingBase affected,
 			EntityLivingBase caster, int timeRemaining) {
-		// TODO Auto-generated method stub
-		return true;
+		
+		boolean is = caster instanceof EntityPlayer ? ((EntityPlayer)caster).capabilities.isCreativeMode: false;
+		
+		return timeRemaining < 0 || is;
 	}
-
+	
 }

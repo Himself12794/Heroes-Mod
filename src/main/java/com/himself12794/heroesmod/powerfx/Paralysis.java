@@ -7,6 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.MovingObjectPosition;
 
 import com.himself12794.heroesmod.entity.ai.EntityAIDoNothing;
+import com.himself12794.powersapi.power.EffectType;
 import com.himself12794.powersapi.power.Power;
 import com.himself12794.powersapi.power.PowerEffect;
 
@@ -16,6 +17,7 @@ public class Paralysis extends PowerEffect {
 	
 	public Paralysis() {
 		setUnlocalizedName(NAME);
+		setType(EffectType.MALICIOUS);
 	}
 
 	@Override

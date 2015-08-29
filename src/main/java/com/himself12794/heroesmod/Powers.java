@@ -1,5 +1,6 @@
 package com.himself12794.heroesmod;
 
+import com.himself12794.heroesmod.power.Break;
 import com.himself12794.heroesmod.power.Dummy;
 import com.himself12794.heroesmod.power.Eclipse;
 import com.himself12794.heroesmod.power.ExplodingBolt;
@@ -30,6 +31,7 @@ public class Powers {
 	public static final Phasing PHASING;
 	public static final ExplodingBolt EXPLODING_BOLT;
 	public static final Eclipse ECLIPSE;
+	public static final Break BREAK;
 
 	static {
 
@@ -49,6 +51,7 @@ public class Powers {
 			PHASING = Power.lookupPower(Phasing.class);
 			EXPLODING_BOLT = Power.lookupPower(ExplodingBolt.class);
 			ECLIPSE = Power.lookupPower(Eclipse.class);
+			BREAK = Power.lookupPower(Break.class);
 
 		} else {
 			throw new RuntimeException(

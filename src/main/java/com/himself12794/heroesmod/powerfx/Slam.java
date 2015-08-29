@@ -6,6 +6,7 @@ import net.minecraft.util.EnumParticleTypes;
 
 import com.himself12794.heroesmod.HeroesMod;
 import com.himself12794.heroesmod.network.SpawnParticlesClient;
+import com.himself12794.powersapi.power.EffectType;
 import com.himself12794.powersapi.power.Power;
 
 public class Slam extends Lift {
@@ -14,6 +15,7 @@ public class Slam extends Lift {
 
 	public Slam() {
 		setUnlocalizedName(NAME);
+		setType(EffectType.MALICIOUS);
 	}
 
 	@Override

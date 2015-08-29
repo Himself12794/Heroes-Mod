@@ -2,6 +2,7 @@ package com.himself12794.heroesmod.powerfx;
 
 import net.minecraft.entity.EntityLivingBase;
 
+import com.himself12794.powersapi.power.EffectType;
 import com.himself12794.powersapi.power.Power;
 import com.himself12794.powersapi.power.PowerEffect;
 
@@ -32,6 +33,15 @@ public class PowerEffects {
 		PowerEffect.registerEffect(new Flight());
 		PowerEffect.registerEffect(new PhasingFx());
 		PowerEffect.registerEffect(new Telekinesis());
+		PowerEffect.registerEffect(new PowerEffect() {
+			
+			{
+				setUnlocalizedName("break");
+				setType(EffectType.BENEFICIAL);
+				setNegateable(true);
+			}
+		});
+		
 		
 	}
 

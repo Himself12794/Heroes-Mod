@@ -7,6 +7,7 @@ import net.minecraft.util.Vec3;
 
 import com.himself12794.heroesmod.HeroesMod;
 import com.himself12794.heroesmod.network.SpawnParticlesClient;
+import com.himself12794.powersapi.power.EffectType;
 import com.himself12794.powersapi.power.Power;
 import com.himself12794.powersapi.power.PowerEffect;
 import com.himself12794.powersapi.power.PowerEffectActivatorInstant;
@@ -18,6 +19,7 @@ public class Telekinesis extends PowerEffect {
 
 	public Telekinesis() {
 		setUnlocalizedName(NAME);
+		setType(EffectType.HIDDEN);
 	}
 
 	@Override
@@ -75,7 +77,7 @@ public class Telekinesis extends PowerEffect {
 			EntityLivingBase caster,
 			Power power) {
 		return caster.getDistanceToEntity(entity) <= DISTANCE_FROM_CASTER
-				&& !this.isEffecting(entity);
+				&& this.getEffectTimeRemainingOn(entity) != 0;
 	}
 
 }

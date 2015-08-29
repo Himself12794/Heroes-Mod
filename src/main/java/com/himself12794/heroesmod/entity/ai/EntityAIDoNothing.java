@@ -4,6 +4,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.ai.EntityAIBase;
 
 import com.himself12794.heroesmod.PowerEffects;
+import com.himself12794.powersapi.util.DataWrapper;
 
 public class EntityAIDoNothing extends EntityAIBase {
 
@@ -18,7 +19,7 @@ public class EntityAIDoNothing extends EntityAIBase {
 	@Override
 	public boolean shouldExecute() {
 		
-		return PowerEffects.paralysis.isEffecting(entityLiving);
+		return DataWrapper.get(entityLiving).isAffectedBy(PowerEffects.paralysis);
 		
 	}
 	

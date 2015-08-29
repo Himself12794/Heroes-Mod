@@ -20,6 +20,7 @@ import com.himself12794.powersapi.util.DataWrapper;
 // GuiBuffBar implements a simple status bar at the top of the screen which
 // shows the current buffs/debuffs applied to the character.
 //
+// TODO add effects view, fix cooldown
 public class PowerOverlayGui extends Gui {
 	
 	private Minecraft mc;
@@ -91,6 +92,7 @@ public class PowerOverlayGui extends Gui {
         this.itemRender.renderItemAndEffectIntoGUI(stack, x, y);
         // TODO fix text bluring
         //this.itemRender.renderItemOverlayIntoGUI(font, stack, x, y, altText);
+        
         this.zLevel = 0.0F;
         this.itemRender.zLevel = 0.0F;
         GlStateManager.popMatrix();
