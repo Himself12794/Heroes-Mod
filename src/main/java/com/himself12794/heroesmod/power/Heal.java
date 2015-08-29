@@ -17,7 +17,7 @@ public class Heal extends PowerBuff {
 		setUnlocalizedName("heal");
 	} 
 	
-	public boolean onCast(World world, EntityLivingBase caster, ItemStack stack, float modifier) {
+	public boolean onCast(World world, EntityLivingBase caster, float modifier) {
 		boolean flag = false;
 		if (caster.getHealth() < caster.getMaxHealth()) {
 			flag = true;

@@ -9,7 +9,7 @@ import com.himself12794.heroesmod.power.Immortalize;
 import com.himself12794.heroesmod.power.Incinerate;
 import com.himself12794.heroesmod.power.Lightning;
 import com.himself12794.heroesmod.power.Phasing;
-import com.himself12794.heroesmod.power.Push;
+import com.himself12794.heroesmod.power.Punt;
 import com.himself12794.heroesmod.power.Slam;
 import com.himself12794.heroesmod.power.Telekinesis;
 import com.himself12794.powersapi.power.Power;
@@ -25,7 +25,7 @@ public class Powers {
 	public static final Immortalize IMMORTALIZE;
 	public static final Flames FLAMES;
 	public static final Slam SLAM;
-	public static final Push PUSH;
+	public static final Punt PUSH;
 	public static final Telekinesis TELEKINESIS;
 	public static final Phasing PHASING;
 	public static final ExplodingBolt EXPLODING_BOLT;
@@ -44,7 +44,7 @@ public class Powers {
 			IMMORTALIZE = Power.lookupPower(Immortalize.class);
 			FLAMES = Power.lookupPower(Flames.class);
 			SLAM = Power.lookupPower(Slam.class);
-			PUSH = Power.lookupPower(Push.class);
+			PUSH = Power.lookupPower(Punt.class);
 			TELEKINESIS = Power.lookupPower(Telekinesis.class);
 			PHASING = Power.lookupPower(Phasing.class);
 			EXPLODING_BOLT = Power.lookupPower(ExplodingBolt.class);

@@ -29,13 +29,13 @@ public class Flames extends PowerRanged {
 		setUnlocalizedName("flames");
 	}	
 	
-	public boolean onPreparePower(ItemStack stack, World worldIn, EntityPlayer playerIn) {
+	public boolean onPreparePower(World worldIn, EntityPlayer playerIn) {
 		boolean flag = !playerIn.isInsideOfMaterial(Material.water);
 		if (flag) playerIn.playSound("fire.ignite", 1.5F, 1);
 		return flag;
 	}
 	
-	public boolean onCast(World world, EntityLivingBase caster, ItemStack stack, float modifier) {
+	public boolean onCast(World world, EntityLivingBase caster, float modifier) {
 		caster.playSound(Reference.MODID + ":flamethrower", 0.5F, 1);
 		return true;
 	}

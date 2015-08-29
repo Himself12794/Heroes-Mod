@@ -17,7 +17,7 @@ public class Powers {
 		Power.registerPower(new Flames());
 		Power.registerPower(new DummyHoming());
 		Power.registerPower(new Slam());
-		Power.registerPower(new Push());
+		Power.registerPower(new Punt());
 		Power.registerPower(new Telekinesis());
 		Power.registerPower(new Phasing());
 		Power.registerPower(new ExplodingBolt());

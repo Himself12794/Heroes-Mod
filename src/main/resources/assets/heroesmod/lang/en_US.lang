@@ -1,5 +1,3 @@
-item.powersAPI_powerActivator.name=Power Activator
-
 power.damage.name=Damage
 power.damage.description=Damages Enemies
 power.incinerate.name=Incinerate
@@ -22,8 +20,8 @@ power.slam.name=Slam
 power.slam.description=Slams enemies into the ground
 power.telekinesis.name=Telekinesis
 power.telekinesis.description=Pulls and levitates targets
-power.push.name=Push
-power.push.description=Pushes enemies away
+power.punt.name=Punt
+power.punt.description=Punts enemies away
 power.phasing.name=Phasing
 power.phasing.description=You are intangible
 power.explodingBolt.name=Exploding Bolt
@@ -31,7 +29,4 @@ power.explodingBolt.description=Detonates a devastating magical explosion
 power.eclipse.name=Eclipse
 power.eclipse.description=Percentage based attack that blinds
 
-
 death.attack.player.magicalExplosion.power=%1$s was reduced to an ethereal mist by %2$s
-
-itemGroup.powersAPI=Powers API

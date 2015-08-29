@@ -5,6 +5,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
+import com.himself12794.heroesmod.util.UtilMethods;
 import com.himself12794.powersapi.power.PowerInstant;
 
 public class Incinerate extends PowerInstant {
@@ -22,18 +23,20 @@ public class Incinerate extends PowerInstant {
 	@Override
 	public boolean onStrike(World world, MovingObjectPosition target, EntityLivingBase caster, float modifier ) {
 		
-		boolean flag = false;
+		if(UtilMethods.checkLiving(target.entityHit)) {
 		
-		if (!target.entityHit.isImmuneToFire()) {
-			
-			flag = true;
-			target.entityHit.setFire(MathHelper.ceiling_float_int(( getDuration() / 20 ) * modifier));
-			
-			if (!target.entityHit.isDead) ((EntityLivingBase)target.entityHit).setLastAttacker(caster);
-			
+			if (!target.entityHit.isImmuneToFire()) {
+				
+				target.entityHit.setFire(MathHelper.ceiling_float_int(( getDuration() / 20 ) * modifier));
+				
+				if (!target.entityHit.isDead) ((EntityLivingBase)target.entityHit).setLastAttacker(caster);
+				return true;
+				
+			}
+		
 		}
 		
-		return flag;
+		return false;
 		
 	}
 

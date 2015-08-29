@@ -3,6 +3,7 @@ package com.himself12794.heroesmod.power;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
@@ -22,7 +23,7 @@ public class ExplodingBolt extends PowerRanged {
 		shouldRender = true;
 	}
 	
-	public boolean onCast(World world, EntityLivingBase caster, ItemStack stack, float modifier) {
+	public boolean onCast(World world, EntityLivingBase caster, float modifier) {
 		caster.playSound(Sounds.FIREWORKS_LAUNCH, 2.0F, 1.0F);
 		return true;
 	}
@@ -48,12 +49,31 @@ public class ExplodingBolt extends PowerRanged {
 	public void onUpdate(EntityPower spell) {
 
 		World world = spell.worldObj;
+		
+		if (spell.getThrower().getDistanceToEntity(spell) > 2.0F) {
+			
 
-		for (int i = 0; i < 10; i++) {
-			spell.worldObj.spawnParticle(EnumParticleTypes.SPELL, spell.posX
-					+ world.rand.nextGaussian() * 0.25F, spell.posY
-					+ world.rand.nextGaussian() * 0.25F, spell.posZ
-					+ world.rand.nextGaussian() * 0.25F, 0, 0, 0);
+			
+			double x = spell.motionX;
+			double y = spell.motionY;
+			double z = spell.motionZ;
+			
+			float norm = MathHelper.sqrt_double(x * x + y * y + z * z);
+			
+			x /= norm;
+			y /= norm;
+			z /= norm;			
+			
+			int f1 = 10;
+			double f2 = 1.0D / f1;
+			
+			for (int i = 0; i < norm * f1; i++) {
+				spell.worldObj.spawnParticle(EnumParticleTypes.SPELL, 
+						spell.posX + x * i * f2, 
+						spell.posY + y * i * f2,
+						spell.posZ + z * i * f2, 
+						0, 0, 0);
+			}
 		}
 	}
 
