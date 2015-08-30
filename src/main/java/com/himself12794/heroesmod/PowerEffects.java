@@ -21,6 +21,7 @@ public class PowerEffects {
 	public static final PhasingFx phasing;
 	public static final Telekinesis telekinesis;
 	public static final PowerEffect breakFx;
+	public static final PowerEffect blockMemory;
 	
 	static {
 		
@@ -36,6 +37,7 @@ public class PowerEffects {
 			phasing = (PhasingFx) PowerEffect.getPowerEffect("phasing");
 			telekinesis = (Telekinesis) PowerEffect.getPowerEffect("telekinesis");
 			breakFx = PowerEffect.getPowerEffect("break");
+			blockMemory = PowerEffect.getPowerEffect("blockMemory");
 			
 		} else {
 			throw new RuntimeException("References accessed before registration");

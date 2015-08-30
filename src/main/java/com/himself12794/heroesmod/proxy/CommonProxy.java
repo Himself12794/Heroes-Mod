@@ -1,5 +1,6 @@
 package com.himself12794.heroesmod.proxy;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -64,6 +65,10 @@ public class CommonProxy {
 
 	public void postinit(FMLPostInitializationEvent event) {
 		
+	}
+	
+	public EntityPlayer getPlayer() {
+		return null;
 	}
 
 }

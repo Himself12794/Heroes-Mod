@@ -1,6 +1,7 @@
 package com.himself12794.heroesmod.proxy;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -37,6 +38,10 @@ public class ClientProxy extends CommonProxy {
     
     public Side getSide() {
     	return Side.CLIENT;
+    }
+    
+    public EntityPlayer getPlayer() {
+    	return Minecraft.getMinecraft().thePlayer;
     }
     
     

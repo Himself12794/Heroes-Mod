@@ -22,7 +22,7 @@ public class PhasingFx extends PowerEffect implements IPlayerOnly {
 			
 			entity.jumpMovementFactor = 0.0F;
 			entity.noClip = true;
-			entity.capabilities.allowEdit = false;;
+			entity.capabilities.allowEdit = false;
 			entity.capabilities.disableDamage = true;
 			
 		} else {

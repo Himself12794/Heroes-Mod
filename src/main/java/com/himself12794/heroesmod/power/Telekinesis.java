@@ -30,16 +30,16 @@ public class Telekinesis extends PowerEffectActivatorInstant {
 		if (target.entityHit != null) {
 
 			if (target.entityHit instanceof EntityLivingBase)
-				DataWrapper.get((EntityLivingBase) target.entityHit)
-						.addPowerEffect(PowerEffects.paralysis, getDuration(), caster,
-								this);
+				DataWrapper.get((EntityLivingBase) target.entityHit).powerEffectsData
+						.addPowerEffect(PowerEffects.paralysis, getDuration(),
+								caster, this);
 
 			if (target.entityHit.getDistanceToEntity(caster) > 5.0F) {
 
 				Vec3 look = caster.getLookVec();
 
 				target.entityHit.motionX = -look.xCoord * 2.0F;
-				target.entityHit.motionY = -look.yCoord * 2.0F; 
+				target.entityHit.motionY = -look.yCoord * 2.0F;
 				target.entityHit.motionZ = -look.zCoord * 2.0F;
 			} else {
 				target.entityHit.motionX = 0.0D;
@@ -48,7 +48,7 @@ public class Telekinesis extends PowerEffectActivatorInstant {
 			}
 
 			return true;
-		} 
+		}
 
 		return false;
 

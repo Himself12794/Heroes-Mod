@@ -41,6 +41,7 @@ public class PowerEffects {
 				setNegateable(true);
 			}
 		});
+		PowerEffect.registerEffect(new BlockMemory());
 		
 		
 	}

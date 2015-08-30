@@ -1,5 +1,6 @@
 package com.himself12794.heroesmod;
 
+import com.himself12794.heroesmod.power.BlockRecall;
 import com.himself12794.heroesmod.power.Break;
 import com.himself12794.heroesmod.power.Dummy;
 import com.himself12794.heroesmod.power.Eclipse;
@@ -32,6 +33,7 @@ public class Powers {
 	public static final ExplodingBolt EXPLODING_BOLT;
 	public static final Eclipse ECLIPSE;
 	public static final Break BREAK;
+	public static final BlockRecall BLOCK_RECALL;
 
 	static {
 
@@ -52,6 +54,7 @@ public class Powers {
 			EXPLODING_BOLT = Power.lookupPower(ExplodingBolt.class);
 			ECLIPSE = Power.lookupPower(Eclipse.class);
 			BREAK = Power.lookupPower(Break.class);
+			BLOCK_RECALL = Power.lookupPower(BlockRecall.class);
 
 		} else {
 			throw new RuntimeException(

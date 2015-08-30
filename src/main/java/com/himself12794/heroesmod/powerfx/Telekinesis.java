@@ -76,8 +76,9 @@ public class Telekinesis extends PowerEffect {
 	public boolean shouldApplyEffect(EntityLivingBase entity,
 			EntityLivingBase caster,
 			Power power) {
+		
 		return caster.getDistanceToEntity(entity) <= DISTANCE_FROM_CASTER
-				&& this.getEffectTimeRemainingOn(entity) != 0;
+				&& this.getEffectTimeRemainingOn(entity) == 0;
 	}
 
 }
