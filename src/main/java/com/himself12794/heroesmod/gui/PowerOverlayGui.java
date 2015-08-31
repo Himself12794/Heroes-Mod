@@ -84,8 +84,8 @@ public class PowerOverlayGui extends Gui {
     private void drawItemStack(ItemStack stack, int x, int y, String altText) {
     	GlStateManager.pushMatrix();
         GlStateManager.translate(0.0F, 0.0F, 32.0F);
-        this.zLevel = 200.0F;
-        this.itemRender.zLevel = 200.0F;
+        this.zLevel = -185.0F;
+        this.itemRender.zLevel = -185.0F;
         FontRenderer font = null;
         //if (stack != null) font = stack.getItem().getFontRenderer(stack);
         //if (font == null) font = fontRendererObj;

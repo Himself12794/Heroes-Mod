@@ -1,6 +1,7 @@
 package com.himself12794.heroesmod;
 
 import com.himself12794.heroesmod.power.BlockRecall;
+import com.himself12794.heroesmod.power.BlockRemember;
 import com.himself12794.heroesmod.power.Break;
 import com.himself12794.heroesmod.power.Dummy;
 import com.himself12794.heroesmod.power.Eclipse;
@@ -34,6 +35,7 @@ public class Powers {
 	public static final Eclipse ECLIPSE;
 	public static final Break BREAK;
 	public static final BlockRecall BLOCK_RECALL;
+	public static final BlockRemember BLOCK_REMEMBER;
 
 	static {
 
@@ -55,6 +57,7 @@ public class Powers {
 			ECLIPSE = Power.lookupPower(Eclipse.class);
 			BREAK = Power.lookupPower(Break.class);
 			BLOCK_RECALL = Power.lookupPower(BlockRecall.class);
+			BLOCK_REMEMBER = Power.lookupPower(BlockRemember.class);
 
 		} else {
 			throw new RuntimeException(

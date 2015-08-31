@@ -50,7 +50,7 @@ public class Telekinesis extends PowerEffect {
 
 	}
 
-	@Override
+	/*@Override
 	public void onRemoval(EntityLivingBase entity, EntityLivingBase caster,
 			Power power) {
 
@@ -70,7 +70,7 @@ public class Telekinesis extends PowerEffect {
 		entity.motionX = 4.0D * x;
 		entity.motionY = 4.0D * y;
 		entity.motionZ = 4.0D * z;
-	}
+	}*/
 
 	@Override
 	public boolean shouldApplyEffect(EntityLivingBase entity,

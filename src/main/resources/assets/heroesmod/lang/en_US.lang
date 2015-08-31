@@ -30,5 +30,9 @@ power.eclipse.name=Eclipse
 power.eclipse.description=Percentage based attack that blinds
 power.break.name=Break
 power.break.description=Activate to break blocks
+power.blockRemember.name=Remember Block
+power.blockRemember.description=Remembers a block location %%s for transport with %%s %1$s.
+power.blockRecall.name=Recall Block
+power.blockRecall.description=Recalls the block remembered by %s
 
 death.attack.player.magicalExplosion.power=%1$s was reduced to an ethereal mist by %2$s

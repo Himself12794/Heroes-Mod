@@ -35,6 +35,7 @@ public class Slam extends Lift {
 			entity.playSound("random.explode", 1, 1);
 			
 			double x = caster != null ? caster.getLookVec().xCoord : entity.getLookVec().xCoord;
+			double y = caster != null ? caster.getLookVec().xCoord : entity.getLookVec().yCoord;
 			double z = caster != null ? caster.getLookVec().zCoord : entity.getLookVec().zCoord;
 			
 			entity.motionX = 4.0D * x;
