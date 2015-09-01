@@ -25,6 +25,7 @@ public class Powers {
 		Power.registerPower(new Break());
 		Power.registerPower(new BlockRecall());
 		Power.registerPower(new BlockRemember());
+		Power.registerPower(new Charge());
 		
 	}
 }

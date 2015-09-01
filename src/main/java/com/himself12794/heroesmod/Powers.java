@@ -3,6 +3,7 @@ package com.himself12794.heroesmod;
 import com.himself12794.heroesmod.power.BlockRecall;
 import com.himself12794.heroesmod.power.BlockRemember;
 import com.himself12794.heroesmod.power.Break;
+import com.himself12794.heroesmod.power.Charge;
 import com.himself12794.heroesmod.power.Dummy;
 import com.himself12794.heroesmod.power.Eclipse;
 import com.himself12794.heroesmod.power.ExplodingBolt;
@@ -36,6 +37,7 @@ public class Powers {
 	public static final Break BREAK;
 	public static final BlockRecall BLOCK_RECALL;
 	public static final BlockRemember BLOCK_REMEMBER;
+	public static final Charge CHARGE;
 
 	static {
 
@@ -58,6 +60,7 @@ public class Powers {
 			BREAK = Power.lookupPower(Break.class);
 			BLOCK_RECALL = Power.lookupPower(BlockRecall.class);
 			BLOCK_REMEMBER = Power.lookupPower(BlockRemember.class);
+			CHARGE = Power.lookupPower(Charge.class);
 
 		} else {
 			throw new RuntimeException(

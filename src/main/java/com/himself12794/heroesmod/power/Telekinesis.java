@@ -16,13 +16,18 @@ public class Telekinesis extends PowerEffectActivatorInstant {
 
 		setPower(0.0F);
 		setMaxConcentrationTime(10 * 20);
-		setCoolDown(60);
+		setCoolDown(160);
 		setDuration(15 * 20);
 		setRange(100);
 		setUnlocalizedName("telekinesis");
 
 	}
 
+	public boolean onCast(World world, EntityLivingBase caster, float modifier) {
+		DataWrapper.get(caster).powerEffectsData.addPowerEffect(PowerEffects.telekineticShield, -1, caster, this);
+		return true;
+	}
+	
 	@Override
 	public boolean onStrike(World world, MovingObjectPosition target,
 			EntityLivingBase caster, float modifier) {
@@ -34,7 +39,7 @@ public class Telekinesis extends PowerEffectActivatorInstant {
 						.addPowerEffect(PowerEffects.paralysis, getDuration(),
 								caster, this);
 
-			if (target.entityHit.getDistanceToEntity(caster) > 5.0F) {
+			if (target.entityHit.getDistanceToEntity(caster) >= 5.0F) {
 
 				Vec3 look = caster.getLookVec();
 

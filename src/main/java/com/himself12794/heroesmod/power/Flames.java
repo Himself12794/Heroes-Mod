@@ -53,6 +53,8 @@ public class Flames extends PowerRanged {
 			
 		} 
 		
+		if (caster.isInsideOfMaterial(Material.water)) return false;
+		
 		if (Config.flamethrowing > 0 && target.typeOfHit == MovingObjectType.BLOCK){
 			
 			BlockPos blockPos = UsefulMethods.getBlockFromSide( target.getBlockPos(), target.sideHit);

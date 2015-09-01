@@ -3,6 +3,7 @@ package com.himself12794.heroesmod.powerfx;
 import net.minecraft.entity.EntityLivingBase;
 
 import com.himself12794.powersapi.power.EffectType;
+import com.himself12794.powersapi.power.IPersistantEffect;
 import com.himself12794.powersapi.power.Power;
 import com.himself12794.powersapi.power.PowerEffect;
 
@@ -42,8 +43,18 @@ public class PowerEffects {
 			}
 		});
 		PowerEffect.registerEffect(new BlockMemory());
+		PowerEffect.registerEffect(new TelekineticShield());
+		PowerEffect.registerEffect(new PowerEffect("immortality"));
 		
 		
+	}
+	
+	public static class TelekineticShield extends PowerEffect implements IPersistantEffect {
+
+		public TelekineticShield() {
+			super("telekineticShield");
+		}
+
 	}
 
 }

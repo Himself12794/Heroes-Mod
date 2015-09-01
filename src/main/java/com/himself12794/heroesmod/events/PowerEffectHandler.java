@@ -1,16 +1,25 @@
 package com.himself12794.heroesmod.events;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.Vec3;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.powersapi.power.PowerEffect;
+import com.himself12794.powersapi.util.DataWrapper;
 import com.himself12794.powersapi.util.DataWrapperP;
 
 public class PowerEffectHandler {
@@ -73,6 +82,57 @@ public class PowerEffectHandler {
 				event.newSpeed = speed * 0.50F;
 		}
 
+	}
+	
+	@SubscribeEvent
+	public void deflectProjectile(LivingAttackEvent event) {
+		
+		if (DataWrapper.get(event.entityLiving).powerEffectsData.isAffectedBy(PowerEffects.telekineticShield)) {
+			
+			if (event.entity.worldObj.rand.nextInt(4) == 0) {
+				
+				if (event.source.isProjectile()) { 
+					event.setCanceled(true);
+					
+					if (event.source instanceof EntityDamageSourceIndirect) {
+						EntityDamageSourceIndirect source = (EntityDamageSourceIndirect)event.source;
+						Entity initiatedBy = source.getEntity();
+						Entity damagedBy = source.getSourceOfDamage();
+						
+						if (damagedBy instanceof EntityArrow && initiatedBy instanceof EntityLivingBase) {
+							
+							NBTTagCompound tags = new NBTTagCompound();
+							EntityArrow arrow = (EntityArrow)damagedBy;
+							
+							int pickedUp = arrow.canBePickedUp;
+							arrow.setDead();
+							Vec3 look = event.entityLiving.getLookVec();
+							
+							EntityArrow returned = new EntityArrow(event.entityLiving.worldObj, event.entityLiving, 1.0F);
+							returned.canBePickedUp = pickedUp;
+							
+							event.entityLiving.worldObj.spawnEntityInWorld(returned);
+							event.entityLiving.swingItem();
+							
+						}
+						
+					}
+				}
+				
+			}
+			
+		}
+		
+		if (DataWrapper.get(event.entityLiving).powerEffectsData.isAffectedBy(PowerEffects.immortality)) {
+			
+			if (!event.source.canHarmInCreative()) {
+				
+				event.setCanceled(true);
+				
+			}
+			
+		}
+		
 	}
 
 }
