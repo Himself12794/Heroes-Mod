@@ -1,6 +1,8 @@
 {
     "flamethrower":{"sounds":[{"name":"flamethrower","stream":false}],"category":"player"},
     "magical_explosion":{"sounds":[{"name":"magical_explosion","stream":false}],"category":"player"},
+    "biotic_explosion":{"sounds":[{"name":"biotic_explosion","stream":false}],"category":"player"},
+    "banshee_scream":{"sounds":[{"name":"banshee_scream","stream":false}],"category":"hostile"},
     "flamethrower2":{"sounds":[{"name":"flamethrower2","stream":false}],"category":"master"},
     "swoosh":{"sounds":[{"name":"swoosh","stream":false}],"category":"player"}
 }

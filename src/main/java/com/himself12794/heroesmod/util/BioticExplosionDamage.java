@@ -7,9 +7,9 @@ import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.IChatComponent;
 
 
-public class MagicalExplosionDamage extends EntityDamageSource {
+public class BioticExplosionDamage extends EntityDamageSource {
 
-	public MagicalExplosionDamage(Entity damageSourceEntityIn) {
+	public BioticExplosionDamage(Entity damageSourceEntityIn) {
 		super( "player.magicalExplosion", damageSourceEntityIn );
 		setDamageBypassesArmor();
 		setMagicDamage();
@@ -29,8 +29,8 @@ public class MagicalExplosionDamage extends EntityDamageSource {
         return new ChatComponentTranslation(s1, new Object[] {p_151519_1_.getDisplayName(), this.damageSourceEntity.getDisplayName()});
     }
     
-    public static MagicalExplosionDamage explosionFrom(Entity exploder) {
-    	return new MagicalExplosionDamage(exploder);
+    public static BioticExplosionDamage explosionFrom(Entity exploder) {
+    	return new BioticExplosionDamage(exploder);
     }
 
 }

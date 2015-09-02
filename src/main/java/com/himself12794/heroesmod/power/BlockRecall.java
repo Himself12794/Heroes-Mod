@@ -30,12 +30,14 @@ import net.minecraft.world.IWorldNameable;
 import net.minecraft.world.World;
 
 import com.himself12794.heroesmod.PowerEffects;
+import com.himself12794.heroesmod.Powers;
 import com.himself12794.heroesmod.util.DWrapper;
 import com.himself12794.powersapi.item.ModItems;
 import com.himself12794.powersapi.power.PowerEffect;
 import com.himself12794.powersapi.power.PowerEffectActivatorBuff;
 import com.himself12794.powersapi.power.PowerEffectActivatorInstant;
 import com.himself12794.powersapi.power.PowerInstant;
+import com.himself12794.powersapi.util.PowerProfile;
 import com.himself12794.powersapi.util.UsefulMethods;
 
 // TODO Add tile entity lock to prevent source change
@@ -48,182 +50,72 @@ public class BlockRecall extends PowerInstant {
 
 	public boolean onStrike(World world, MovingObjectPosition target,
 			EntityLivingBase caster, float modifier) {
+		
+		System.out.println(caster.getEntityData());
 
-		DWrapper wrap = DWrapper.get(caster);
+		if (target.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
 
-		// Check if no other block pos is saved
-		if (!wrap.getSavedBlockPos1().equals(BlockPos.ORIGIN)) {
+			DWrapper wrap = DWrapper.get(caster);
+			PowerProfile powerProf = wrap.getPowerProfile(Powers.BLOCK_REMEMBER);
+			NBTTagCompound powerData = powerProf.getPowerData();
 
-			// Check if selection is a block pos
-			if (target.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
+			if (powerData.getBoolean("memoryFull")) {
 
 				BlockPos newPos = UsefulMethods.getBlockFromSideSwap(
 						target.getBlockPos(), target.sideHit);
 
-				BlockPos originalPos = wrap.getSavedBlockPos1();
-				IBlockState originalState = world.getBlockState(originalPos);
+				IBlockState originalState = Block.getStateById(powerData
+						.getInteger("savedBlock"));
 				Block transportedBlock = originalState.getBlock();
-				originalState = transportedBlock.getActualState(originalState,
-						world, originalPos);
-				SoundType sound = transportedBlock.stepSound;
 
 				// Check if block can be placed there
 				if (transportedBlock.canPlaceBlockAt(world, newPos)) {
 
-					// Check if source block is still valid
-					if (canCloneBlock(transportedBlock, originalState,
-							originalPos, world)) {
+					// It works with tile entities now!
+					if (powerData.getBoolean("hasTileEntity")) {
 
-						// It works with tile entities now!
-						if (transportedBlock instanceof ITileEntityProvider
-								&& transportedBlock
-										.hasTileEntity(originalState)) {
+						NBTTagCompound tags = new NBTTagCompound();
+						TileEntity entityNew = TileEntity
+								.createAndLoadEntity(powerData
+										.getCompoundTag("savedTileEntity"));
+						entityNew.setPos(newPos);
 
-							NBTTagCompound tags = new NBTTagCompound();
-							TileEntity entityOld = world
-									.getTileEntity(originalPos);
-							TileEntity entityNew = null;
+						Item toItem = Item.getItemFromBlock(transportedBlock);
 
-							entityOld.setPos(newPos);
-							entityOld.writeToNBT(tags);
+						ItemStack placementHelp = toItem != null ? new ItemStack(
+								toItem) : new ItemStack(transportedBlock);
 
-							removeBlockAndPlayEffects(world, originalPos, sound);
-							updateSurroundingBlocks(world, originalPos,
-									transportedBlock);
+						Powers.BLOCK_REMEMBER.playSoundAndPoof(world, newPos);
 
-							Item toItem = Item
-									.getItemFromBlock(transportedBlock);
+						placementHelp.onItemUse((EntityPlayer) caster, world,
+								newPos, target.sideHit,
+								(float) target.hitVec.xCoord,
+								(float) target.hitVec.yCoord,
+								(float) target.hitVec.zCoord);
 
-							ItemStack placementHelp = toItem != null ? new ItemStack(
-									toItem) : new ItemStack(transportedBlock);
-							playSoundAndPoof(world, newPos, sound);
-							placementHelp.onItemUse((EntityPlayer) caster,
-									world, newPos, target.sideHit,
-									(float) target.hitVec.xCoord,
-									(float) target.hitVec.yCoord,
-									(float) target.hitVec.zCoord);
-
-							entityNew = world.getTileEntity(newPos);
-							if (entityNew != null)
-								entityNew.readFromNBT(tags);
-
-						} else {
-
-							removeBlockAndPlayEffects(world, originalPos, sound);
-							world.setBlockState(newPos, originalState);
-							playSoundAndPoof(world, newPos, sound);
+						if (world.getTileEntity(newPos) != null) {
+							world.removeTileEntity(newPos);
+							world.setTileEntity(newPos, entityNew);
 						}
 
-						wrap.setSavedBlockPos1(newPos);
-
-						// Original block has changed and is no longer movable
 					} else {
-						if (world.isRemote)
-							caster.addChatMessage(new ChatComponentText(
-									EnumChatFormatting.RED
-											+ "The remebered block has changed and cannot be recalled"));
 
-						wrap.setSavedBlockPos1(null);
+						world.setBlockState(newPos, originalState);
+						Powers.BLOCK_REMEMBER.playSoundAndPoof(world, newPos);
 					}
-
+					powerProf.resetPowerData();
 					return true;
-					// Original block can't be placed at the new location
-				} /*
-				 * else { if (world.isRemote) caster.addChatMessage(new
-				 * ChatComponentText( EnumChatFormatting.RED +
-				 * "The block can't be placed there")); }
-				 */
+				}
+			} else {
+				if (world.isRemote)
+					caster.addChatMessage(new ChatComponentText(
+							"You don't have any blocks you're remebering"));
 			}
 
-		} else {
-			if (world.isRemote)
-				caster.addChatMessage(new ChatComponentText(
-						"You don't have any blocks you're remebering"));
-		}
+		} 
 
 		return false;
 
-	}
-
-	private void playSound(World world, BlockPos pos, SoundType sound) {
-
-		world.playSound((double) pos.getX(), (double) pos.getY(),
-				(double) pos.getZ(), "mob.endermen.portal", 0.5F, 1.0F, false);
-
-		// world.playSound((double) pos.getX(), (double) pos.getY(),
-		// (double) pos.getZ(), sound.getPlaceSound(), sound.volume,
-		// sound.frequency, false);
-
-	}
-
-	private void playPoof(World world, BlockPos pos) {
-
-		float x = pos.getX();
-		float y = pos.getY();
-		float z = pos.getZ();
-
-		for (int i = 0; i < 25; i++) {
-
-			world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, x + 0.5D
-					* world.rand.nextGaussian(),
-					y + 1.5D * world.rand.nextGaussian(),
-					z + 0.5D * world.rand.nextGaussian(), 0, 0, 0);
-
-		}
-
-	}
-
-	private void playSoundAndPoof(World world, BlockPos pos, SoundType sound) {
-		playSound(world, pos, sound);
-		playPoof(world, pos);
-	}
-
-	public static boolean canCloneBlock(Block block, IBlockState state,
-			BlockPos pos, World world) {
-
-		float hardness = block.getBlockHardness(world, pos);
-		boolean canClone = true;
-		
-		// General restrictions
-		canClone &= !block.isReplaceable(world, pos);
-		canClone &= block.isFullBlock();
-		canClone &= hardness >= 0.0F && hardness <= 50.0F;
-		canClone &= block.getMaterial().isSolid()
-				&& block.getMaterial() != Material.air;
-		
-		// Specific inclusions / exclusions (blocks with unique items exclude until fixed)
-		canClone |= block instanceof ITileEntityProvider
-				&& !(block instanceof BlockCommandBlock)
-				&& !(block instanceof BlockBanner)
-				&& !(block instanceof BlockEndPortal)
-				&& !(block instanceof BlockFlowerPot)
-				|| block instanceof BlockDragonEgg;
-		
-		return canClone;
-
-	}
-
-	public void updateSurroundingBlocks(World world, BlockPos originalPos,
-			Block block) {
-
-		for (EnumFacing side : EnumFacing.VALUES) {
-
-			BlockPos temp = UsefulMethods.getBlockFromSide(originalPos, side);
-			IBlockState state = world.getBlockState(temp);
-			state.getBlock().onNeighborBlockChange(world, temp, state, block);
-
-		}
-
-	}
-
-	private void removeBlockAndPlayEffects(World world, BlockPos pos,
-			SoundType sound) {
-
-		playSound(world, pos, sound);
-		playPoof(world, pos);
-		world.playRecord(pos, (String) null);
-		world.removeTileEntity(pos);
-		world.setBlockToAir(pos);
 	}
 
 }

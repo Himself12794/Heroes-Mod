@@ -21,7 +21,7 @@ import net.minecraft.world.World;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import com.himself12794.heroesmod.util.MagicalExplosionDamage;
+import com.himself12794.heroesmod.util.BioticExplosionDamage;
 import com.himself12794.heroesmod.util.Reference.Sounds;
 
 /**
@@ -31,7 +31,7 @@ import com.himself12794.heroesmod.util.Reference.Sounds;
  * @author Himself12794
  *
  */
-public class MagicalExplosion extends Explosion {
+public class BioticExplosion extends Explosion {
 
 	/** whether or not the explosion sets fire to blocks around it */
 	private final boolean isFlaming;
@@ -51,7 +51,7 @@ public class MagicalExplosion extends Explosion {
 	private final Vec3 position;
 	private float limit = 50.0F;
 
-	public MagicalExplosion(World worldIn, Entity exploder,
+	public BioticExplosion(World worldIn, Entity exploder,
 			double expX, double expY, double expZ,
 			float size, boolean isFlaming, boolean isSmoking) {
 
@@ -174,7 +174,7 @@ public class MagicalExplosion extends Explosion {
 						float amount = (float) ((int) ((d10 * d10 + d10) / 5.0D * 8.0D
 								* (double) f3 + 1.0D));
 						
-						entity.attackEntityFrom(MagicalExplosionDamage.explosionFrom(exploder),
+						entity.attackEntityFrom(BioticExplosionDamage.explosionFrom(exploder),
 								amount > limit ? limit : amount);
 						double d11 = EnchantmentProtection.func_92092_a(entity,
 								d10);
@@ -229,7 +229,7 @@ public class MagicalExplosion extends Explosion {
 	 */
 	public void doExplosionB(boolean doParticles) {
 		this.worldObj.playSoundEffect(this.explosionX, this.explosionY,
-				this.explosionZ, Sounds.MAGICAL_EXPLOSION, 4.0F,
+				this.explosionZ, Sounds.BIOTIC_EXPLOSION, 4.0F,
 				(1.0F + (this.worldObj.rand.nextFloat() - this.worldObj.rand
 						.nextFloat()) * 0.2F) * 0.7F);
 
@@ -252,7 +252,7 @@ public class MagicalExplosion extends Explosion {
 
 	protected void doParticles(int amount) {
 
-		final float particleRange = explosionSize * 0.50F;
+		final float particleRange = explosionSize * 0.20F;
 		
 		for (int i = 0; i < amount; i++) {
 			worldObj.spawnParticle(EnumParticleTypes.SPELL_INSTANT, explosionX

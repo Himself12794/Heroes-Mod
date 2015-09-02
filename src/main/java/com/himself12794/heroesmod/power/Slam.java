@@ -13,7 +13,7 @@ import com.himself12794.powersapi.util.DataWrapper;
 public class Slam extends PowerEffectActivatorInstant {
 	
 	public Slam() {
-		
+		super("slam", 140, 0, PowerEffects.slam, 50);
 		setPower(10.0F);
 		setCoolDown(7 * 20);
 		setUnlocalizedName("slam");
@@ -32,23 +32,6 @@ public class Slam extends PowerEffectActivatorInstant {
 			}
 		}
 		
-		return true;
-	}
-
-	@Override
-	public PowerEffect getPowerEffect() {
-		return PowerEffects.slam;
-	}
-
-	@Override
-	public int getEffectDuration() {
-		return 50;
-	}
-
-	@Override
-	public boolean isRemoveableByCaster(EntityLivingBase affected,
-			EntityLivingBase caster, int timeRemaining) {
-		// TODO Auto-generated method stub
 		return true;
 	}
 

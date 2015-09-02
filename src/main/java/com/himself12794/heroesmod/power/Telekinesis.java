@@ -13,16 +13,18 @@ import com.himself12794.powersapi.util.DataWrapper;
 public class Telekinesis extends PowerEffectActivatorInstant {
 
 	public Telekinesis() {
-
+		super("telekinesis", 160, 200, PowerEffects.telekinesis, 200);
 		setPower(0.0F);
-		setMaxConcentrationTime(10 * 20);
-		setCoolDown(60);
 		setDuration(15 * 20);
 		setRange(100);
-		setUnlocalizedName("telekinesis");
 
 	}
 
+	public boolean onCast(World world, EntityLivingBase caster, float modifier) {
+		DataWrapper.get(caster).powerEffectsData.addPowerEffect(PowerEffects.telekineticShield, -1, caster, this);
+		return true;
+	}
+	
 	@Override
 	public boolean onStrike(World world, MovingObjectPosition target,
 			EntityLivingBase caster, float modifier) {
@@ -34,7 +36,7 @@ public class Telekinesis extends PowerEffectActivatorInstant {
 						.addPowerEffect(PowerEffects.paralysis, getDuration(),
 								caster, this);
 
-			if (target.entityHit.getDistanceToEntity(caster) > 5.0F) {
+			if (target.entityHit.getDistanceToEntity(caster) >= 5.0F) {
 
 				Vec3 look = caster.getLookVec();
 
@@ -52,22 +54,6 @@ public class Telekinesis extends PowerEffectActivatorInstant {
 
 		return false;
 
-	}
-
-	@Override
-	public PowerEffect getPowerEffect() {
-		return PowerEffects.telekinesis;
-	}
-
-	@Override
-	public int getEffectDuration() {
-		return -1;
-	}
-
-	@Override
-	public boolean isRemoveableByCaster(EntityLivingBase affected,
-			EntityLivingBase caster, int timeRemaining) {
-		return true;
 	}
 
 }

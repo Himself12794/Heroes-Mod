@@ -14,7 +14,8 @@ import com.himself12794.heroesmod.HeroesMod;
 import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.heroesmod.ability.AbilitySet;
 import com.himself12794.heroesmod.events.PowerEffectHandler;
-import com.himself12794.heroesmod.power.Powers;
+import com.himself12794.heroesmod.power.PowersRegistraton;
+import com.himself12794.heroesmod.powerfx.PowerEffectsRegistration;
 import com.himself12794.heroesmod.util.Reference;
 
 public class CommonProxy {
@@ -25,28 +26,31 @@ public class CommonProxy {
 
 		network = NetworkRegistry.INSTANCE.newSimpleChannel( Reference.MODID
 				+ " NetChannel" );
+		
 		if (Loader.isModLoaded("powersAPI")) {
 			
-			HeroesMod.logger.info("Loading Powers");
-			Powers.registerPowers();
-			//ModItems.addItems();
+			HeroesMod.logger.info("Registering power effects");
+			PowerEffectsRegistration.registerEffects();
+			HeroesMod.logger.info("Registered " + PowerEffects.class.getDeclaredFields().length + " power effects");
+			
+			//HeroesMod.logger.info("Registering events");
+			MinecraftForge.EVENT_BUS.register(new PowerEffectHandler());
+			
 		
 		} else {
 			
 			HeroesMod.logger.fatal("Powers API not detected, loading cannot continue.");
 			
 		}
+
 	}
 
-	public void init(FMLInitializationEvent event) {
+	public void init(FMLInitializationEvent event) {		
 		
 		if (Loader.isModLoaded("powersAPI")) {
-			//HeroesMod.logger.info("Registering power effects");
-			com.himself12794.heroesmod.powerfx.PowerEffects.registerEffects();
-			HeroesMod.logger.info("Registered " + PowerEffects.class.getDeclaredFields().length + " power effects");
 			
-			HeroesMod.logger.info("Registering events");
-			MinecraftForge.EVENT_BUS.register(new PowerEffectHandler());
+			HeroesMod.logger.info("Registering powers");
+			PowersRegistraton.registerPowers();
 			
 			HeroesMod.logger.info("Registering ability sets");
 			AbilitySet.registerAbilitySets();
@@ -64,7 +68,6 @@ public class CommonProxy {
 	}
 
 	public void postinit(FMLPostInitializationEvent event) {
-		
 	}
 	
 	public EntityPlayer getPlayer() {
