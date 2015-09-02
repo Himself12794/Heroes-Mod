@@ -14,7 +14,7 @@ import com.himself12794.powersapi.power.PowerRanged;
 
 public class Flare extends PowerRanged {
 
-	public static final String NAME = "explodingBolt";
+	public static final String NAME = "flare";
 
 	public Flare() {
 		setPower(40.0F);

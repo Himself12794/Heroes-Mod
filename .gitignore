@@ -1,2 +1,12 @@
 /bin/
 /eclipse/
+/logs/
+.classspath
+.project
+*.json
+*.text
+*.properties
+/world/
+/saves/
+/mods/
+/libs/

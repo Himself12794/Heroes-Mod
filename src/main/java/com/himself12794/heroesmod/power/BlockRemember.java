@@ -95,6 +95,8 @@ public class BlockRemember extends PowerInstant {
 
 	private void removeBlockAndPlayEffects(World world, BlockPos pos, Block block) {
 
+		System.out.println(world.isRemote);
+		
 		playSound(world, pos);
 		playPoof(world, pos);
 		world.playRecord(pos, (String) null);

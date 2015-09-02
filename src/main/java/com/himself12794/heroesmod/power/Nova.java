@@ -21,10 +21,12 @@ public class Nova extends PowerBuff {
 	
 	public boolean onPreparePower(World worldIn, EntityPlayer playerIn) {
 		int cooldown = DataWrapper.get(playerIn).getCooldownRemaining(Powers.CHARGE);
-		return Powers.CHARGE.getCoolDown() - cooldown < 10 || playerIn.capabilities.isCreativeMode;
+		return Powers.CHARGE.getCoolDown() - cooldown < 10 || playerIn.capabilities.isCreativeMode ;
 	}
 
 	public boolean onCast(World world, EntityLivingBase caster, float modifier) {
+		
+		System.out.println(Powers.EXPLODING_BOLT);
 		
 		DataWrapper.get(caster).powerEffectsData.addPowerEffect(PowerEffects.slam, 3, caster, this);
 		Explosion splodey = new BioticExplosion(world, caster, caster.posX, caster.posY, caster.posZ, 5.0F, false, true);

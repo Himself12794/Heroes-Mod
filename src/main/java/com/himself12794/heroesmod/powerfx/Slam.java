@@ -7,6 +7,7 @@ import net.minecraft.util.EnumParticleTypes;
 import com.himself12794.heroesmod.HeroesMod;
 import com.himself12794.heroesmod.Powers;
 import com.himself12794.heroesmod.network.SpawnParticlesClient;
+import com.himself12794.heroesmod.util.EnumRandomType;
 import com.himself12794.heroesmod.util.Reference;
 import com.himself12794.heroesmod.util.Reference.Sounds;
 import com.himself12794.powersapi.power.EffectType;
@@ -33,7 +34,7 @@ public class Slam extends Lift {
 			if (!entity.worldObj.isRemote) {
 				HeroesMod.proxy.network.sendToAll(new SpawnParticlesClient(
 						EnumParticleTypes.EXPLOSION_LARGE, entity.posX,
-						entity.posY, entity.posZ));
+						entity.posY, entity.posZ, 1.0F, 1, EnumRandomType.NORMAL));
 			}
 			if (power != Powers.NOVA) entity.playSound(Sounds.BIOTIC_EXPLOSION, 2.5F, 1.5F);
 			

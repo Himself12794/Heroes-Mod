@@ -61,8 +61,6 @@ public class Powers {
 			BLOCK_REMEMBER = Power.lookupPower(BlockRemember.class);
 			CHARGE = Power.lookupPower(Charge.class);
 			NOVA = Power.lookupPower(Nova.class);
-			
-			System.out.println(Power.getPowers());
 
 		} else {
 			throw new RuntimeException(
