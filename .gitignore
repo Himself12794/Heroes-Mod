@@ -10,3 +10,10 @@
 /saves/
 /mods/
 /libs/
+/build/
+/config/
+/crash-reports/
+/build.gradle
+/eula.txt
+/options.txt
+/.settings/
