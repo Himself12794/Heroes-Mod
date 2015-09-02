@@ -111,13 +111,14 @@ public class AbilitySet {
 				.addActivePower(Powers.FLAMES)
 				.addActivePower(Powers.INCINERATE)
 				.addPassivePower(Potion.fireResistance)
-				.setDescription("The ability to manipulate and resist fire.")
+				.setDescription("The ability to manipulate and resist heat.")
 				);
 		
 		registerAbilitySet((new AbilitySet("telekinesis"))
-				.addActivePower(Powers.PUSH)
-				.addActivePower(Powers.SLAM)
+				.addActivePower(Powers.PUNT)
+				//.addActivePower(Powers.SLAM)
 				.addActivePower(Powers.TELEKINESIS)
+				.addPassivePower(PowerEffects.telekineticShield)
 				.setDescription("The ability to move things with the mind.")
 				);
 		
@@ -128,6 +129,13 @@ public class AbilitySet {
 		
 		registerAbilitySet(new AbilitySet("spaceTimeManipulation")
 				.setDescription("The ability to teleport and slow/stop time.")
+				);
+		
+		registerAbilitySet(new AbilitySet("materialManipulation")
+				.addActivePower(Powers.BLOCK_REMEMBER)
+				.addActivePower(Powers.BLOCK_RECALL)
+				.addPassivePower(PowerEffects.breakFx)
+				.setDescription("The ability to manipulate solid matter.")
 				);
 		
 		registerAbilitySet(new AbilitySet("flight")

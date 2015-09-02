@@ -14,20 +14,20 @@ public class PowerEffects {
 	public static final RapidCellularRegeneration rapidCellularRegeneration;
 	public static final Lift lift;
 	public static final Slam slam;
-	public static final PowerEffect levitate;
 	public static final Paralysis paralysis;
 	public static final EnhancedStrength enhancedStrength;
-	public static final PowerEffect flight;
 	public static final PhasingFx phasing;
 	public static final Telekinesis telekinesis;
+	public static final PowerEffect levitate;
+	public static final PowerEffect flight;
 	public static final PowerEffect breakFx;
 	public static final PowerEffect telekineticShield;
 	public static final PowerEffect immortality;
 	
 	static {
 		
-		if (HeroesMod.instance.isInitialized()) {
-		
+		if (HeroesMod.instance().isInitialized()) {
+			
 			rapidCellularRegeneration = (RapidCellularRegeneration) PowerEffect.getPowerEffect("rapidCellularRegeneration");
 			lift = (Lift) PowerEffect.getPowerEffect("lift");
 			slam = (Slam) PowerEffect.getPowerEffect("slam");

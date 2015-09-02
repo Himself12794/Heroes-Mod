@@ -28,10 +28,7 @@ public class Paralysis extends PowerEffect {
 			target.tasks.addTask(1, new EntityAIDoNothing(target));
 		} else if (entity instanceof EntityPlayer) {
 			
-			
 			EntityPlayer player = (EntityPlayer)entity;
-			//entity.setPosition(player.prevPosX, player.prevPosY, player.prevPosZ);
-			//entity.prevPosX = entity.lastTickPosX;
 			player.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(-1.0D);
 			
 		}

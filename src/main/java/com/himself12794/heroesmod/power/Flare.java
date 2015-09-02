@@ -8,15 +8,15 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
 import com.himself12794.heroesmod.util.Reference.Sounds;
-import com.himself12794.heroesmod.world.MagicalExplosion;
+import com.himself12794.heroesmod.world.BioticExplosion;
 import com.himself12794.powersapi.entity.EntityPower;
 import com.himself12794.powersapi.power.PowerRanged;
 
-public class ExplodingBolt extends PowerRanged {
+public class Flare extends PowerRanged {
 
 	public static final String NAME = "explodingBolt";
 
-	public ExplodingBolt() {
+	public Flare() {
 		setPower(40.0F);
 		setCoolDown(200);
 		setUnlocalizedName(NAME);
@@ -33,7 +33,7 @@ public class ExplodingBolt extends PowerRanged {
 
 		// world.newExplosion(caster, target.hitVec.xCoord,
 		// target.hitVec.yCoord, target.hitVec.zCoord, 3.0F, false, false);
-		MagicalExplosion magicalExplosion = new MagicalExplosion(world, caster,
+		BioticExplosion magicalExplosion = new BioticExplosion(world, caster,
 				target.hitVec.xCoord, target.hitVec.yCoord,
 				target.hitVec.zCoord, 5.0F, false, true);
 		

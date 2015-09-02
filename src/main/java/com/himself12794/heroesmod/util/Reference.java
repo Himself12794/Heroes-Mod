@@ -25,6 +25,8 @@ public abstract class Reference {
     public static abstract class Sounds {
     	
     	public static final String MAGICAL_EXPLOSION = MODID + ":magical_explosion";
+    	public static final String BIOTIC_EXPLOSION = MODID + ":biotic_explosion";
+    	public static final String BANSHEE_SCREAM = MODID + ":banshee_scream";
     	public static final String SWOOSH = MODID + ":swoosh";
     	public static final String FIREWORKS_LAUNCH = "fireworks.launch";
     	
