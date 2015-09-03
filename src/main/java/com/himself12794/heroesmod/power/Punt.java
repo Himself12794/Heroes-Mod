@@ -31,7 +31,7 @@ public class Punt extends PowerInstant {
 		if (target.typeOfHit == MovingObjectType.ENTITY) {
 
 			if (target.entityHit instanceof EntityLivingBase) {
-				DataWrapper.get((EntityLivingBase) target.entityHit).powerEffectsData
+				DataWrapper.get((EntityLivingBase) target.entityHit).getPowerEffectsData()
 						.removePowerEffectSparingly(PowerEffects.telekinesis);
 			}
 

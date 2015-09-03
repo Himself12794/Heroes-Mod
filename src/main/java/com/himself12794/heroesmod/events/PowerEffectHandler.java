@@ -56,7 +56,7 @@ public class PowerEffectHandler {
 
 		DataWrapperP wrapper = DataWrapperP.get(event.entityPlayer);
 
-		if (wrapper.powerEffectsData.isAffectedBy(PowerEffects.breakFx)
+		if (wrapper.getPowerEffectsData().isAffectedBy(PowerEffects.breakFx)
 				&& canBreak) {
 			event.success = Items.iron_pickaxe.canHarvestBlock(event.block);
 		}
@@ -74,7 +74,7 @@ public class PowerEffectHandler {
 			canBreak |= item instanceof ItemFlintAndSteel;
 		}
 
-		if (DataWrapperP.get(event.entityPlayer).powerEffectsData
+		if (DataWrapperP.get(event.entityPlayer).getPowerEffectsData()
 				.isAffectedBy(PowerEffects.breakFx) && canBreak) {
 			float speed1 = Items.iron_pickaxe.getStrVsBlock(null,
 					event.state.getBlock());
@@ -94,7 +94,7 @@ public class PowerEffectHandler {
 	@SubscribeEvent
 	public void deflectProjectile(LivingAttackEvent event) {
 		
-		if (DataWrapper.get(event.entityLiving).powerEffectsData.isAffectedBy(PowerEffects.telekineticShield)) {
+		if (DataWrapper.get(event.entityLiving).getPowerEffectsData().isAffectedBy(PowerEffects.telekineticShield)) {
 			
 			if (event.entity.worldObj.rand.nextInt(4) == 0) {
 				
@@ -130,7 +130,7 @@ public class PowerEffectHandler {
 			
 		}
 		
-		if (DataWrapper.get(event.entityLiving).powerEffectsData.isAffectedBy(PowerEffects.immortality)) {
+		if (DataWrapper.get(event.entityLiving).getPowerEffectsData().isAffectedBy(PowerEffects.immortality)) {
 			
 			if (!event.source.canHarmInCreative()) {
 				

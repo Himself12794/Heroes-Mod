@@ -33,14 +33,14 @@ public class Flare extends PowerRanged {
 
 		// world.newExplosion(caster, target.hitVec.xCoord,
 		// target.hitVec.yCoord, target.hitVec.zCoord, 3.0F, false, false);
-		BioticExplosion magicalExplosion = new BioticExplosion(world, caster,
+		BioticExplosion bioticExplosion = new BioticExplosion(world, caster,
 				target.hitVec.xCoord, target.hitVec.yCoord,
 				target.hitVec.zCoord, 5.0F, false, true);
 		
-		magicalExplosion.setLimit(getPower());
+		bioticExplosion.setLimit(getPower());
 		
-		magicalExplosion.doExplosionA();
-		magicalExplosion.doExplosionB(true);
+		bioticExplosion.doExplosionA();
+		bioticExplosion.doExplosionB(true);
 
 		return true;
 	}

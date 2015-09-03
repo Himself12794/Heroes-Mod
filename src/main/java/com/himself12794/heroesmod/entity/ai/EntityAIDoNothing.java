@@ -18,7 +18,7 @@ public class EntityAIDoNothing extends EntityAIBase {
 	@Override
 	public boolean shouldExecute() {
 
-		return DataWrapper.get(entityLiving).powerEffectsData
+		return DataWrapper.get(entityLiving).getPowerEffectsData()
 				.isAffectedBy(PowerEffects.paralysis);
 
 	}

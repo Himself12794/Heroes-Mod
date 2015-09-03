@@ -32,7 +32,7 @@ public class Charge extends PowerInstant {
 		if (target.entityHit instanceof EntityLivingBase || target.entityHit instanceof EntityDragonPart) {
 			Vec3 move = target.hitVec;
 			
-			DataWrapper.get(caster).powerEffectsData.addPowerEffect(PowerEffects.immortality, 10, caster, this);
+			DataWrapper.get(caster).getPowerEffectsData().addPowerEffect(PowerEffects.immortality, 10, caster, this);
 			caster.motionY = 0.25D;world.playSoundAtEntity(caster, Sounds.BIOTIC_EXPLOSION, 1.5F, 2.0F);
 			caster.setPosition(move.xCoord , move.yCoord, move.zCoord);
 			caster.motionY = 0.25D;world.playSoundAtEntity(caster, Sounds.BIOTIC_EXPLOSION, 1.5F, 2.0F);

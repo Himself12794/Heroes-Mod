@@ -94,30 +94,29 @@ public class Flames extends PowerRanged {
 				
 			}
 			
-			final boolean cont = true;
-			
-			if (cont) {
 				
-				for (float j = 0.0F; j < 1.0F; j += 0.05F) {
+			awaylabel:
+			
+			for (float j = 0.0F; j < 1.0F; j += 0.05F) {
+				
+				for (int i = 0; i < 10; ++i) {
 					
-					for (int i = 0; i < 10; ++i) {
+					BlockPos pos = new BlockPos(
+							spell.prevPosX + (spell.motionX * j),
+							spell.prevPosY + (spell.motionY * j),
+							spell.prevPosZ + (spell.motionZ * j));
+					
+					if (UsefulMethods.getBlockAtPos(pos, world).getMaterial().isSolid()) break awaylabel;
 						
-						BlockPos pos = new BlockPos(
-								spell.prevPosX + (spell.motionX * j),
-								spell.prevPosY + (spell.motionY * j),
-								spell.prevPosZ + (spell.motionZ * j));
-						
-						if (UsefulMethods.getBlockAtPos(pos, world).getMaterial().isSolid()) break;
-							
-						world.spawnParticle(EnumParticleTypes.FLAME,
-							spell.prevPosX + (spell.motionX * j) - world.rand.nextFloat() * 0.5F,
-							spell.prevPosY + (spell.motionY * j) - world.rand.nextFloat() * 0.5F,
-							spell.prevPosZ + (spell.motionZ * j) - world.rand.nextFloat() * 0.5F,
-							0, 0, 0);
-						
-					}
+					world.spawnParticle(EnumParticleTypes.FLAME,
+						spell.prevPosX + (spell.motionX * j) - world.rand.nextFloat() * 0.5F,
+						spell.prevPosY + (spell.motionY * j) - world.rand.nextFloat() * 0.5F,
+						spell.prevPosZ + (spell.motionZ * j) - world.rand.nextFloat() * 0.5F,
+						0, 0, 0);
+					
 				}
 			}
+
 			
 			if (spell.getTicksInGround() > 0) spell.setDead();
 			

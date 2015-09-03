@@ -25,7 +25,7 @@ public class Telekinesis extends PowerEffect {
 	@Override
 	public void onUpdate(EntityLivingBase entity, int timeLeft,
 			EntityLivingBase caster, Power power) {
-
+		
 		if (entity != null && caster != null) {
 
 			Vec3 vec = caster.getLookVec();

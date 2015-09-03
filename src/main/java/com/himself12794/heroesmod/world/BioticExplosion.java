@@ -239,10 +239,10 @@ public class BioticExplosion extends Explosion {
 						.nextFloat()) * 0.2F) * 0.7F);
 
 		if (doParticles) {
-			if (this.explosionSize >= 2.0F && isSmoking)
-				doParticles(500);
-			else
-				doParticles(300);
+			//if (this.explosionSize >= 2.0F && isSmoking)
+				//doParticles(500);
+			//else
+				//doParticles(300);
 
 		}
 	}

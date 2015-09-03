@@ -60,7 +60,7 @@ public class PowerOverlayGui extends Gui {
 		int xPos = 2;
 		int yPos = 2;
 		
-		DataWrapper wrapper = DataWrapper.get(PowersAPI.proxy.getPlayer());
+		DataWrapper wrapper = DataWrapper.get(Minecraft.getMinecraft().thePlayer);
 		Power powerPrimary = wrapper.getPrimaryPower();
 		Power powerSecondary = wrapper.getSecondaryPower();
 		
