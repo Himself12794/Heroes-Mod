@@ -24,7 +24,7 @@ public class Charge extends PowerInstant {
 		setPower(10.0F);
 	}
 	
-	public boolean onStrike(World world, MovingObjectPosition target, EntityLivingBase caster, float modifier ) {
+	public boolean onStrike(World world, MovingObjectPosition target, EntityLivingBase caster, float modifier, int state ) {
 		
 		if (target.entityHit instanceof EntityLivingBase || target.entityHit instanceof EntityDragonPart) {
 			Vec3 move = target.hitVec;

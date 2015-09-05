@@ -10,7 +10,11 @@ import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
@@ -19,22 +23,123 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
+import com.himself12794.heroesmod.Powers;
 import com.himself12794.powersapi.power.PowerInstant;
+import com.himself12794.powersapi.storage.PowerProfile;
 import com.himself12794.powersapi.storage.PowersWrapper;
 import com.himself12794.powersapi.util.UsefulMethods;
 
-public class BlockRemember extends PowerInstant {
+public class BlockMemory extends PowerInstant {
 
-	public BlockRemember() {
-		setUnlocalizedName("blockRemember");
+	public BlockMemory() {
+		setUnlocalizedName("blockMemory");
 		setRange(5);
+		setMaxFunctionalState(1);
 	}
 
 	public boolean onStrike(World world, MovingObjectPosition target,
-			EntityLivingBase caster, float modifier) {
+			EntityLivingBase caster, float modifier, int state) {
 
 		PowersWrapper wrap = PowersWrapper.get(caster);
+		boolean result;
+		
+		if (state == 0) {
+			result = rememberBlock(wrap, target, world);
+		} else {
+			result = recallBlock(wrap, target, world);
+		}
+		
+		if (result) {
+			wrap.getPowerProfile(this).cycleState(false);
+		}
+		
+		return result;
 
+	}
+	
+	@Override
+	public void onStateChanged(World world, EntityLivingBase caster, int prevState, int currState) {
+		
+		if (getMaxFunctionalState() <= 1) {
+			String text;
+			
+			if (currState == 0) {
+				text = "Now remebering blocks";
+			} else {
+				text = "Now recalling blocks";
+			}
+			if (world.isRemote) caster.addChatMessage( new ChatComponentText( text ) );
+		}
+		
+	}
+	
+	private boolean recallBlock(PowersWrapper wrap, MovingObjectPosition target, World world) {
+
+		if (target.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
+			
+			PowerProfile powerProf = wrap.getPowerProfile(Powers.BLOCK_REMEMBER);
+			NBTTagCompound powerData = powerProf.powerData;
+
+			if (powerData.getBoolean("memoryFull")) {
+
+				BlockPos newPos = UsefulMethods.getBlockFromSideSwap(
+						target.getBlockPos(), target.sideHit);
+
+				IBlockState originalState = Block.getStateById(powerData
+						.getInteger("savedBlock"));
+				Block transportedBlock = originalState.getBlock();
+
+				// Check if block can be placed there
+				if (transportedBlock.canPlaceBlockAt(world, newPos)) {
+
+					// It works with tile entities now!
+					if (powerData.getBoolean("hasTileEntity")) {
+
+						NBTTagCompound tags = new NBTTagCompound();
+						TileEntity entityNew = TileEntity
+								.createAndLoadEntity(powerData
+										.getCompoundTag("savedTileEntity"));
+						entityNew.setPos(newPos);
+
+						Item toItem = Item.getItemFromBlock(transportedBlock);
+
+						ItemStack placementHelp = toItem != null ? new ItemStack(
+								toItem) : new ItemStack(transportedBlock);
+
+						Powers.BLOCK_REMEMBER.playSoundAndPoof(world, newPos);
+
+						placementHelp.onItemUse((EntityPlayer) wrap.theEntity, world,
+								newPos, target.sideHit,
+								(float) target.hitVec.xCoord,
+								(float) target.hitVec.yCoord,
+								(float) target.hitVec.zCoord);
+
+						if (world.getTileEntity(newPos) != null) {
+							world.removeTileEntity(newPos);
+							world.setTileEntity(newPos, entityNew);
+						}
+
+					} else {
+
+						world.setBlockState(newPos, originalState);
+						Powers.BLOCK_REMEMBER.playSoundAndPoof(world, newPos);
+					}
+					powerProf.resetPowerData();
+					return true;
+				}
+			} else {
+				if (world.isRemote)
+					wrap.theEntity.addChatMessage(new ChatComponentText(
+							"You don't have any blocks you're remebering"));
+			}
+
+		} 
+
+		return false;
+		
+	}
+	
+	private boolean rememberBlock(PowersWrapper wrap, MovingObjectPosition target, World world) {
 		NBTTagCompound nbt = wrap.getPowerProfile(this).powerData;
 
 		if (target.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
@@ -69,20 +174,19 @@ public class BlockRemember extends PowerInstant {
 					return true;
 				} else {
 					if (world.isRemote)
-						caster.addChatMessage(new ChatComponentText(
+						wrap.theEntity.addChatMessage(new ChatComponentText(
 								"Cannot remember any more blocks. Recall a block before trying to remember another."));
 				}
 			} else {
 				if (world.isRemote)
-					caster.addChatMessage(new ChatComponentText(
+					wrap.theEntity.addChatMessage(new ChatComponentText(
 							EnumChatFormatting.RED
 									+ "Cannot remember that block"));
 			}
 
 		}
-
+		
 		return false;
-
 	}
 
 	private void removeBlockAndPlayEffects(World world, BlockPos pos, Block block) {
@@ -134,12 +238,12 @@ public class BlockRemember extends PowerInstant {
 
 	}
 
-	void playSoundAndPoof(World world, BlockPos pos) {
+	private void playSoundAndPoof(World world, BlockPos pos) {
 		playSound(world, pos);
 		playPoof(world, pos);
 	}
 
-	public boolean canCloneBlock(Block block, IBlockState state,
+	private boolean canCloneBlock(Block block, IBlockState state,
 			BlockPos pos, World world) {
 
 		float hardness = block.getBlockHardness(world, pos);

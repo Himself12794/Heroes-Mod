@@ -15,7 +15,7 @@ public class Dummy extends PowerRanged {
 		setUnlocalizedName("dummy");
 	}
 	
-	public boolean onStrike(World world, MovingObjectPosition target, EntityLivingBase caster, float modifier ) {
+	public boolean onStrike(World world, MovingObjectPosition target, EntityLivingBase caster, float modifier, int state ) {
 		
 		return true;
 	}

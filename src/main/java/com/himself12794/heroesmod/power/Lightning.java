@@ -16,7 +16,7 @@ public class Lightning extends PowerInstant {
 	}
 	
 	@Override
-	public boolean onStrike(World world, MovingObjectPosition target, EntityLivingBase caster, float modifier ) {
+	public boolean onStrike(World world, MovingObjectPosition target, EntityLivingBase caster, float modifier, int state ) {
 		
 		if (!(target.entityHit instanceof EntityLivingBase)) return false;
 		

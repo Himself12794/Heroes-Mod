@@ -16,7 +16,7 @@ public class Heal extends PowerBuff {
 		setUnlocalizedName("heal");
 	} 
 	
-	public boolean onCast(World world, EntityLivingBase caster, float modifier) {
+	public boolean onCast(World world, EntityLivingBase caster, float modifier, int state) {
 		boolean flag = false;
 		if (caster.getHealth() < caster.getMaxHealth()) {
 			flag = true;
@@ -26,7 +26,7 @@ public class Heal extends PowerBuff {
 		return flag;
 	}
 	
-	public boolean onStrike(World world, MovingObjectPosition target, EntityLivingBase caste, float modifier ) {
+	public boolean onStrike(World world, MovingObjectPosition target, EntityLivingBase caste, float modifier, int state ) {
 		boolean flag = false;
 		EntityLivingBase entity = null;
 		if (target.entityHit instanceof EntityLivingBase)

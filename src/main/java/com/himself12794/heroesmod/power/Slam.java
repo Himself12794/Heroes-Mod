@@ -21,7 +21,7 @@ public class Slam extends PowerEffectActivatorInstant {
 	
 	@Override
 	public boolean onStrike(World world, MovingObjectPosition target,
-			EntityLivingBase caster, float modifier) {
+			EntityLivingBase caster, float modifier, int state) {
 
 		if (target.typeOfHit == MovingObjectType.ENTITY) {
 

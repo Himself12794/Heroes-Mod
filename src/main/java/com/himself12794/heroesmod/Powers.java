@@ -1,7 +1,6 @@
 package com.himself12794.heroesmod;
 
-import com.himself12794.heroesmod.power.BlockRecall;
-import com.himself12794.heroesmod.power.BlockRemember;
+import com.himself12794.heroesmod.power.BlockMemory;
 import com.himself12794.heroesmod.power.Charge;
 import com.himself12794.heroesmod.power.Dummy;
 import com.himself12794.heroesmod.power.Eclipse;
@@ -33,8 +32,7 @@ public class Powers {
 	public static final Punt PUNT;
 	public static final Flare EXPLODING_BOLT;
 	public static final Eclipse ECLIPSE;
-	public static final BlockRecall BLOCK_RECALL;
-	public static final BlockRemember BLOCK_REMEMBER;
+	public static final BlockMemory BLOCK_REMEMBER;
 	public static final Charge CHARGE;
 	public static final Nova NOVA;
 
@@ -57,8 +55,7 @@ public class Powers {
 			EXPLODING_BOLT = Power.lookupPower(Flare.class);
 			ECLIPSE = Power.lookupPower(Eclipse.class);
 			BREAK = Power.lookupPower("break");
-			BLOCK_RECALL = Power.lookupPower(BlockRecall.class);
-			BLOCK_REMEMBER = Power.lookupPower(BlockRemember.class);
+			BLOCK_REMEMBER = Power.lookupPower(BlockMemory.class);
 			CHARGE = Power.lookupPower(Charge.class);
 			NOVA = Power.lookupPower(Nova.class);
 

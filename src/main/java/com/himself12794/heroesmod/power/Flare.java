@@ -22,13 +22,13 @@ public class Flare extends PowerRanged {
 		shouldRender = true;
 	}
 	
-	public boolean onCast(World world, EntityLivingBase caster, float modifier) {
+	public boolean onCast(World world, EntityLivingBase caster, float modifier, int state) {
 		caster.playSound(Sounds.FIREWORKS_LAUNCH, 2.0F, 1.0F);
 		return true;
 	}
 
 	public boolean onStrike(World world, MovingObjectPosition target,
-			EntityLivingBase caster, float modifier) {
+			EntityLivingBase caster, float modifier, int state) {
 
 		// world.newExplosion(caster, target.hitVec.xCoord,
 		// target.hitVec.yCoord, target.hitVec.zCoord, 3.0F, false, false);

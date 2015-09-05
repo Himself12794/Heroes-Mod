@@ -19,14 +19,14 @@ public class Telekinesis extends PowerEffectActivatorInstant {
 
 	}
 
-	public boolean onCast(World world, EntityLivingBase caster, float modifier) {
+	public boolean onCast(World world, EntityLivingBase caster, float modifier, int state) {
 		PowersWrapper.get(caster).getPowerEffectsData().addPowerEffect(PowerEffects.telekineticShield, -1, caster, this);
 		return true;
 	}
 	
 	@Override
 	public boolean onStrike(World world, MovingObjectPosition target,
-			EntityLivingBase caster, float modifier) {
+			EntityLivingBase caster, float modifier, int state) {
 		
 		if (target.entityHit != null) {
 

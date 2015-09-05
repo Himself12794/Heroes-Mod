@@ -133,7 +133,6 @@ public class AbilitySet {
 		
 		registerAbilitySet(new AbilitySet("materialManipulation")
 				.addActivePower(Powers.BLOCK_REMEMBER)
-				.addActivePower(Powers.BLOCK_RECALL)
 				.addPassivePower(PowerEffects.breakFx)
 				.setDescription("The ability to manipulate solid matter.")
 				);

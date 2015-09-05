@@ -12,8 +12,8 @@ public class PowersRegistraton {
 
 	public static void registerPowers() {
 
-		Power.registerPower(new PowerInstant().setUnlocalizedName("damage"));
-		Power.registerPower(new PowerInstant().setUnlocalizedName("death").setPower(1000.0F).setCoolDown(178));
+		//Power.registerPower(new PowerInstant().setUnlocalizedName("damage"));
+		//Power.registerPower(new PowerInstant().setUnlocalizedName("death").setPower(1000.0F).setCoolDown(178));
 		Power.registerPower(new Incinerate());
 		Power.registerPower(new Lightning());
 		Power.registerPower(new Heal());
@@ -38,7 +38,7 @@ public class PowersRegistraton {
 		Power.registerPower(new PowerEffectActivatorBuff("phasing", 100, 0, PowerEffects.phasing, 100));
 		Power.registerPower(new Flare());
 		Power.registerPower(new Eclipse());
-		Power.registerPower(new PowerEffectActivatorBuff("break", 20 * 60, 0, PowerEffects.breakFx, 20 * 60 * 5) {
+		Power.registerPower(new PowerEffectActivatorBuff("break", 20 * 60, 0, PowerEffects.breakFx, -1) {
 
 			public boolean isRemoveableByCaster(EntityLivingBase affected,
 					EntityLivingBase caster, int timeRemaining) {
@@ -46,8 +46,7 @@ public class PowersRegistraton {
 			}
 
 		});
-		Power.registerPower(new BlockRecall());
-		Power.registerPower(new BlockRemember());
+		Power.registerPower(new BlockMemory());
 		Power.registerPower(new Charge());
 		Power.registerPower(new Nova());
 
