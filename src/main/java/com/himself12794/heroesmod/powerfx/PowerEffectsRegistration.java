@@ -16,9 +16,9 @@ public class PowerEffectsRegistration {
 		PowerEffect.registerEffect(new PowerEffect("levitate"){
 			
 			@Override
-			public void onUpdate(EntityLivingBase entity, int timeLeft,	EntityLivingBase caster, Power power) {
+			public boolean onUpdate(EntityLivingBase entity, int timeLeft,	EntityLivingBase caster, Power power) {
 				entity.jumpMovementFactor = 0.0F;
-				
+				return true;
 			}
 		});
 		

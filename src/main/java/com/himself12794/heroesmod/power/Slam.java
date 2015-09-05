@@ -6,9 +6,8 @@ import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.World;
 
 import com.himself12794.heroesmod.PowerEffects;
-import com.himself12794.powersapi.power.PowerEffect;
 import com.himself12794.powersapi.power.PowerEffectActivatorInstant;
-import com.himself12794.powersapi.util.DataWrapper;
+import com.himself12794.powersapi.storage.PowersWrapper;
 
 public class Slam extends PowerEffectActivatorInstant {
 	
@@ -27,7 +26,7 @@ public class Slam extends PowerEffectActivatorInstant {
 		if (target.typeOfHit == MovingObjectType.ENTITY) {
 
 			if (target.entityHit instanceof EntityLivingBase) {
-				DataWrapper.get((EntityLivingBase) target.entityHit).getPowerEffectsData()
+				PowersWrapper.get((EntityLivingBase) target.entityHit).getPowerEffectsData()
 						.removePowerEffectSparingly(PowerEffects.telekinesis);
 			}
 		}

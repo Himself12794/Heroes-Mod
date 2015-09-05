@@ -150,7 +150,7 @@ public class AbilitySet {
 	private static AbilitySet registerAbilitySet(AbilitySet abs) {
 		
 		String name = abs.getUnlocalizedName();
-		//System.out.println("trying to register new ability set");
+		
 		if (!abilitySetExists(abs)) {
 			
 			abilitySets.put(name, abs);

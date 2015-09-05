@@ -8,7 +8,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
-import com.himself12794.heroesmod.events.PowerEffectHandler;
 import com.himself12794.heroesmod.events.SoundHacking;
 import com.himself12794.heroesmod.gui.PowerOverlayGui;
 import com.himself12794.heroesmod.network.SpawnParticlesClient;

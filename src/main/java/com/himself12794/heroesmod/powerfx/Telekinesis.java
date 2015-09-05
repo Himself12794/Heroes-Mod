@@ -1,16 +1,12 @@
 package com.himself12794.heroesmod.powerfx;
 
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.Vec3;
 
-import com.himself12794.heroesmod.HeroesMod;
-import com.himself12794.heroesmod.network.SpawnParticlesClient;
 import com.himself12794.powersapi.power.EffectType;
 import com.himself12794.powersapi.power.Power;
 import com.himself12794.powersapi.power.PowerEffect;
-import com.himself12794.powersapi.power.PowerEffectActivatorInstant;
+import com.himself12794.powersapi.storage.EffectsWrapper;
 
 public class Telekinesis extends PowerEffect {
 
@@ -23,7 +19,7 @@ public class Telekinesis extends PowerEffect {
 	}
 
 	@Override
-	public void onUpdate(EntityLivingBase entity, int timeLeft,
+	public boolean onUpdate(EntityLivingBase entity, int timeLeft,
 			EntityLivingBase caster, Power power) {
 		
 		if (entity != null && caster != null) {
@@ -47,6 +43,8 @@ public class Telekinesis extends PowerEffect {
 			}
 
 		}
+		
+		return true;
 
 	}
 
@@ -78,7 +76,7 @@ public class Telekinesis extends PowerEffect {
 			Power power) {
 		
 		return caster.getDistanceToEntity(entity) <= DISTANCE_FROM_CASTER
-				&& this.getEffectTimeRemainingOn(entity) == 0;
+				&& EffectsWrapper.get(entity).isAffectedBy(this);
 	}
 
 }

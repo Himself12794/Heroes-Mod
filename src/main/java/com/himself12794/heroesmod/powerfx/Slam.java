@@ -8,7 +8,6 @@ import com.himself12794.heroesmod.HeroesMod;
 import com.himself12794.heroesmod.Powers;
 import com.himself12794.heroesmod.network.SpawnParticlesClient;
 import com.himself12794.heroesmod.util.EnumRandomType;
-import com.himself12794.heroesmod.util.Reference;
 import com.himself12794.heroesmod.util.Reference.Sounds;
 import com.himself12794.powersapi.power.EffectType;
 import com.himself12794.powersapi.power.Power;

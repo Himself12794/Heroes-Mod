@@ -19,11 +19,9 @@ public class Lift extends PowerEffect {
 	private static final double LIFT_HEIGHT = 5.0D;
 
 	@Override
-	public void onUpdate(EntityLivingBase entity, int timeLeft,	EntityLivingBase caster, Power power) {
+	public boolean onUpdate(EntityLivingBase entity, int timeLeft,	EntityLivingBase caster, Power power) {
 		
 		if (entity != null) {
-			
-			//System.out.println("Update triggered: " + entity.worldObj.isRemote + ", time left: " + timeLeft);
 			
 			if (!(entity instanceof EntityFlying) ) {
 				
@@ -35,6 +33,8 @@ public class Lift extends PowerEffect {
 				if (power == Powers.NOVA && caster == entity) entity.motionY = 0.5D;
 			}
 		}
+		
+		return true;
 
 	}
 

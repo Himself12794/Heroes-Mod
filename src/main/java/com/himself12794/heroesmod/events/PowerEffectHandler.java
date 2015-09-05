@@ -1,7 +1,5 @@
 package com.himself12794.heroesmod.events;
 
-import net.minecraft.client.audio.ISound;
-import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityArrow;
@@ -9,35 +7,28 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFlintAndSteel;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
-import net.minecraftforge.client.event.sound.PlaySoundEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import com.himself12794.heroesmod.PowerEffects;
-import com.himself12794.heroesmod.util.Reference;
-import com.himself12794.heroesmod.util.Reference.Sounds;
 import com.himself12794.powersapi.power.PowerEffect;
-import com.himself12794.powersapi.util.DataWrapper;
-import com.himself12794.powersapi.util.DataWrapperP;
+import com.himself12794.powersapi.storage.DataWrapperP;
+import com.himself12794.powersapi.storage.EffectsWrapper;
+import com.himself12794.powersapi.storage.PowersWrapper;
 
 public class PowerEffectHandler {
 
 	@SubscribeEvent
 	public void preventDeath(LivingDeathEvent event) {
-		if (PowerEffects.rapidCellularRegeneration
-				.isAffecting(event.entityLiving)) {
+		if (EffectsWrapper.get(event.entityLiving).isAffectedBy(PowerEffects.rapidCellularRegeneration)) {
 
 			if (event.source != DamageSource.outOfWorld
-					&& !PowerEffect.negated.isAffecting(event.entityLiving)) {
+					&& !EffectsWrapper.get(event.entityLiving).isAffectedBy(PowerEffect.negated)) {
 				event.entityLiving.setHealth(0.5F);
 				event.setCanceled(true);
 			}
@@ -94,7 +85,7 @@ public class PowerEffectHandler {
 	@SubscribeEvent
 	public void deflectProjectile(LivingAttackEvent event) {
 		
-		if (DataWrapper.get(event.entityLiving).getPowerEffectsData().isAffectedBy(PowerEffects.telekineticShield)) {
+		if (PowersWrapper.get(event.entityLiving).getPowerEffectsData().isAffectedBy(PowerEffects.telekineticShield)) {
 			
 			if (event.entity.worldObj.rand.nextInt(4) == 0) {
 				
@@ -130,7 +121,7 @@ public class PowerEffectHandler {
 			
 		}
 		
-		if (DataWrapper.get(event.entityLiving).getPowerEffectsData().isAffectedBy(PowerEffects.immortality)) {
+		if (PowersWrapper.get(event.entityLiving).getPowerEffectsData().isAffectedBy(PowerEffects.immortality)) {
 			
 			if (!event.source.canHarmInCreative()) {
 				

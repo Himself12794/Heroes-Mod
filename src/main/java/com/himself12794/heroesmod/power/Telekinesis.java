@@ -6,9 +6,8 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 import com.himself12794.heroesmod.PowerEffects;
-import com.himself12794.powersapi.power.PowerEffect;
 import com.himself12794.powersapi.power.PowerEffectActivatorInstant;
-import com.himself12794.powersapi.util.DataWrapper;
+import com.himself12794.powersapi.storage.PowersWrapper;
 
 public class Telekinesis extends PowerEffectActivatorInstant {
 
@@ -21,20 +20,18 @@ public class Telekinesis extends PowerEffectActivatorInstant {
 	}
 
 	public boolean onCast(World world, EntityLivingBase caster, float modifier) {
-		DataWrapper.get(caster).getPowerEffectsData().addPowerEffect(PowerEffects.telekineticShield, -1, caster, this);
+		PowersWrapper.get(caster).getPowerEffectsData().addPowerEffect(PowerEffects.telekineticShield, -1, caster, this);
 		return true;
 	}
 	
 	@Override
 	public boolean onStrike(World world, MovingObjectPosition target,
 			EntityLivingBase caster, float modifier) {
-
-		//System.out.println(target);
 		
 		if (target.entityHit != null) {
 
 			if (target.entityHit instanceof EntityLivingBase)
-				DataWrapper.get((EntityLivingBase) target.entityHit).getPowerEffectsData()
+				PowersWrapper.get((EntityLivingBase) target.entityHit).getPowerEffectsData()
 						.addPowerEffect(PowerEffects.paralysis, getDuration(),
 								caster, this);
 

@@ -1,7 +1,6 @@
 package com.himself12794.heroesmod.power;
 
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
@@ -35,9 +34,9 @@ public class Flare extends PowerRanged {
 		// target.hitVec.yCoord, target.hitVec.zCoord, 3.0F, false, false);
 		BioticExplosion bioticExplosion = new BioticExplosion(world, caster,
 				target.hitVec.xCoord, target.hitVec.yCoord,
-				target.hitVec.zCoord, 5.0F, false, true);
+				target.hitVec.zCoord, 5.0F * modifier, false, true);
 		
-		bioticExplosion.setLimit(getPower());
+		bioticExplosion.setLimit(getPower(modifier));
 		
 		bioticExplosion.doExplosionA();
 		bioticExplosion.doExplosionB(true);

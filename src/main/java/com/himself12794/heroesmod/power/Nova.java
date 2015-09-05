@@ -10,7 +10,7 @@ import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.heroesmod.Powers;
 import com.himself12794.heroesmod.world.BioticExplosion;
 import com.himself12794.powersapi.power.PowerBuff;
-import com.himself12794.powersapi.util.DataWrapper;
+import com.himself12794.powersapi.storage.PowersWrapper;
 
 public class Nova extends PowerBuff {
 	
@@ -21,19 +21,19 @@ public class Nova extends PowerBuff {
 	
 	
 	public boolean onPreparePower(World worldIn, EntityPlayer playerIn) {
-		int cooldown = DataWrapper.get(playerIn).getCooldownRemaining(Powers.CHARGE);
-		return Powers.CHARGE.getCoolDown() - cooldown < 20 || playerIn.capabilities.isCreativeMode ;
+		int cooldown = PowersWrapper.get(playerIn).getCooldownRemaining(Powers.CHARGE);
+		return Powers.CHARGE.getCooldown() - cooldown < 20 || playerIn.capabilities.isCreativeMode ;
 	}
 
 	public boolean onCast(World world, EntityLivingBase caster, float modifier) {
 		
-		DataWrapper.get(caster).getPowerEffectsData().addPowerEffect(PowerEffects.slam, 2, caster, this);
+		PowersWrapper.get(caster).getPowerEffectsData().addPowerEffect(PowerEffects.slam, 2, caster, this);
 
 		return true;
 	}
 	
 	@Override
-	public boolean onFinishedCasting(World world, EntityPlayer caster, MovingObjectPosition pos) {
+	public boolean onFinishedCasting(World world, EntityLivingBase caster, MovingObjectPosition pos) {
 
 		Explosion splodey = new BioticExplosion(world, caster, caster.posX, caster.posY, caster.posZ, 5.0F, false, true);
 		splodey.doExplosionA();

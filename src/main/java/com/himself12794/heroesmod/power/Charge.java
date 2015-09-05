@@ -3,19 +3,16 @@ package com.himself12794.heroesmod.power;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.EntityDragonPart;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldSettings.GameType;
 
 import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.heroesmod.util.Reference.Sounds;
-import com.himself12794.powersapi.power.Power;
 import com.himself12794.powersapi.power.PowerInstant;
-import com.himself12794.powersapi.util.DataWrapper;
+import com.himself12794.powersapi.storage.PowersWrapper;
 
 public class Charge extends PowerInstant {
 
@@ -32,7 +29,7 @@ public class Charge extends PowerInstant {
 		if (target.entityHit instanceof EntityLivingBase || target.entityHit instanceof EntityDragonPart) {
 			Vec3 move = target.hitVec;
 			
-			DataWrapper.get(caster).getPowerEffectsData().addPowerEffect(PowerEffects.immortality, 10, caster, this);
+			PowersWrapper.get(caster).getPowerEffectsData().addPowerEffect(PowerEffects.immortality, 10, caster, this);
 			caster.motionY = 0.25D;world.playSoundAtEntity(caster, Sounds.BIOTIC_EXPLOSION, 1.5F, 2.0F);
 			caster.setPosition(move.xCoord , move.yCoord, move.zCoord);
 			caster.motionY = 0.25D;world.playSoundAtEntity(caster, Sounds.BIOTIC_EXPLOSION, 1.5F, 2.0F);
@@ -45,7 +42,7 @@ public class Charge extends PowerInstant {
 			//target.entityHit.motionX = move.xCoord * 6.0D;
 			//target.entityHit.motionY = move.yCoord * 8.0D;
 			//target.entityHit.motionZ = move.zCoord * 6.0D;
-			((EntityLivingBase)target.entityHit).attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) caster), getPower());
+			((EntityLivingBase)target.entityHit).attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) caster), getPower(modifier));
 
 			
 			return true;

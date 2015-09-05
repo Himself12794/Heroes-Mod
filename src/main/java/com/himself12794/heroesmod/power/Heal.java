@@ -1,7 +1,6 @@
 package com.himself12794.heroesmod.power;
 
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
@@ -21,7 +20,7 @@ public class Heal extends PowerBuff {
 		boolean flag = false;
 		if (caster.getHealth() < caster.getMaxHealth()) {
 			flag = true;
-			caster.heal(getPower() * modifier);
+			caster.heal(getPower(modifier) * modifier);
 		}
 		
 		return flag;
@@ -34,7 +33,7 @@ public class Heal extends PowerBuff {
 			 entity = ((EntityLivingBase)target.entityHit);
 			if(entity.getHealth() < entity.getMaxHealth()) {
 				flag = true;
-				entity.heal(getPower() * modifier);
+				entity.heal(getPower(modifier) * modifier);
 			}
 		
 		return flag;

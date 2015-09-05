@@ -7,13 +7,10 @@ import net.minecraft.block.BlockDragonEgg;
 import net.minecraft.block.BlockEndPortal;
 import net.minecraft.block.BlockFlowerPot;
 import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.block.Block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
@@ -22,9 +19,8 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
-import com.himself12794.heroesmod.util.DWrapper;
-import com.himself12794.powersapi.item.ModItems;
 import com.himself12794.powersapi.power.PowerInstant;
+import com.himself12794.powersapi.storage.PowersWrapper;
 import com.himself12794.powersapi.util.UsefulMethods;
 
 public class BlockRemember extends PowerInstant {
@@ -37,9 +33,9 @@ public class BlockRemember extends PowerInstant {
 	public boolean onStrike(World world, MovingObjectPosition target,
 			EntityLivingBase caster, float modifier) {
 
-		DWrapper wrap = DWrapper.get(caster);
+		PowersWrapper wrap = PowersWrapper.get(caster);
 
-		NBTTagCompound nbt = wrap.getPowerProfile(this).getPowerData();
+		NBTTagCompound nbt = wrap.getPowerProfile(this).powerData;
 
 		if (target.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
 
@@ -70,10 +66,6 @@ public class BlockRemember extends PowerInstant {
 					
 					removeBlockAndPlayEffects(world, pos, theBlock);
 
-					if (world.isRemote)
-						caster.addChatMessage(new ChatComponentText(
-								"You'll remember that block now"));
-
 					return true;
 				} else {
 					if (world.isRemote)
@@ -94,8 +86,6 @@ public class BlockRemember extends PowerInstant {
 	}
 
 	private void removeBlockAndPlayEffects(World world, BlockPos pos, Block block) {
-
-		System.out.println(world.isRemote);
 		
 		playSound(world, pos);
 		playPoof(world, pos);

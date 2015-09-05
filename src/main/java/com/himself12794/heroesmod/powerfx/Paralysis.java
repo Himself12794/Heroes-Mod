@@ -4,7 +4,6 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.MovingObjectPosition;
 
 import com.himself12794.heroesmod.entity.ai.EntityAIDoNothing;
 import com.himself12794.powersapi.power.EffectType;
@@ -21,7 +20,7 @@ public class Paralysis extends PowerEffect {
 	}
 
 	@Override
-	public void onUpdate(EntityLivingBase entity, int timeLeft, EntityLivingBase caster, Power power) {
+	public boolean onUpdate(EntityLivingBase entity, int timeLeft, EntityLivingBase caster, Power power) {
 		
 		if (entity instanceof EntityLiving) {
 			EntityLiving target = (EntityLiving)entity;
@@ -32,7 +31,7 @@ public class Paralysis extends PowerEffect {
 			player.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(-1.0D);
 			
 		}
-				
+		return true;		
 	}
 	
 	public void onRemoval(EntityLivingBase entity, EntityLivingBase caster, Power power){

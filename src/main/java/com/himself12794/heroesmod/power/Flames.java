@@ -5,7 +5,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
@@ -46,7 +45,7 @@ public class Flames extends PowerRanged {
 			
 			if (!target.entityHit.isImmuneToFire()) {
 				
-				target.entityHit.attackEntityFrom(DamageSource.inFire, this.getPower());
+				target.entityHit.attackEntityFrom(DamageSource.inFire, this.getPower(modifier));
 				target.entityHit.setFire(this.getDuration() / 20 );
 				
 			}

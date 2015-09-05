@@ -11,10 +11,9 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import com.himself12794.powersapi.PowersAPI;
 import com.himself12794.powersapi.item.ModItems;
 import com.himself12794.powersapi.power.Power;
-import com.himself12794.powersapi.util.DataWrapper;
+import com.himself12794.powersapi.storage.PowersWrapper;
 
 //
 // GuiBuffBar implements a simple status bar at the top of the screen which
@@ -60,7 +59,7 @@ public class PowerOverlayGui extends Gui {
 		int xPos = 2;
 		int yPos = 2;
 		
-		DataWrapper wrapper = DataWrapper.get(Minecraft.getMinecraft().thePlayer);
+		PowersWrapper wrapper = PowersWrapper.get(Minecraft.getMinecraft().thePlayer);
 		Power powerPrimary = wrapper.getPrimaryPower();
 		Power powerSecondary = wrapper.getSecondaryPower();
 		
