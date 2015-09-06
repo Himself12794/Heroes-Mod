@@ -25,10 +25,11 @@ public class Flames extends PowerRanged {
 		setPower(6.0F);
 		setCoolDown(100);
 		setDuration(8 * 20);
+		setPreparationTime(40);
 		setUnlocalizedName("flames");
 	}	
 	
-	public boolean onPreparePower(World worldIn, EntityPlayer playerIn, int state) {
+	public boolean canCastPower(World worldIn, EntityPlayer playerIn, int state) {
 		boolean flag = !playerIn.isInsideOfMaterial(Material.water);
 		if (flag) playerIn.playSound("fire.ignite", 1.5F, 1);
 		return flag;

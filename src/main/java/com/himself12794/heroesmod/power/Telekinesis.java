@@ -12,7 +12,7 @@ import com.himself12794.powersapi.storage.PowersWrapper;
 public class Telekinesis extends PowerEffectActivatorInstant {
 
 	public Telekinesis() {
-		super("telekinesis", 160, 200, PowerEffects.telekinesis, 200);
+		super("telekinesis", 160, 200, PowerEffects.telekinesis, -1);
 		setPower(0.0F);
 		setDuration(15 * 20);
 		setRange(100);
@@ -28,7 +28,7 @@ public class Telekinesis extends PowerEffectActivatorInstant {
 	public boolean onStrike(World world, MovingObjectPosition target,
 			EntityLivingBase caster, float modifier, int state) {
 		
-		if (target.entityHit != null) {
+		if (target != null && target.entityHit != null) {
 
 			if (target.entityHit instanceof EntityLivingBase)
 				PowersWrapper.get((EntityLivingBase) target.entityHit).getPowerEffectsData()

@@ -18,7 +18,7 @@ public class SoundHacking {
 			ISound orig = event.sound;
 			ISound sound = new PositionedSoundRecord(
 					new ResourceLocation(Sounds.BANSHEE_SCREAM), 
-					orig.getVolume() * 2, orig.getPitch(), orig.getXPosF(), orig.getYPosF(), orig.getZPosF());
+					orig.getVolume() * 2.0F, orig.getPitch(), orig.getXPosF(), orig.getYPosF(), orig.getZPosF());
 
 			event.result = sound;
 		}

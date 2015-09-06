@@ -41,10 +41,12 @@ public class Telekinesis extends PowerEffect {
 			if (entity.worldObj.isAirBlock(entity.getPosition())) {
 				entity.setPosition(x, y, z);	
 			}
+			
+			return true;
 
 		}
 		
-		return true;
+		return false;
 
 	}
 

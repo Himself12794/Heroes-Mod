@@ -132,7 +132,7 @@ public class AbilitySet {
 				);
 		
 		registerAbilitySet(new AbilitySet("materialManipulation")
-				.addActivePower(Powers.BLOCK_REMEMBER)
+				.addActivePower(Powers.BLOCK_MEMORY)
 				.addPassivePower(PowerEffects.breakFx)
 				.setDescription("The ability to manipulate solid matter.")
 				);
@@ -153,10 +153,9 @@ public class AbilitySet {
 		if (!abilitySetExists(abs)) {
 			
 			abilitySets.put(name, abs);
-			abilitySetIds.put(abilitySetsCount, name);
+			abilitySetIds.put(++abilitySetsCount, name);
 			//HeroesMod.logger.info("Registered ability set " + name);
 			
-			++abilitySetsCount;
 			return abs;
 			
 		} else {

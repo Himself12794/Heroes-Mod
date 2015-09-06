@@ -1,10 +1,15 @@
 package com.himself12794.heroesmod.gui;
 
+import org.lwjgl.opengl.GL11;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
@@ -13,6 +18,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import com.himself12794.powersapi.item.ModItems;
 import com.himself12794.powersapi.power.Power;
+import com.himself12794.powersapi.storage.PowerProfile;
 import com.himself12794.powersapi.storage.PowersWrapper;
 
 //
@@ -37,6 +43,7 @@ public class PowerOverlayGui extends Gui {
 
 	public PowerOverlayGui(Minecraft mc) {
 		super();
+		this.mc = mc;
 		this.itemRender = mc.getRenderItem();
 		this.fontRendererObj = mc.fontRendererObj;
 		this.primaryPower = new ItemStack(ModItems.powerActivator);
@@ -56,24 +63,40 @@ public class PowerOverlayGui extends Gui {
 	      return;
 	    }
 	    
-		int xPos = 2;
-		int yPos = 2;
+		int xPos = 64;
+		int yPos = 175;
 		
 		PowersWrapper wrapper = PowersWrapper.get(Minecraft.getMinecraft().thePlayer);
-		Power powerPrimary = wrapper.getPrimaryPower();
-		Power powerSecondary = wrapper.getSecondaryPower();
-		
-		if (powerPrimary != null) {
-			powerPrimary.setPower(primaryPower);
-			drawItemStack(primaryPower, xPos, yPos, null);
-			xPos += BUFF_ICON_SPACING;
-		}
-		
-		if (powerSecondary != null) { 
-			powerSecondary.setPower(secondaryPower);
-			drawItemStack(secondaryPower, xPos, yPos, null);
-		}
+		PowerProfile powerPrimary = wrapper.getPowerProfile(wrapper.getPrimaryPower());
+		PowerProfile powerSecondary = wrapper.getPowerProfile(wrapper.getSecondaryPower());
 
+		if (powerPrimary != null) { 
+			renderPower(powerPrimary, xPos, yPos);
+			drawName(powerPrimary, xPos);
+		}
+		xPos += 6000;
+		if (powerSecondary != null) { 
+			renderPower(powerSecondary, xPos, yPos);
+			drawName(powerSecondary, xPos);
+		}
+	}
+	
+	private void drawName(PowerProfile profile, int x) {
+
+		drawString(fontRendererObj, profile.thePower.getDisplayName(), (int)(x * 0.065), 2, 154);
+		drawString(fontRendererObj, String.format("%.1f", profile.cooldownRemaining / 20.0F), (int)(x * 0.065), 32, 154 );
+	}
+	
+	private void renderPower(PowerProfile profile, int x, int y) {
+		
+		GlStateManager.pushMatrix();
+		//drawString(fontRendererObj, profile.thePower.getDisplayName(), x, y, 64);
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		GL11.glDisable(GL11.GL_LIGHTING);      
+		mc.renderEngine.bindTexture(profile.thePower.getIcon(profile));
+		GL11.glScaled(0.065, 0.065, -185.0D);
+		drawTexturedModalRect(x, y, 2, 2, 256, 256);
+		GlStateManager.popMatrix();
 		
 	}
 	

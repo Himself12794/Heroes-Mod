@@ -23,7 +23,8 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.himself12794.heroesmod.HeroesMod;
-import com.himself12794.heroesmod.network.SpawnParticlesClient;
+import com.himself12794.heroesmod.network.HeroesNetwork;
+import com.himself12794.heroesmod.network.server.S01SpawnParticles;
 import com.himself12794.heroesmod.util.BioticExplosionDamage;
 import com.himself12794.heroesmod.util.EnumRandomType;
 import com.himself12794.heroesmod.util.Reference.Sounds;
@@ -239,10 +240,10 @@ public class BioticExplosion extends Explosion {
 						.nextFloat()) * 0.2F) * 0.7F);
 
 		if (doParticles) {
-			//if (this.explosionSize >= 2.0F && isSmoking)
-				//doParticles(500);
-			//else
-				//doParticles(300);
+			if (this.explosionSize >= 2.0F && isSmoking)
+				doParticles(500);
+			else
+				doParticles(300);
 
 		}
 	}
@@ -268,9 +269,9 @@ public class BioticExplosion extends Explosion {
 			double y = explosionY;
 			double z = explosionZ;
 
-			HeroesMod.proxy.network.sendToAllAround(new SpawnParticlesClient(
+			HeroesNetwork.client().spawnParticles(
 					EnumParticleTypes.SPELL_INSTANT, x, y, z, particleRange,
-					amount, EnumRandomType.GAUSSIAN), point);
+					amount, EnumRandomType.GAUSSIAN, point);
 
 		}
 

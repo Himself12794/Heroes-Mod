@@ -77,7 +77,7 @@ public class BlockMemory extends PowerInstant {
 
 		if (target.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
 			
-			PowerProfile powerProf = wrap.getPowerProfile(Powers.BLOCK_REMEMBER);
+			PowerProfile powerProf = wrap.getPowerProfile(Powers.BLOCK_MEMORY);
 			NBTTagCompound powerData = powerProf.powerData;
 
 			if (powerData.getBoolean("memoryFull")) {
@@ -106,7 +106,7 @@ public class BlockMemory extends PowerInstant {
 						ItemStack placementHelp = toItem != null ? new ItemStack(
 								toItem) : new ItemStack(transportedBlock);
 
-						Powers.BLOCK_REMEMBER.playSoundAndPoof(world, newPos);
+						Powers.BLOCK_MEMORY.playSoundAndPoof(world, newPos);
 
 						placementHelp.onItemUse((EntityPlayer) wrap.theEntity, world,
 								newPos, target.sideHit,
@@ -122,7 +122,7 @@ public class BlockMemory extends PowerInstant {
 					} else {
 
 						world.setBlockState(newPos, originalState);
-						Powers.BLOCK_REMEMBER.playSoundAndPoof(world, newPos);
+						Powers.BLOCK_MEMORY.playSoundAndPoof(world, newPos);
 					}
 					powerProf.resetPowerData();
 					return true;

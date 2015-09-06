@@ -32,7 +32,7 @@ public class Powers {
 	public static final Punt PUNT;
 	public static final Flare EXPLODING_BOLT;
 	public static final Eclipse ECLIPSE;
-	public static final BlockMemory BLOCK_REMEMBER;
+	public static final BlockMemory BLOCK_MEMORY;
 	public static final Charge CHARGE;
 	public static final Nova NOVA;
 
@@ -55,7 +55,7 @@ public class Powers {
 			EXPLODING_BOLT = Power.lookupPower(Flare.class);
 			ECLIPSE = Power.lookupPower(Eclipse.class);
 			BREAK = Power.lookupPower("break");
-			BLOCK_REMEMBER = Power.lookupPower(BlockMemory.class);
+			BLOCK_MEMORY = Power.lookupPower(BlockMemory.class);
 			CHARGE = Power.lookupPower(Charge.class);
 			NOVA = Power.lookupPower(Nova.class);
 

@@ -14,18 +14,17 @@ import com.himself12794.heroesmod.HeroesMod;
 import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.heroesmod.ability.AbilitySet;
 import com.himself12794.heroesmod.events.PowerEffectHandler;
+import com.himself12794.heroesmod.network.HeroesNetwork;
 import com.himself12794.heroesmod.power.PowersRegistraton;
 import com.himself12794.heroesmod.powerfx.PowerEffectsRegistration;
 import com.himself12794.heroesmod.util.Reference;
 
 public class CommonProxy {
 
-	public static SimpleNetworkWrapper network;
-
 	public void preinit(FMLPreInitializationEvent event) {
 
-		network = NetworkRegistry.INSTANCE.newSimpleChannel( Reference.MODID
-				+ " NetChannel" );
+		HeroesNetwork.init(NetworkRegistry.INSTANCE.newSimpleChannel( Reference.MODID + " NetChannel" ));
+		HeroesNetwork.registerMessages();
 		
 		if (Loader.isModLoaded("powersAPI")) {
 			

@@ -20,9 +20,9 @@ public class Nova extends PowerBuff {
 	}
 	
 	
-	public boolean onPreparePower(World worldIn, EntityPlayer playerIn, int state) {
+	public boolean canCastPower(World worldIn, EntityPlayer playerIn, int state) {
 		int cooldown = PowersWrapper.get(playerIn).getCooldownRemaining(Powers.CHARGE);
-		return Powers.CHARGE.getCooldown() - cooldown < 20 || playerIn.capabilities.isCreativeMode ;
+		return Powers.CHARGE.getCooldown(null) - cooldown < 5 || playerIn.capabilities.isCreativeMode ;
 	}
 
 	public boolean onCast(World world, EntityLivingBase caster, float modifier, int state) {

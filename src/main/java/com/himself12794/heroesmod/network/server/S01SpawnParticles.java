@@ -1,4 +1,4 @@
-package com.himself12794.heroesmod.network;
+package com.himself12794.heroesmod.network.server;
 
 import io.netty.buffer.ByteBuf;
 
@@ -15,7 +15,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 import com.himself12794.heroesmod.util.EnumRandomType;
 
-public class SpawnParticlesClient implements IMessage {
+public class S01SpawnParticles implements IMessage {
 
 	private EnumParticleTypes particles;
 	private double x;
@@ -25,11 +25,11 @@ public class SpawnParticlesClient implements IMessage {
 	private int amount;
 	private EnumRandomType type;
 
-	public SpawnParticlesClient() {
+	public S01SpawnParticles() {
 
 	}
 
-	public SpawnParticlesClient(EnumParticleTypes particles, double x,
+	public S01SpawnParticles(EnumParticleTypes particles, double x,
 			double y, double z, float modifier, int amount, EnumRandomType type) {
 
 		this.particles = particles;
@@ -76,24 +76,34 @@ public class SpawnParticlesClient implements IMessage {
 	}
 
 	public static class Handler implements
-			IMessageHandler<SpawnParticlesClient, IMessage> {
+			IMessageHandler<S01SpawnParticles, IMessage> {
 
 		@Override
-		public IMessage onMessage(SpawnParticlesClient message,
-				MessageContext ctx) {
+		public IMessage onMessage(final S01SpawnParticles message, MessageContext ctx) {
 
 			if (ctx.side.isClient()) {
 
 				if (message.particles == null) return null;
 				
-				World world = Minecraft.getMinecraft().theWorld;
+				final World world = Minecraft.getMinecraft().theWorld;
 				
-				for (int i = 0; i < message.amount; ++i) {
-					double x = message.x + message.modifier * getRandomFromType(world.rand, message.type);
-					double y = message.y + message.modifier * getRandomFromType(world.rand, message.type);
-					double z = message.z + message.modifier * getRandomFromType(world.rand, message.type);
-					world.spawnParticle(message.particles, x, y, z, 0, 0, 0);
-				}
+				Runnable task = new Runnable() {
+
+					@Override
+					public void run() {				
+					
+						for (int i = 0; i < message.amount; ++i) {
+							double x = message.x + message.modifier * getRandomFromType(world.rand, message.type);
+							double y = message.y + message.modifier * getRandomFromType(world.rand, message.type);
+							double z = message.z + message.modifier * getRandomFromType(world.rand, message.type);
+							world.spawnParticle(message.particles, x, y, z, 0, 0, 0);
+						}
+						
+					}
+					
+				};
+				
+				Minecraft.getMinecraft().addScheduledTask(task);
 
 			}
 			return null;
