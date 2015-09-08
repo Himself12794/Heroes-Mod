@@ -16,15 +16,17 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'	
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
     }
 }
 
 apply plugin: 'forge'
 
-version = "0.8-BETA"
-group= "com.himself12794.heroesmod" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "heroesmod"
+ext.set("revision", getRevision())
+ext.set("build", getBuildNo())
+version = "0.8-" + revision
+group = "com.himself12794"
+archivesBaseName = "Heroes-Mod"
 
 minecraft {
     version = "1.8-11.14.1.1375"
@@ -38,17 +40,12 @@ minecraft {
     mappings = "snapshot_20141130"
 }
 
-jar {
-    from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
-}
-
 dependencies {
     // you may put jars on which you depend on in ./libs
     // or you may define them like so..
     //compile "some.group:artifact:version:classifier"
     //compile "some.group:artifact:version"
       
-
     // real examples
     //compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
     //compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
@@ -77,4 +74,22 @@ processResources
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
+}
+
+String getBuildNo(){
+	return git("rev-list", "HEAD", "--count")
+}
+
+String getRevision(){
+	String tag = git("describe", "--tags", "--abbrev=0")
+	return git("rev-list", tag + "..HEAD", "--count")
+}
+
+import static net.minecraftforge.gradle.dev.DevBasePlugin.*
+String git(String[] args){
+	try{
+		return runGit(project, project.getProjectDir(), args)
+	}catch(Exception e){
+		return null
+	}
 }
