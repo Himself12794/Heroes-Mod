@@ -16,18 +16,20 @@ public class Nova extends PowerBuff {
 	
 	public Nova() {
 		setUnlocalizedName("nova");
-		setCoolDown(0);
 	}
 	
-	
+	@Override
 	public boolean canCastPower(World worldIn, EntityPlayer playerIn, int state) {
 		int cooldown = PowersWrapper.get(playerIn).getCooldownRemaining(Powers.CHARGE);
 		return Powers.CHARGE.getCooldown(null) - cooldown < 5 || playerIn.capabilities.isCreativeMode ;
 	}
 
+	@Override
 	public boolean onCast(World world, EntityLivingBase caster, float modifier, int state) {
 		
-		PowersWrapper.get(caster).getPowerEffectsData().addPowerEffect(PowerEffects.slam, 2, caster, this);
+		PowersWrapper.get(caster).getPowerEffectsData().addPowerEffect(PowerEffects.slam, 3, caster, this);
+		
+		caster.setSprinting(true);
 
 		return true;
 	}

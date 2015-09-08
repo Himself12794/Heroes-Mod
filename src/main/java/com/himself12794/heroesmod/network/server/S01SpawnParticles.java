@@ -85,18 +85,16 @@ public class S01SpawnParticles implements IMessage {
 
 				if (message.particles == null) return null;
 				
-				final World world = Minecraft.getMinecraft().theWorld;
-				
 				Runnable task = new Runnable() {
 
 					@Override
 					public void run() {				
 					
 						for (int i = 0; i < message.amount; ++i) {
-							double x = message.x + message.modifier * getRandomFromType(world.rand, message.type);
-							double y = message.y + message.modifier * getRandomFromType(world.rand, message.type);
-							double z = message.z + message.modifier * getRandomFromType(world.rand, message.type);
-							world.spawnParticle(message.particles, x, y, z, 0, 0, 0);
+							double x = message.x + message.modifier * getRandomFromType(Minecraft.getMinecraft().theWorld.rand, message.type);
+							double y = message.y + message.modifier * getRandomFromType(Minecraft.getMinecraft().theWorld.rand, message.type);
+							double z = message.z + message.modifier * getRandomFromType(Minecraft.getMinecraft().theWorld.rand, message.type);
+							Minecraft.getMinecraft().theWorld.spawnParticle(message.particles, x, y, z, 0, 0, 0);
 						}
 						
 					}

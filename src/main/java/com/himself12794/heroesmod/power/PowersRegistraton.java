@@ -49,6 +49,7 @@ public class PowersRegistraton {
 		Power.registerPower(new BlockMemory());
 		Power.registerPower(new Charge());
 		Power.registerPower(new Nova());
+		Power.registerPower(new Launch());
 
 	}
 }

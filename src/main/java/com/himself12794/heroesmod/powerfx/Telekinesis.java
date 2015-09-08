@@ -24,25 +24,27 @@ public class Telekinesis extends PowerEffect {
 		
 		if (entity != null && caster != null) {
 
-			Vec3 vec = caster.getLookVec();
-			double vX = vec.xCoord * DISTANCE_FROM_CASTER;
-			double vY = vec.yCoord * DISTANCE_FROM_CASTER;
-			double vZ = vec.zCoord * DISTANCE_FROM_CASTER;
-			
-			double x = caster.posX + vX;
-			double y = caster.posY + caster.height + vY - entity.height / 2;
-			double z = caster.posZ + vZ;
-					
-			entity.motionX = 0.0D;
-			entity.motionY = 0.0D;
-			entity.motionZ = 0.0D;
-			entity.fallDistance = 0.0F;
-			
-			if (entity.worldObj.isAirBlock(entity.getPosition())) {
-				entity.setPosition(x, y, z);	
+			if (!caster.isDead) {
+				Vec3 vec = caster.getLookVec();
+				double vX = vec.xCoord * DISTANCE_FROM_CASTER;
+				double vY = vec.yCoord * DISTANCE_FROM_CASTER;
+				double vZ = vec.zCoord * DISTANCE_FROM_CASTER;
+				
+				double x = caster.posX + vX;
+				double y = caster.posY + caster.getEyeHeight() + vY - entity.height / 2;
+				double z = caster.posZ + vZ;
+						
+				entity.motionX = 0.0D;
+				entity.motionY = 0.0D;
+				entity.motionZ = 0.0D;
+				entity.fallDistance = 0.0F;
+				
+				if (entity.worldObj.isAirBlock(entity.getPosition())) {
+					entity.setPosition(x, y, z);	
+				}
+				
+				return true;
 			}
-			
-			return true;
 
 		}
 		

@@ -8,6 +8,7 @@ import com.himself12794.heroesmod.power.Flames;
 import com.himself12794.heroesmod.power.Flare;
 import com.himself12794.heroesmod.power.Heal;
 import com.himself12794.heroesmod.power.Incinerate;
+import com.himself12794.heroesmod.power.Launch;
 import com.himself12794.heroesmod.power.Lightning;
 import com.himself12794.heroesmod.power.Nova;
 import com.himself12794.heroesmod.power.Punt;
@@ -35,6 +36,7 @@ public class Powers {
 	public static final BlockMemory BLOCK_MEMORY;
 	public static final Charge CHARGE;
 	public static final Nova NOVA;
+	public static final Launch LAUNCH; 
 
 	static {
 
@@ -58,6 +60,7 @@ public class Powers {
 			BLOCK_MEMORY = Power.lookupPower(BlockMemory.class);
 			CHARGE = Power.lookupPower(Charge.class);
 			NOVA = Power.lookupPower(Nova.class);
+			LAUNCH = Power.lookupPower(Launch.class);
 
 		} else {
 			throw new RuntimeException(

@@ -21,18 +21,11 @@ import com.himself12794.powersapi.power.Power;
 import com.himself12794.powersapi.storage.PowerProfile;
 import com.himself12794.powersapi.storage.PowersWrapper;
 
-//
-// GuiBuffBar implements a simple status bar at the top of the screen which
-// shows the current buffs/debuffs applied to the character.
-//
-// TODO add effects view, fix cooldown
 public class PowerOverlayGui extends Gui {
 	
 	private Minecraft mc;
 	private RenderItem itemRender;
 	private FontRenderer fontRendererObj;
-	private ItemStack primaryPower;
-	private ItemStack secondaryPower;
 	
 	private static final int BUFF_ICON_SIZE = 18;
 	private static final int BUFF_ICON_SPACING = BUFF_ICON_SIZE + 2; 
@@ -46,8 +39,6 @@ public class PowerOverlayGui extends Gui {
 		this.mc = mc;
 		this.itemRender = mc.getRenderItem();
 		this.fontRendererObj = mc.fontRendererObj;
-		this.primaryPower = new ItemStack(ModItems.powerActivator);
-		this.secondaryPower = new ItemStack(ModItems.powerActivator);
 	}
 
 	//
@@ -63,28 +54,32 @@ public class PowerOverlayGui extends Gui {
 	      return;
 	    }
 	    
-		int xPos = 64;
-		int yPos = 175;
+		int xPos = 2;
+		int yPos = 2;
 		
 		PowersWrapper wrapper = PowersWrapper.get(Minecraft.getMinecraft().thePlayer);
 		PowerProfile powerPrimary = wrapper.getPowerProfile(wrapper.getPrimaryPower());
 		PowerProfile powerSecondary = wrapper.getPowerProfile(wrapper.getSecondaryPower());
 
 		if (powerPrimary != null) { 
-			renderPower(powerPrimary, xPos, yPos);
-			drawName(powerPrimary, xPos);
+			drawName(powerPrimary, xPos, yPos);
 		}
-		xPos += 6000;
+		yPos += 40;
 		if (powerSecondary != null) { 
-			renderPower(powerSecondary, xPos, yPos);
-			drawName(powerSecondary, xPos);
+			drawName(powerSecondary, xPos, yPos);
 		}
 	}
 	
-	private void drawName(PowerProfile profile, int x) {
+	private void drawName(PowerProfile profile, int x, int yPos) {
 
-		drawString(fontRendererObj, profile.thePower.getDisplayName(), (int)(x * 0.065), 2, 154);
-		drawString(fontRendererObj, String.format("%.1f", profile.cooldownRemaining / 20.0F), (int)(x * 0.065), 32, 154 );
+		int color = profile.cooldownRemaining <= 0 ? 128 : 64;  
+		
+		GlStateManager.pushMatrix();
+		//GL11.glColor3b((byte)255, (byte)0, (byte)0);
+		drawString(fontRendererObj, profile.thePower.getDisplayName(), x, yPos, color);
+		if (profile.cooldownRemaining > 0) 
+			drawString(fontRendererObj, "Cooldown Remaining: " + String.format("%.1f", profile.cooldownRemaining / 20.0F), x, yPos + 16, color );
+		GlStateManager.popMatrix();
 	}
 	
 	private void renderPower(PowerProfile profile, int x, int y) {

@@ -9,6 +9,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentProtection;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
@@ -22,9 +23,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import com.himself12794.heroesmod.HeroesMod;
 import com.himself12794.heroesmod.network.HeroesNetwork;
-import com.himself12794.heroesmod.network.server.S01SpawnParticles;
 import com.himself12794.heroesmod.util.BioticExplosionDamage;
 import com.himself12794.heroesmod.util.EnumRandomType;
 import com.himself12794.heroesmod.util.Reference.Sounds;
@@ -275,6 +274,13 @@ public class BioticExplosion extends Explosion {
 
 		}
 
+	}
+	
+	public static void doExplosion(World world, EntityLivingBase caster, float size, float maxDamage) {
+		BioticExplosion splodey = new BioticExplosion(world, caster, caster.posX, caster.posY, caster.posZ, size, false, true);
+		splodey.setLimit(maxDamage);
+		splodey.doExplosionA();
+		splodey.doExplosionB(true);
 	}
 
 }

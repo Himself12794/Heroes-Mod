@@ -2,6 +2,7 @@ package com.himself12794.heroesmod.powerfx;
 
 import net.minecraft.entity.EntityFlying;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumParticleTypes;
 
 import com.himself12794.heroesmod.HeroesMod;
@@ -12,6 +13,8 @@ import com.himself12794.heroesmod.util.EnumRandomType;
 import com.himself12794.heroesmod.util.Reference.Sounds;
 import com.himself12794.powersapi.power.EffectType;
 import com.himself12794.powersapi.power.Power;
+import com.himself12794.powersapi.storage.EffectContainer;
+import com.himself12794.powersapi.storage.EffectsWrapper;
 
 public class Slam extends Lift {
 
@@ -25,14 +28,22 @@ public class Slam extends Lift {
 	@Override
 	public void onRemoval(EntityLivingBase entity, EntityLivingBase caster, Power power) {
 		
+		super.onRemoval(entity, caster, power);
+		
 		if (!(entity instanceof EntityFlying) && entity != null) {
-			entity.motionY = -4.0D;
-			if (caster != entity) entity.fallDistance = 9.0F;
+			
+			entity.motionY = -10.0D;
+			
+			if (caster != entity) {
+				entity.fallDistance = 9.0F;
+			} 
+			
 			if (!entity.worldObj.isRemote) {
 				HeroesNetwork.client().spawnParticles(
 						EnumParticleTypes.EXPLOSION_LARGE, entity.posX, entity.posY,
 						entity.posZ, 1.0F, 1, EnumRandomType.NORMAL, null);
 			}
+			
 			if (power != Powers.NOVA) entity.playSound(Sounds.BIOTIC_EXPLOSION, 2.5F, 1.5F);
 			
 			double x = caster != null ? caster.getLookVec().xCoord : entity.getLookVec().xCoord;
