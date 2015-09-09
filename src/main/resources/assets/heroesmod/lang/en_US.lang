@@ -37,4 +37,10 @@ power.charge.description=Charges into an enemy.
 power.nova.name=Nova
 power.nova.description=Explodes only after a charge.
 
+ability.rapidCellularRegeneration.name=Rapid Cellular Regeneration
+ability.flight.name=Flight
+ability.materialManipulation.name=Material Manipulation
+ability.telekinesis.name=Telekinesis
+
+
 death.attack.player.magicalExplosion.power=%1$s was reduced to an ethereal mist by %2$s

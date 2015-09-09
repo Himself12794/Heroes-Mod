@@ -2,19 +2,14 @@ package com.himself12794.heroesmod.powerfx;
 
 import net.minecraft.entity.EntityFlying;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumParticleTypes;
 
-import com.himself12794.heroesmod.HeroesMod;
 import com.himself12794.heroesmod.Powers;
 import com.himself12794.heroesmod.network.HeroesNetwork;
-import com.himself12794.heroesmod.network.server.S01SpawnParticles;
 import com.himself12794.heroesmod.util.EnumRandomType;
 import com.himself12794.heroesmod.util.Reference.Sounds;
 import com.himself12794.powersapi.power.EffectType;
 import com.himself12794.powersapi.power.Power;
-import com.himself12794.powersapi.storage.EffectContainer;
-import com.himself12794.powersapi.storage.EffectsWrapper;
 
 public class Slam extends Lift {
 

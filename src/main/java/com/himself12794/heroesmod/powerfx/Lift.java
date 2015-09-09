@@ -2,13 +2,10 @@ package com.himself12794.heroesmod.powerfx;
 
 import net.minecraft.entity.EntityFlying;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 
 import com.himself12794.heroesmod.Powers;
 import com.himself12794.powersapi.power.Power;
 import com.himself12794.powersapi.power.PowerEffect;
-import com.himself12794.powersapi.storage.EffectContainer;
-import com.himself12794.powersapi.storage.EffectsWrapper;
 import com.himself12794.powersapi.util.UsefulMethods;
 
 public class Lift extends PowerEffect {

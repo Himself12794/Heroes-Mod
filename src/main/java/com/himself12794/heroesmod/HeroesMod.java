@@ -20,8 +20,6 @@ import com.himself12794.heroesmod.util.Reference;
  * @author phwhitin
  *
  */
-// TODO block transportation
-// TODO mining tool
 @Mod(modid = Reference.MODID, version = Reference.VERSION, name = Reference.NAME, dependencies = Reference.DEPENDENCIES)
 public class HeroesMod {
 

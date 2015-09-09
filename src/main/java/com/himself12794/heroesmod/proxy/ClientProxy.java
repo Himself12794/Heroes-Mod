@@ -10,7 +10,6 @@ import net.minecraftforge.fml.relauncher.Side;
 
 import com.himself12794.heroesmod.events.SoundHacking;
 import com.himself12794.heroesmod.gui.PowerOverlayGui;
-import com.himself12794.heroesmod.network.server.S01SpawnParticles;
 
 public class ClientProxy extends CommonProxy {
 	

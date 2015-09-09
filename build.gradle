@@ -24,7 +24,7 @@ apply plugin: 'forge'
 
 ext.set("revision", getRevision())
 ext.set("build", getBuildNo())
-version = "0.8-" + revision
+version = getTag() + "-rev" + revision
 group = "com.himself12794"
 archivesBaseName = "Heroes-Mod"
 
@@ -78,6 +78,10 @@ processResources
 
 String getBuildNo(){
 	return git("rev-list", "HEAD", "--count")
+}
+
+String getTag() {
+	return git("describe", "--tags", "--abbrev=0");
 }
 
 String getRevision(){

@@ -7,7 +7,6 @@ import net.minecraft.world.World;
 
 import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.powersapi.power.PowerEffectActivatorInstant;
-import com.himself12794.powersapi.storage.EffectsWrapper;
 import com.himself12794.powersapi.storage.PowersWrapper;
 
 public class Slam extends PowerEffectActivatorInstant {

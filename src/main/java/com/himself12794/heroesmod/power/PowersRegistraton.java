@@ -6,7 +6,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.powersapi.power.Power;
 import com.himself12794.powersapi.power.PowerEffectActivatorBuff;
-import com.himself12794.powersapi.power.PowerInstant;
 
 public class PowersRegistraton {
 

@@ -73,6 +73,19 @@ public class BlockMemory extends PowerInstant {
 		
 	}
 	
+	@Override
+	public int getCooldown(PowerProfile profile) {
+		
+		int uses = profile.getUses();
+		
+		if (uses < 100) return 40;
+		else if (uses < 200) return 30;
+		else if (uses < 300) return 20;
+		else if (uses < 500) return 10;
+		else return 0;
+		
+	}
+	
 	private boolean recallBlock(PowersWrapper wrap, MovingObjectPosition target, World world) {
 
 		if (target.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {

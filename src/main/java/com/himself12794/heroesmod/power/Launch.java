@@ -2,12 +2,10 @@ package com.himself12794.heroesmod.power;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
 import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.heroesmod.world.BioticExplosion;
-import com.himself12794.powersapi.power.Power;
 import com.himself12794.powersapi.power.PowerBuff;
 import com.himself12794.powersapi.storage.EffectsWrapper;
 

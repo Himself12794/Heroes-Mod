@@ -7,7 +7,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
-import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 
 import com.himself12794.heroesmod.HeroesMod;
@@ -17,7 +16,9 @@ import com.himself12794.heroesmod.events.PowerEffectHandler;
 import com.himself12794.heroesmod.network.HeroesNetwork;
 import com.himself12794.heroesmod.power.PowersRegistraton;
 import com.himself12794.heroesmod.powerfx.PowerEffectsRegistration;
+import com.himself12794.heroesmod.storage.AbilitiesWrapper;
 import com.himself12794.heroesmod.util.Reference;
+import com.himself12794.powersapi.storage.PropertiesBase;
 
 public class CommonProxy {
 
@@ -53,6 +54,8 @@ public class CommonProxy {
 			
 			HeroesMod.logger.info("Registering ability sets");
 			AbilitySet.registerAbilitySets();
+			
+			PropertiesBase.registerPropertyClass(AbilitiesWrapper.class);
 		
 		} else {
 			

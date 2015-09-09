@@ -3,7 +3,6 @@ package com.himself12794.heroesmod.powerfx;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 
-import com.himself12794.heroesmod.util.Reference;
 import com.himself12794.powersapi.power.IPlayerOnly;
 import com.himself12794.powersapi.power.Power;
 import com.himself12794.powersapi.power.PowerEffect;
@@ -24,14 +23,10 @@ public class Flight extends PowerEffect implements IPlayerOnly {
 		if (entity instanceof EntityPlayer) {
 			
 			EntityPlayer player = (EntityPlayer)entity;
+			
+			effectContainer.getDataTag().setBoolean("couldFly", player.capabilities.allowFlying);
 			player.capabilities.allowFlying = true;
-			
-			
-			if (player.capabilities.allowFlying) {
-				
-				effectContainer.getDataTag().setBoolean("couldFly", true);
-				
-			}
+
 			
 		}
 		

@@ -17,7 +17,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.powersapi.power.PowerEffect;
-import com.himself12794.powersapi.storage.DataWrapperP;
 import com.himself12794.powersapi.storage.EffectsWrapper;
 import com.himself12794.powersapi.storage.PowersWrapper;
 
@@ -45,9 +44,9 @@ public class PowerEffectHandler {
 			canBreak = item == null ? true : !item.isDamageable();
 		}
 
-		DataWrapperP wrapper = DataWrapperP.get(event.entityPlayer);
+		EffectsWrapper wrapper = EffectsWrapper.get(event.entityPlayer);
 
-		if (wrapper.getPowerEffectsData().isAffectedBy(PowerEffects.breakFx)
+		if (wrapper.isAffectedBy(PowerEffects.breakFx)
 				&& canBreak) {
 			event.success = Items.iron_pickaxe.canHarvestBlock(event.block);
 		}
@@ -65,7 +64,7 @@ public class PowerEffectHandler {
 			canBreak |= item instanceof ItemFlintAndSteel;
 		}
 
-		if (DataWrapperP.get(event.entityPlayer).getPowerEffectsData()
+		if (EffectsWrapper.get(event.entityPlayer)
 				.isAffectedBy(PowerEffects.breakFx) && canBreak) {
 			float speed1 = Items.iron_pickaxe.getStrVsBlock(null,
 					event.state.getBlock());

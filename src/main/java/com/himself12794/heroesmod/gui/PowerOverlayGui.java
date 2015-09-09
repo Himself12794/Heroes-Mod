@@ -1,23 +1,18 @@
 package com.himself12794.heroesmod.gui;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import com.himself12794.powersapi.item.ModItems;
-import com.himself12794.powersapi.power.Power;
+import org.lwjgl.opengl.GL11;
+
 import com.himself12794.powersapi.storage.PowerProfile;
 import com.himself12794.powersapi.storage.PowersWrapper;
 
@@ -104,11 +99,7 @@ public class PowerOverlayGui extends Gui {
         this.zLevel = -185.0F;
         this.itemRender.zLevel = -185.0F;
         FontRenderer font = null;
-        //if (stack != null) font = stack.getItem().getFontRenderer(stack);
-        //if (font == null) font = fontRendererObj;
         this.itemRender.renderItemAndEffectIntoGUI(stack, x, y);
-        // TODO fix text bluring
-        //this.itemRender.renderItemOverlayIntoGUI(font, stack, x, y, altText);
         
         this.zLevel = 0.0F;
         this.itemRender.zLevel = 0.0F;

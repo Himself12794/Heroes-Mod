@@ -4,7 +4,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 import com.himself12794.heroesmod.util.Reference;
@@ -12,7 +11,6 @@ import com.himself12794.heroesmod.util.Reference.Sounds;
 import com.himself12794.heroesmod.world.BioticExplosion;
 import com.himself12794.powersapi.entity.EntityPower;
 import com.himself12794.powersapi.power.PowerRanged;
-import com.himself12794.powersapi.storage.PowerProfile;
 
 public class Flare extends PowerRanged {
 
