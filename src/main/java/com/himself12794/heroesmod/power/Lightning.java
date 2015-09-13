@@ -11,7 +11,7 @@ public class Lightning extends PowerInstant {
 	
 	public Lightning() {
 		setPower(5.0F);
-		setCoolDown(80);
+		setCoolown(80);
 		setUnlocalizedName("lightning");
 	}
 	

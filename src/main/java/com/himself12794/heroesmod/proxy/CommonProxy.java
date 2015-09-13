@@ -55,7 +55,7 @@ public class CommonProxy {
 			HeroesMod.logger.info("Registering ability sets");
 			AbilitySet.registerAbilitySets();
 			
-			PropertiesBase.registerPropertyClass(AbilitiesWrapper.class);
+			PropertiesBase.registerPropertyClass(AbilitiesWrapper.class, EntityPlayer.class);
 		
 		} else {
 			

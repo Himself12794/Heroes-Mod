@@ -13,6 +13,7 @@ import com.himself12794.heroesmod.power.Lightning;
 import com.himself12794.heroesmod.power.Nova;
 import com.himself12794.heroesmod.power.Punt;
 import com.himself12794.heroesmod.power.Slam;
+import com.himself12794.heroesmod.power.SpecializedPunch;
 import com.himself12794.heroesmod.power.Telekinesis;
 import com.himself12794.powersapi.power.Power;
 
@@ -37,6 +38,8 @@ public class Powers {
 	public static final Charge CHARGE;
 	public static final Nova NOVA;
 	public static final Launch LAUNCH; 
+	public static final SpecializedPunch SPECIALIZED_PUNCH;
+	public static final Power SPEED_BOOST;
 
 	static {
 
@@ -61,6 +64,8 @@ public class Powers {
 			CHARGE = Power.lookupPower(Charge.class);
 			NOVA = Power.lookupPower(Nova.class);
 			LAUNCH = Power.lookupPower(Launch.class);
+			SPECIALIZED_PUNCH = Power.lookupPower(SpecializedPunch.class);
+			SPEED_BOOST = Power.lookupPower("speedBoost");
 
 		} else {
 			throw new RuntimeException(

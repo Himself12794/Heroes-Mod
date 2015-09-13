@@ -1,5 +1,6 @@
 package com.himself12794.heroesmod;
 
+import com.himself12794.heroesmod.powerfx.EmphaticMimicry;
 import com.himself12794.heroesmod.powerfx.EnhancedStrength;
 import com.himself12794.heroesmod.powerfx.Lift;
 import com.himself12794.heroesmod.powerfx.Paralysis;
@@ -18,11 +19,13 @@ public class PowerEffects {
 	public static final EnhancedStrength enhancedStrength;
 	public static final PhasingFx phasing;
 	public static final Telekinesis telekinesis;
+	public static final EmphaticMimicry emphaticMimicry;
 	public static final PowerEffect levitate;
 	public static final PowerEffect flight;
 	public static final PowerEffect breakFx;
 	public static final PowerEffect telekineticShield;
 	public static final PowerEffect immortality;
+	public static final PowerEffect speedBoost;
 	
 	static {
 		
@@ -40,6 +43,8 @@ public class PowerEffects {
 			breakFx = PowerEffect.getPowerEffect("break");
 			telekineticShield = PowerEffect.getPowerEffect("telekineticShield");
 			immortality = PowerEffect.getPowerEffect("immortality");
+			emphaticMimicry = (EmphaticMimicry) PowerEffect.getPowerEffect("emphaticMimicry");
+			speedBoost = PowerEffect.getPowerEffect("speedBoost");
 			
 		} else {
 			throw new RuntimeException("References accessed before registration");

@@ -13,7 +13,7 @@ public class Heal extends PowerBuff {
 	public Heal() {
 		setDuration(0);
 		setPower(0.25F);
-		setCoolDown(1);
+		setCoolown(1);
 		//setType(SpellType.BUFF);
 		setUnlocalizedName("heal");
 	} 

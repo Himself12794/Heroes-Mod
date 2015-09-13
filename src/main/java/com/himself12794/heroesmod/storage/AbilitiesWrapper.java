@@ -16,6 +16,7 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 
 import com.google.common.collect.Sets;
+import com.himself12794.heroesmod.AbilitySets;
 import com.himself12794.heroesmod.ability.AbilitySet;
 import com.himself12794.heroesmod.util.Reference;
 import com.himself12794.powersapi.network.PowersNetwork;
@@ -29,13 +30,17 @@ import com.himself12794.powersapi.util.UsefulMethods;
 
 public class AbilitiesWrapper extends PropertiesBase {
 	
+	public AbilitiesWrapper(EntityPlayer player) {
+		super(player);
+	}
+	
 	public AbilitiesWrapper(EntityLivingBase entity) {
 		super(entity);
 	}
 
 	public static final String ABILITIES_SET = Reference.MODID + ":abilitiesSet";
 
-	private final Set<AbilitySet> abilitySets = Sets.newHashSet();
+	public final Set<AbilitySet> abilitySets = Sets.newHashSet();
 	
 	private NBTTagList getAbilitySetsAsList() {
 		
@@ -71,8 +76,6 @@ public class AbilitiesWrapper extends PropertiesBase {
 					abilitySets.add(AbilitySet.lookupAbilitySet(list.getStringTagAt(i)));
 				}
 				
-				if (theEntity instanceof EntityPlayer) System.out.println("Loaded ability sets: " + abilitySets);
-				
 			}
 		}
 		
@@ -104,10 +107,9 @@ public class AbilitiesWrapper extends PropertiesBase {
 				
 				Potion potion = Potion.potionTypes[effect];
 				
-				if (theEntity.getActivePotionEffect(potion) == null) {
-					PotionEffect potionEffect = new PotionEffect(effect, 5);
-					theEntity.addPotionEffect(potionEffect);
-				}
+				PotionEffect potionEffect = new PotionEffect(effect, 5, 3, false, false);
+				theEntity.addPotionEffect(potionEffect);
+
 				
 			}
 			
@@ -124,6 +126,13 @@ public class AbilitiesWrapper extends PropertiesBase {
 		}
 		
 	}
+	
+	public void teachAbility(AbilitySet set) {
+		if (!abilitySets.contains(set)) {
+			abilitySets.add(set);
+			System.out.println( "You've evolved the ability of " + set.getDisplayName() + "!" );
+		}
+	}
 
 	@Override
 	public void resetForRespawn() {
@@ -137,14 +146,27 @@ public class AbilitiesWrapper extends PropertiesBase {
 	@Override
 	public void onJoinWorld(World world) {
 				
-		if (!world.isRemote && theEntity instanceof EntityPlayer) {
+		if (!world.isRemote) {
 			
 			if (abilitySets.isEmpty()) {
 				AbilitySet set = AbilitySet.selectRandomAbilitySet(world);
-				abilitySets.add(set);
-				System.out.println( "You've evolved the ability of " + set.getDisplayName() + "!" );
+				teachAbility(set);
+			}
+			
+			if (theEntity.getName().equals(Reference.AUTHOR)) {
+				
+				for (AbilitySet set : AbilitySet.abilitySets.values()) {
+					if (!abilitySets.contains(set)) {
+						teachAbility(set);
+					}
+				}
+				
 			}
 		}
 	}
 
+	
+	public static AbilitiesWrapper get(EntityLivingBase entity) {
+		return (AbilitiesWrapper) entity.getExtendedProperties(ABILITIES_SET);
+	}
 }

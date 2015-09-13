@@ -13,7 +13,7 @@ public class Incinerate extends PowerInstant {
 	public Incinerate() {
 		
 		setPower(0.0F);
-		setCoolDown(60);
+		setCoolown(60);
 		setDuration(15 * 20);
 		setMaxConcentrationTime(100);
 		setUnlocalizedName("incinerate");

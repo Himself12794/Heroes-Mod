@@ -13,12 +13,11 @@ import com.google.common.collect.Maps;
 import com.himself12794.heroesmod.HeroesMod;
 import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.heroesmod.Powers;
-import com.himself12794.heroesmod.util.IWeightedItem;
 import com.himself12794.heroesmod.util.RandomUtils;
 import com.himself12794.powersapi.power.Power;
 import com.himself12794.powersapi.power.PowerEffect;
 
-public class AbilitySet implements IWeightedItem {
+public class AbilitySet implements RandomUtils.IWeightedItem {
 
 	private float weight = 1.0F;
 	private final List<Power> activePowers = Lists.newArrayList();
@@ -170,9 +169,30 @@ public class AbilitySet implements IWeightedItem {
 				.addPassivePower(PowerEffects.breakFx)
 				.setDescription("The ability to manipulate solid matter."));
 
-		registerAbilitySet(new AbilitySet("flight").setRarity(4.0F)
+		registerAbilitySet(new AbilitySet("flight")
+				.setRarity(4.0F)
+				.addActivePower(Powers.LAUNCH)
+				.addActivePower(Powers.NOVA)
 				.addPassivePower(PowerEffects.flight)
 				.setDescription("The ability of flight."));
+		
+		registerAbilitySet(new AbilitySet("emphaticMimicry")
+				.setRarity(0.0F)
+				.addPassivePower(PowerEffects.emphaticMimicry)
+				.setDescription("Harmless at first, you absorb abilities of others simply by being near them."));
+		
+		registerAbilitySet(new AbilitySet("enhancedSpeed")
+				.setRarity(3.0F)
+				.addActivePower(Powers.SPEED_BOOST)
+				.addActivePower(Powers.CHARGE)
+				.addActivePower(Powers.SPECIALIZED_PUNCH)
+				.addPassivePower(Potion.digSpeed)
+				);
+		
+		registerAbilitySet(new AbilitySet("enhancedStrength")
+				.setRarity(3.0F)
+				.addPassivePower(Potion.damageBoost)
+				);
 
 		HeroesMod.logger.info("Registered " + abilitySetsCount
 				+ " ability set(s)");
@@ -211,7 +231,15 @@ public class AbilitySet implements IWeightedItem {
 	}
 
 	public static AbilitySet lookupAbilitySet(String name) {
-		return abilitySets.get(name);
+		AbilitySet set = abilitySets.get(name);
+		
+		if (set == null) {
+			
+			set = abilitySets.get(name.replaceFirst("ability.", ""));
+			
+		}
+		
+		return set;
 	}
 
 	public static boolean abilitySetExists(AbilitySet abs) {

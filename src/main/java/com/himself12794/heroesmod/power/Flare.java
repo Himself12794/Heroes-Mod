@@ -19,7 +19,7 @@ public class Flare extends PowerRanged {
 	public Flare() {
 		setTexture(Reference.MODID + ":textures/items/flare.png");
 		setPower(40.0F);
-		setCoolDown(200);
+		setCoolown(200);
 		setUnlocalizedName(NAME);
 		shouldRender = true;
 	}

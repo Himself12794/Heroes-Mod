@@ -17,7 +17,7 @@ public class Punt extends PowerInstant {
 
 		setPower(0.0F);
 		setMaxConcentrationTime(20 *5);
-		setCoolDown(60);
+		setCoolown(60);
 		setUnlocalizedName("punt");
 		setRange(50);
 
@@ -27,7 +27,7 @@ public class Punt extends PowerInstant {
 	public boolean onStrike(World world, MovingObjectPosition target,
 			EntityLivingBase caster, float modifier, int state) {
 
-		if (target.typeOfHit == MovingObjectType.ENTITY) {
+		if ( target != null && target.typeOfHit == MovingObjectType.ENTITY) {
 
 			if (target.entityHit instanceof EntityLivingBase) {
 				PowersWrapper.get((EntityLivingBase) target.entityHit).getPowerEffectsData()

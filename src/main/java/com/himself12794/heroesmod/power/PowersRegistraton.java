@@ -49,6 +49,8 @@ public class PowersRegistraton {
 		Power.registerPower(new Charge());
 		Power.registerPower(new Nova());
 		Power.registerPower(new Launch());
+		Power.registerPower(new SpecializedPunch());
+		Power.registerPower(new PowerEffectActivatorBuff("speedBoost", 0, 0, PowerEffects.speedBoost, -1));
 
 	}
 }

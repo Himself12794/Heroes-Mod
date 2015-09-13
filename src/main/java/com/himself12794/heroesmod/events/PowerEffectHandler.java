@@ -74,7 +74,7 @@ public class PowerEffectHandler {
 					event.state.getBlock());
 			float speed = speed1 > speed2 ? (speed1 > speed3 ? speed1 : speed3)
 					: (speed2 > speed3 ? speed2 : speed3);
-			speed *= 0.75F;
+			speed *= 0.20F;
 			if (speed > event.originalSpeed)
 				event.newSpeed = speed;
 		}

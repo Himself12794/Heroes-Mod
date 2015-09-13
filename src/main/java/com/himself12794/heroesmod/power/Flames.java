@@ -23,7 +23,7 @@ public class Flames extends PowerRanged {
 	public Flames() {
 		setMaxConcentrationTime(5 * 20);
 		setPower(6.0F);
-		setCoolDown(100);
+		setCoolown(100);
 		setDuration(8 * 20);
 		setPreparationTime(40);
 		setUnlocalizedName("flames");
