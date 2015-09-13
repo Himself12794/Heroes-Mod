@@ -4,6 +4,7 @@
 .classpath
 .project
 *.json
+!sounds.json
 *.text
 *.properties
 /world/
