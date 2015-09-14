@@ -3,7 +3,6 @@ package com.himself12794.heroesmod.power;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
@@ -16,6 +15,7 @@ import com.himself12794.heroesmod.util.Reference;
 import com.himself12794.powersapi.config.Config;
 import com.himself12794.powersapi.entity.EntityPower;
 import com.himself12794.powersapi.power.PowerRanged;
+import com.himself12794.powersapi.storage.PowerProfile;
 import com.himself12794.powersapi.util.UsefulMethods;
 
 public class Flames extends PowerRanged {
@@ -29,9 +29,9 @@ public class Flames extends PowerRanged {
 		setUnlocalizedName("flames");
 	}	
 	
-	public boolean canCastPower(World worldIn, EntityPlayer playerIn, int state) {
-		boolean flag = !playerIn.isInsideOfMaterial(Material.water);
-		if (flag) playerIn.playSound("fire.ignite", 1.5F, 1);
+	public boolean canCastPower(PowerProfile profile) {
+		boolean flag = !profile.theEntity.isInsideOfMaterial(Material.water);
+		if (flag) profile.theEntity.playSound("fire.ignite", 1.5F, 1);
 		return flag;
 	}
 	

@@ -19,6 +19,7 @@ import com.himself12794.heroesmod.powerfx.PowerEffectsRegistration;
 import com.himself12794.heroesmod.storage.AbilitiesWrapper;
 import com.himself12794.heroesmod.util.Reference;
 import com.himself12794.powersapi.storage.PropertiesBase;
+import com.himself12794.powersapi.storage.PropertiesManager;
 
 public class CommonProxy {
 
@@ -55,7 +56,7 @@ public class CommonProxy {
 			HeroesMod.logger.info("Registering ability sets");
 			AbilitySet.registerAbilitySets();
 			
-			PropertiesBase.registerPropertyClass(AbilitiesWrapper.class, EntityPlayer.class);
+			PropertiesManager.registerPropertyClass(AbilitiesWrapper.class, EntityPlayer.class);
 		
 		} else {
 			

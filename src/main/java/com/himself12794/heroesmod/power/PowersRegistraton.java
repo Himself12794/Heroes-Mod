@@ -50,7 +50,7 @@ public class PowersRegistraton {
 		Power.registerPower(new Nova());
 		Power.registerPower(new Launch());
 		Power.registerPower(new SpecializedPunch());
-		Power.registerPower(new PowerEffectActivatorBuff("speedBoost", 0, 0, PowerEffects.speedBoost, -1));
+		Power.registerPower(new PowerEffectActivatorBuff("speedBoost", 20 * 10, 0, PowerEffects.speedBoost, 20 * 30));
 
 	}
 }

@@ -1,7 +1,6 @@
 package com.himself12794.heroesmod.power;
 
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
@@ -10,18 +9,13 @@ import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.heroesmod.Powers;
 import com.himself12794.heroesmod.world.BioticExplosion;
 import com.himself12794.powersapi.power.PowerBuff;
+import com.himself12794.powersapi.storage.PowerProfile;
 import com.himself12794.powersapi.storage.PowersWrapper;
 
 public class Nova extends PowerBuff {
 	
 	public Nova() {
 		setUnlocalizedName("nova");
-	}
-	
-	@Override
-	public boolean canCastPower(World worldIn, EntityPlayer playerIn, int state) {
-		int cooldown = PowersWrapper.get(playerIn).getCooldownRemaining(Powers.CHARGE);
-		return Powers.CHARGE.getCooldown(null) - cooldown < 5 || playerIn.capabilities.isCreativeMode ;
 	}
 
 	@Override
