@@ -2,7 +2,6 @@ package com.himself12794.heroesmod.power;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
@@ -10,7 +9,6 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import com.himself12794.heroesmod.AbilitySets;
-import com.himself12794.heroesmod.ability.AbilitySet;
 import com.himself12794.heroesmod.storage.AbilitiesEntity;
 import com.himself12794.powersapi.power.PowerInstant;
 import com.himself12794.powersapi.storage.PowerProfile;

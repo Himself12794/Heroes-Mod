@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
+import com.himself12794.heroesmod.HeroesMod;
 import com.himself12794.heroesmod.util.EnumRandomType;
 
 public class S01SpawnParticles implements IMessage {
@@ -20,25 +21,32 @@ public class S01SpawnParticles implements IMessage {
 	private double x;
 	private double y;
 	private double z;
-	private float modifier;
+	private float modifierX;
+	private float modifierY;
+	private float modifierZ;
 	private int amount;
 	private EnumRandomType type;
 
-	public S01SpawnParticles() {
-
-	}
+	public S01SpawnParticles() { }
 
 	public S01SpawnParticles(EnumParticleTypes particles, double x,
-			double y, double z, float modifier, int amount, EnumRandomType type) {
+			double y, double z, float modifierX, float modifierY, float modifierZ, int amount, EnumRandomType type) {
 
 		this.particles = particles;
 		this.x = x;
 		this.y = y;
 		this.z = z;
-		this.modifier = modifier;
+		this.modifierX = modifierX;
+		this.modifierY = modifierY;
+		this.modifierZ = modifierZ;
 		this.amount = amount;
 		this.type = type;
 
+	}
+
+	public S01SpawnParticles(EnumParticleTypes particles, double x,
+			double y, double z, float modifier, int amount, EnumRandomType type) {
+		this(particles, x, y, x, modifier, modifier, modifier, amount, type);
 	}
 
 	@Override
@@ -50,7 +58,9 @@ public class S01SpawnParticles implements IMessage {
 		nbt.setDouble("x", x);
 		nbt.setDouble("y", y);
 		nbt.setDouble("z", z);
-		nbt.setFloat("modifier", modifier);
+		nbt.setFloat("modifierX", modifierX);
+		nbt.setFloat("modifierY", modifierX);
+		nbt.setFloat("modifierZ", modifierX);
 		nbt.setInteger("amount", amount);
 		nbt.setInteger("type", type.getId());
 
@@ -61,24 +71,24 @@ public class S01SpawnParticles implements IMessage {
 	@Override
 	public void fromBytes(ByteBuf buf) {
 
-		particles = EnumParticleTypes.getParticleFromId(ByteBufUtils
-				.readVarShort(buf));
+		particles = EnumParticleTypes.getParticleFromId(ByteBufUtils.readVarShort(buf));
 
 		NBTTagCompound nbt = ByteBufUtils.readTag(buf);
 		x = nbt.getDouble("x");
 		y = nbt.getDouble("y");
 		z = nbt.getDouble("z");
-		modifier = nbt.getFloat("modifier");
+		modifierX = nbt.getFloat("modifierX");
+		modifierY = nbt.getFloat("modifierY");
+		modifierZ = nbt.getFloat("modifierZ");
 		amount = nbt.getInteger("amount");
 		type = EnumRandomType.fromId(nbt.getInteger("type"));
 
 	}
 
-	public static class Handler implements
-			IMessageHandler<S01SpawnParticles, IMessage> {
+	public static class Handler implements IMessageHandler<S01SpawnParticles, IMessage> {
 
 		@Override
-		public IMessage onMessage(final S01SpawnParticles message, MessageContext ctx) {
+		public IMessage onMessage(final S01SpawnParticles message, final MessageContext ctx) {
 
 			if (ctx.side.isClient()) {
 
@@ -90,18 +100,16 @@ public class S01SpawnParticles implements IMessage {
 					public void run() {				
 					
 						for (int i = 0; i < message.amount; ++i) {
-							double x = message.x + message.modifier * getRandomFromType(Minecraft.getMinecraft().theWorld.rand, message.type);
-							double y = message.y + message.modifier * getRandomFromType(Minecraft.getMinecraft().theWorld.rand, message.type);
-							double z = message.z + message.modifier * getRandomFromType(Minecraft.getMinecraft().theWorld.rand, message.type);
-							Minecraft.getMinecraft().theWorld.spawnParticle(message.particles, x, y, z, 0, 0, 0);
+							double x = message.x + message.modifierX * getRandomFromType(Minecraft.getMinecraft().theWorld.rand, message.type);
+							double y = message.y + message.modifierY * getRandomFromType(Minecraft.getMinecraft().theWorld.rand, message.type);
+							double z = message.z + message.modifierZ * getRandomFromType(Minecraft.getMinecraft().theWorld.rand, message.type);
+							HeroesMod.proxy().getPlayerFromContext(ctx).worldObj.spawnParticle(message.particles, x, y, z, 0, 0, 0);
 						}
 						
 					}
 					
 				};
-				
-				Minecraft.getMinecraft().addScheduledTask(task);
-
+				HeroesMod.proxy().scheduleTaskBasedOnContext(ctx, task);
 			}
 			return null;
 		}

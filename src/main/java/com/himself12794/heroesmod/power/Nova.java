@@ -6,10 +6,8 @@ import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
 import com.himself12794.heroesmod.PowerEffects;
-import com.himself12794.heroesmod.Powers;
 import com.himself12794.heroesmod.world.BioticExplosion;
 import com.himself12794.powersapi.power.PowerBuff;
-import com.himself12794.powersapi.storage.PowerProfile;
 import com.himself12794.powersapi.storage.PowersEntity;
 
 public class Nova extends PowerBuff {
