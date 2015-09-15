@@ -5,7 +5,9 @@
   "version" : "0.5",
   "url" : "",
   "credits" : "",
-  "authors": ["Himself12794"],
+  "authors": [
+	"Himself12794"
+  ],
   "description": "An emulation of the powers from the TV Show Heroes",
   "logoFile" : "",
   "updateUrl" : "",

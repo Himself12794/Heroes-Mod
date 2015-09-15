@@ -5,11 +5,11 @@ import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 import org.apache.logging.log4j.Logger;
 
-import com.himself12794.heroesmod.proxy.ClientProxy;
 import com.himself12794.heroesmod.proxy.CommonProxy;
 import com.himself12794.heroesmod.util.Reference;
 
@@ -26,12 +26,16 @@ public class HeroesMod {
 	boolean init = false;
 
 	@Instance(value = Reference.MODID)
-	public static HeroesMod instance;
+	private static HeroesMod instance;
 
 	public static Logger logger;
 
 	public static void print(Object msg) {
 		logger.info(msg);
+	}
+	
+	public static HeroesMod instance() {
+		return instance;
 	}
 
 	@SidedProxy(clientSide = Reference.CLIENT_PROXY, serverSide = Reference.SERVER_PROXY)
@@ -40,17 +44,20 @@ public class HeroesMod {
 	@EventHandler
 	public void preinit(FMLPreInitializationEvent event) {
 
-		init = true;
 		logger = event.getModLog();
 		proxy.preinit(event);
+		init = true;
 	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-
-		// MinecraftForge.EVENT_BUS.register(new EagleVision());
 		proxy.init(event);
 
+	}
+	
+	@EventHandler 
+	public void postInit(FMLPostInitializationEvent event) {
+		proxy.postinit(event);
 	}
 
 	public boolean isInitialized() {

@@ -2,62 +2,57 @@ package com.himself12794.heroesmod.power;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 import com.himself12794.heroesmod.PowerEffects;
-import com.himself12794.powersapi.power.PowerInstant;
-import com.himself12794.powersapi.util.UsefulMethods;
+import com.himself12794.powersapi.power.PowerEffectActivatorInstant;
+import com.himself12794.powersapi.storage.PowersEntity;
 
-public class Telekinesis extends PowerInstant {
-	
+public class Telekinesis extends PowerEffectActivatorInstant {
+
 	public Telekinesis() {
-		
+		super("telekinesis", 160, 200, PowerEffects.telekinesis, -1);
 		setPower(0.0F);
-		setMaxConcentrationTime(10 * 20);
-		setCoolDown(60);
 		setDuration(15 * 20);
-		setUnlocalizedName("telekinesis");
-		
+		setRange(100);
+
+	}
+
+	public boolean onCast(World world, EntityLivingBase caster, float modifier, int state) {
+		PowersEntity.get(caster).getPowerEffectsData().addPowerEffect(PowerEffects.telekineticShield, -1, caster, this);
+		return true;
 	}
 	
 	@Override
-	public boolean onStrike(World world, MovingObjectPosition target, EntityLivingBase caster, float modifier ) {
+	public boolean onStrike(World world, MovingObjectPosition target,
+			EntityLivingBase caster, float modifier, int state) {
 		
-		int distance = (int) target.entityHit.getDistanceToEntity(caster);
-		//System.out.println(distance);
-		EntityLivingBase entity = ((EntityLivingBase)target.entityHit);
-		//entity.jumpMovementFactor = 0.0F;
-		entity.moveForward = 0.0F;
-		entity.moveStrafing = 0.0F;
-		//entity.isAirBorne = true;
-		
-		PowerEffects.levitate.addTo((EntityLivingBase) target.entityHit, 40, caster);
-		//target.entityHit.moveEntity(x, y, z);
-		/*if (distance < 5) {
-			
-			double dx = target.entityHit.posX - caster.posX;
-			double dy = target.entityHit.posY - caster.posY;
-			double dz = target.entityHit.posZ - caster.posZ;
-			//setThrowableHeading(dx, dy, dz, getVelocity(), 0.0F);
-			UsefulMethods.setMovingDirection((EntityLivingBase) target.entityHit, dx, dy, dz, 2.0F);
-			
-		} else*/ if (distance > 5) {
-			
-			double dx = target.entityHit.posX - caster.posX;
-			double dy = target.entityHit.posY - caster.posY;
-			double dz = target.entityHit.posZ - caster.posZ;
-			//setThrowableHeading(dx, dy, dz, getVelocity(), 0.0F);
-			UsefulMethods.setMovingDirection((EntityLivingBase) target.entityHit, dx, dy, dz, -2.0F);
-			
-		} else {
-			
-			target.entityHit.setVelocity(0.0D, 0.0D, 0.0D);
-			
+		if (target != null && target.entityHit != null) {
+
+			if (target.entityHit instanceof EntityLivingBase)
+				PowersEntity.get((EntityLivingBase) target.entityHit).getPowerEffectsData()
+						.addPowerEffect(PowerEffects.paralysis, getDuration(),
+								caster, this);
+
+			if (target.entityHit.getDistanceToEntity(caster) >= 5.0F) {
+
+				Vec3 look = caster.getLookVec();
+
+				target.entityHit.motionX = -look.xCoord * 2.0F;
+				target.entityHit.motionY = -look.yCoord * 2.0F;
+				target.entityHit.motionZ = -look.zCoord * 2.0F;
+			} else {
+				target.entityHit.motionX = 0.0D;
+				target.entityHit.motionY = 0.0D;
+				target.entityHit.motionZ = 0.0D;
+			}
+
+			return true;
 		}
-		
-		
-		return true;
-		
+
+		return false;
+
 	}
 
 }

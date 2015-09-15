@@ -1,9 +1,12 @@
 package com.himself12794.heroesmod.powerfx;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 
+import com.himself12794.powersapi.power.EffectType;
+import com.himself12794.powersapi.power.Power;
 import com.himself12794.powersapi.power.PowerEffect;
 
 public class RapidCellularRegeneration extends PowerEffect {
@@ -12,12 +15,14 @@ public class RapidCellularRegeneration extends PowerEffect {
 	
 	public RapidCellularRegeneration() {
 		setUnlocalizedName(name);
-		setNegateable(true);
+		setType(EffectType.BENEFICIAL);
+		setNegateable();
+		setPersistant();
 	}
 	
 	@Override
-	public void onUpdate(EntityLivingBase entity, int timeleft, EntityLivingBase caster ) {
-					
+	public boolean onUpdate(EntityLivingBase entity, int timeleft, EntityLivingBase caster, Power power ) {
+		
 		entity.removePotionEffect(Potion.poison.id);
 		entity.removePotionEffect(Potion.wither.id);
 		
@@ -26,13 +31,17 @@ public class RapidCellularRegeneration extends PowerEffect {
 			entity.heal(entity.getMaxHealth() * 0.1F);
 		}
 		
+		return true;
+		
 	}
 
 	@Override
-	public void onRemoval(EntityLivingBase entity, EntityLivingBase caster) {
+	public void onRemoval(EntityLivingBase entity, EntityLivingBase caster, Power power) {
 		
-		entity.addPotionEffect(new PotionEffect(Potion.wither.id, 20 * 60 * 5, 3));
+		if (entity instanceof EntityPlayer) {
 		
+			if (!((EntityPlayer)entity).capabilities.isCreativeMode) entity.addPotionEffect(new PotionEffect(Potion.wither.id, 20 * 60 * 5, 3));
+		}
 	}
 	
 	
