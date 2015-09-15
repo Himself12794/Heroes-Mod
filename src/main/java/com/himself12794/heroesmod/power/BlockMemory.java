@@ -1,7 +1,5 @@
 package com.himself12794.heroesmod.power;
 
-import java.util.Arrays;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBanner;
 import net.minecraft.block.BlockCommandBlock;
@@ -18,7 +16,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.BlockPos;
@@ -30,7 +27,8 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
-import com.himself12794.heroesmod.Powers;
+import com.himself12794.heroesmod.network.HeroesNetwork;
+import com.himself12794.heroesmod.util.EnumRandomType;
 import com.himself12794.powersapi.power.PowerInstant;
 import com.himself12794.powersapi.storage.PowerProfile;
 import com.himself12794.powersapi.storage.PowersEntity;
@@ -257,7 +255,6 @@ public class BlockMemory extends PowerInstant {
 					if (nextBlock.getBoolean("hasTileEntity")) {
 
 						NBTTagCompound tags = nextBlock.getCompoundTag("tileEntity");
-						System.out.println("Full data: " + nextBlock);
 						TileEntity entityNew = TileEntity.createAndLoadEntity(tags);
 						if (entityNew != null) entityNew.setPos(newPos);
 
@@ -289,7 +286,7 @@ public class BlockMemory extends PowerInstant {
 			} else {
 				if (world.isRemote)
 					wrap.theEntity.addChatMessage(new ChatComponentText(
-							"You don't have any blocks you're remebering"));
+							"You don't have any blocks you're remembering"));
 			}
 
 		} 
@@ -305,8 +302,7 @@ public class BlockMemory extends PowerInstant {
 			BlockPos pos = target.getBlockPos();
 			IBlockState theBlockState = world.getBlockState(pos);
 			Block theBlock = theBlockState.getBlock();
-			theBlockState = theBlock.getActualState(theBlockState,
-					world, pos);
+			theBlockState = theBlock.getActualState(theBlockState, world, pos);
 			PowerProfile profile = wrap.getPowerProfile(this);
 			TileEntity entity = null;
 
@@ -361,10 +357,13 @@ public class BlockMemory extends PowerInstant {
 
 	private void playPoof(World world, BlockPos pos) {
 
-		float x = pos.getX();
-		float y = pos.getY();
-		float z = pos.getZ();
+		double x = pos.getX();
+		double y = pos.getY();
+		double z = pos.getZ();
 
+		HeroesNetwork.client().spawnParticles(EnumParticleTypes.EXPLOSION_NORMAL, x, y, z, 0.5F, 1.5F, 0.5F, 25, EnumRandomType.GAUSSIAN, null);
+		
+		/*// TODO use network so all clients see this
 		for (int i = 0; i < 25; i++) {
 
 			world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, x + 0.5D
@@ -372,7 +371,7 @@ public class BlockMemory extends PowerInstant {
 					y + 1.5D * world.rand.nextGaussian(),
 					z + 0.5D * world.rand.nextGaussian(), 0, 0, 0);
 
-		}
+		}*/
 
 	}
 

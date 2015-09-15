@@ -22,5 +22,11 @@ public class Client {
 		if (point != null) network.sendToAllAround(message, point);
 		else network.sendToAll(message);
 	}
+	
+	public void spawnParticles(EnumParticleTypes particles, double x, double y, double z, float modifierX, float modifierY, float modifierZ, int amount, EnumRandomType type, TargetPoint point) {
+		IMessage message = new S01SpawnParticles(particles, x, y, z, modifierX, modifierY, modifierZ, amount, type);
+		if (point != null) network.sendToAllAround(message, point);
+		else network.sendToAll(message);
+	}
 
 }

@@ -129,7 +129,6 @@ public class AbilitySet implements RandomUtils.IWeightedItem {
 
 	@Override
 	public float getWeight() {
-		// TODO Auto-generated method stub
 		return weight;
 	}
 

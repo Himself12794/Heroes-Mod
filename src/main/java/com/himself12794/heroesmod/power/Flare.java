@@ -6,7 +6,6 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
-import com.himself12794.heroesmod.util.Reference;
 import com.himself12794.heroesmod.util.Reference.Sounds;
 import com.himself12794.heroesmod.world.BioticExplosion;
 import com.himself12794.powersapi.entity.EntityPower;
