@@ -17,17 +17,17 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.powersapi.power.PowerEffect;
-import com.himself12794.powersapi.storage.EffectsWrapper;
-import com.himself12794.powersapi.storage.PowersWrapper;
+import com.himself12794.powersapi.storage.EffectsEntity;
+import com.himself12794.powersapi.storage.PowersEntity;
 
 public class PowerEffectHandler {
 
 	@SubscribeEvent
 	public void preventDeath(LivingDeathEvent event) {
-		if (EffectsWrapper.get(event.entityLiving).isAffectedBy(PowerEffects.rapidCellularRegeneration)) {
+		if (EffectsEntity.get(event.entityLiving).isAffectedBy(PowerEffects.rapidCellularRegeneration)) {
 
 			if (event.source != DamageSource.outOfWorld
-					&& !EffectsWrapper.get(event.entityLiving).isAffectedBy(PowerEffect.negated)) {
+					&& !EffectsEntity.get(event.entityLiving).isAffectedBy(PowerEffect.negated)) {
 				event.entityLiving.setHealth(0.5F);
 				event.setCanceled(true);
 			}
@@ -44,7 +44,7 @@ public class PowerEffectHandler {
 			canBreak = item == null ? true : !item.isDamageable();
 		}
 
-		EffectsWrapper wrapper = EffectsWrapper.get(event.entityPlayer);
+		EffectsEntity wrapper = EffectsEntity.get(event.entityPlayer);
 
 		if (wrapper.isAffectedBy(PowerEffects.breakFx)
 				&& canBreak) {
@@ -64,7 +64,7 @@ public class PowerEffectHandler {
 			canBreak |= item instanceof ItemFlintAndSteel;
 		}
 
-		if (EffectsWrapper.get(event.entityPlayer)
+		if (EffectsEntity.get(event.entityPlayer)
 				.isAffectedBy(PowerEffects.breakFx) && canBreak) {
 			float speed1 = Items.iron_pickaxe.getStrVsBlock(null,
 					event.state.getBlock());
@@ -84,7 +84,7 @@ public class PowerEffectHandler {
 	@SubscribeEvent
 	public void deflectProjectile(LivingAttackEvent event) {
 		
-		if (PowersWrapper.get(event.entityLiving).getPowerEffectsData().isAffectedBy(PowerEffects.telekineticShield)) {
+		if (PowersEntity.get(event.entityLiving).getPowerEffectsData().isAffectedBy(PowerEffects.telekineticShield)) {
 			
 			if (event.entity.worldObj.rand.nextInt(4) == 0) {
 				
@@ -120,7 +120,7 @@ public class PowerEffectHandler {
 			
 		}
 		
-		if (PowersWrapper.get(event.entityLiving).getPowerEffectsData().isAffectedBy(PowerEffects.immortality)) {
+		if (PowersEntity.get(event.entityLiving).getPowerEffectsData().isAffectedBy(PowerEffects.immortality)) {
 			
 			if (!event.source.canHarmInCreative()) {
 				

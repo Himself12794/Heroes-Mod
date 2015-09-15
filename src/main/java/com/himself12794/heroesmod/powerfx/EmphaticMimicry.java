@@ -9,7 +9,7 @@ import net.minecraft.util.ChatComponentText;
 import com.google.common.base.Predicate;
 import com.himself12794.heroesmod.AbilitySets;
 import com.himself12794.heroesmod.ability.AbilitySet;
-import com.himself12794.heroesmod.storage.AbilitiesWrapper;
+import com.himself12794.heroesmod.storage.AbilitiesEntity;
 import com.himself12794.powersapi.power.EffectType;
 import com.himself12794.powersapi.power.Power;
 import com.himself12794.powersapi.power.PowerEffect;
@@ -32,17 +32,17 @@ public class EmphaticMimicry extends PowerEffect {
 			@Override
 			public boolean apply(EntityPlayer input) {
 				return input.getDistanceToEntity(entity) <= mimicryRange 
-						&& !AbilitiesWrapper.get(input).abilitySets.isEmpty() 
-						&& !AbilitiesWrapper.get(input).abilitySets.contains(AbilitySets.emphaticMimicry);
+						&& !AbilitiesEntity.get(input).abilitySets.isEmpty() 
+						&& !AbilitiesEntity.get(input).abilitySets.contains(AbilitySets.emphaticMimicry);
 			}
 			
 		}); 
 		
-		AbilitiesWrapper wrapper = AbilitiesWrapper.get(entity);
+		AbilitiesEntity wrapper = AbilitiesEntity.get(entity);
 		
 		for (EntityPlayer player : players) {
 			
-			for (AbilitySet set : AbilitiesWrapper.get(player).abilitySets) {
+			for (AbilitySet set : AbilitiesEntity.get(player).abilitySets) {
 				
 				if (!wrapper.abilitySets.contains(set)) {
 					wrapper.abilitySets.add(set);

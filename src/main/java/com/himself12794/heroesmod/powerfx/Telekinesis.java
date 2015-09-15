@@ -6,7 +6,7 @@ import net.minecraft.util.Vec3;
 import com.himself12794.powersapi.power.EffectType;
 import com.himself12794.powersapi.power.Power;
 import com.himself12794.powersapi.power.PowerEffect;
-import com.himself12794.powersapi.storage.EffectsWrapper;
+import com.himself12794.powersapi.storage.EffectsEntity;
 
 public class Telekinesis extends PowerEffect {
 
@@ -80,7 +80,7 @@ public class Telekinesis extends PowerEffect {
 			Power power) {
 		
 		return caster.getDistanceToEntity(entity) <= DISTANCE_FROM_CASTER
-				&& EffectsWrapper.get(entity).isAffectedBy(this);
+				&& EffectsEntity.get(entity).isAffectedBy(this);
 	}
 
 }

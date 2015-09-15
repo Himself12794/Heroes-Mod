@@ -10,7 +10,7 @@ import com.himself12794.heroesmod.Powers;
 import com.himself12794.heroesmod.world.BioticExplosion;
 import com.himself12794.powersapi.power.PowerBuff;
 import com.himself12794.powersapi.storage.PowerProfile;
-import com.himself12794.powersapi.storage.PowersWrapper;
+import com.himself12794.powersapi.storage.PowersEntity;
 
 public class Nova extends PowerBuff {
 	
@@ -21,7 +21,7 @@ public class Nova extends PowerBuff {
 	@Override
 	public boolean onCast(World world, EntityLivingBase caster, float modifier, int state) {
 		
-		PowersWrapper.get(caster).getPowerEffectsData().addPowerEffect(PowerEffects.slam, 3, caster, this);
+		PowersEntity.get(caster).getPowerEffectsData().addPowerEffect(PowerEffects.slam, 3, caster, this);
 		
 		caster.setSprinting(true);
 

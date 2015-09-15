@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.heroesmod.world.BioticExplosion;
 import com.himself12794.powersapi.power.PowerBuff;
-import com.himself12794.powersapi.storage.EffectsWrapper;
+import com.himself12794.powersapi.storage.EffectsEntity;
 
 public class Launch extends PowerBuff {
 
@@ -21,7 +21,7 @@ public class Launch extends PowerBuff {
 			caster.motionY = 8.0D;
 			BioticExplosion.doExplosion(world, caster, 2.0F, 10.0F);
 			if (caster instanceof EntityPlayer) {
-				EffectsWrapper.get(caster).addPowerEffect(PowerEffects.flight, -1, caster, this);
+				EffectsEntity.get(caster).addPowerEffect(PowerEffects.flight, -1, caster, this);
 				EntityPlayer player = (EntityPlayer)caster;
 				if (player.capabilities.allowFlying) {
 					player.capabilities.isFlying = true;

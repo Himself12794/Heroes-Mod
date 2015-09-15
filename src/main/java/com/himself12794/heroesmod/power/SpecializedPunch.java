@@ -6,11 +6,12 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import com.himself12794.heroesmod.AbilitySets;
 import com.himself12794.heroesmod.ability.AbilitySet;
-import com.himself12794.heroesmod.storage.AbilitiesWrapper;
+import com.himself12794.heroesmod.storage.AbilitiesEntity;
 import com.himself12794.powersapi.power.PowerInstant;
 import com.himself12794.powersapi.storage.PowerProfile;
 
@@ -41,18 +42,22 @@ public class SpecializedPunch extends PowerInstant {
 	}
 	
 	public int getMaxFunctionalState(PowerProfile profile) { 
-		int maxState = AbilitiesWrapper.get(profile.theEntity).abilitySets.contains(AbilitySets.enhancedStrength) ? 1 : 0;
+		int maxState = AbilitiesEntity.get(profile.theEntity).abilitySets.contains(AbilitySets.enhancedStrength) ? 1 : 0;
 		return maxState; 
 	}
 	
 	public void onStateChanged(World world, EntityLivingBase caster, int prevState, int currState) {
 		
-		if (currState == 0 && world.isRemote) {
+		/*if (currState == 0 && world.isRemote) {
 			caster.addChatMessage( new ChatComponentText( "Changed to high velocity punch" ) );
 		} else if (world.isRemote && currState == 1 ) {
 			caster.addChatMessage( new ChatComponentText( "Changed to low velocity punch" ) );
-		}
+		}*/
 		
+	}
+	
+	public String getDisplayName(PowerProfile profile) {
+		return ("" + StatCollector.translateToLocal(getUnlocalizedName() + ".name" + profile.getState())).trim();
 	}
 	
 	private void doLowVelocityPunch(EntityLivingBase puncher, EntityLivingBase targetEntity) {

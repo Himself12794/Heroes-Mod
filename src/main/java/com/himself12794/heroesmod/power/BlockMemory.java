@@ -1,5 +1,7 @@
 package com.himself12794.heroesmod.power;
 
+import java.util.Arrays;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBanner;
 import net.minecraft.block.BlockCommandBlock;
@@ -11,28 +13,39 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.server.gui.IUpdatePlayerListBox;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 import com.himself12794.heroesmod.Powers;
 import com.himself12794.powersapi.power.PowerInstant;
 import com.himself12794.powersapi.storage.PowerProfile;
-import com.himself12794.powersapi.storage.PowersWrapper;
+import com.himself12794.powersapi.storage.PowersEntity;
 import com.himself12794.powersapi.util.UsefulMethods;
 
 public class BlockMemory extends PowerInstant {
 
+	private static final class State {
+		private static final int SINGLE_REMEMBER = 0;
+		private static final int SINGLE_RECALL = 1;
+	}
+	
 	public BlockMemory() {
 		setUnlocalizedName("blockMemory");
+		setMaxLevel(3);
 		setRange(5);
 		setMaxFunctionalState(1);
 	}
@@ -40,17 +53,13 @@ public class BlockMemory extends PowerInstant {
 	public boolean onStrike(World world, MovingObjectPosition target,
 			EntityLivingBase caster, float modifier, int state) {
 
-		PowersWrapper wrap = PowersWrapper.get(caster);
+		PowersEntity wrap = PowersEntity.get(caster);
 		boolean result;
 		
-		if (state == 0) {
+		if (state == State.SINGLE_REMEMBER) {
 			result = rememberBlock(wrap, target, world);
 		} else {
 			result = recallBlock(wrap, target, world);
-		}
-		
-		if (result) {
-			wrap.getPowerProfile(this).cycleState(false);
 		}
 		
 		return result;
@@ -63,11 +72,12 @@ public class BlockMemory extends PowerInstant {
 		if (getMaxFunctionalState() <= 1) {
 			String text;
 			
-			if (currState == 0) {
-				text = "Now remebering blocks";
+			if (currState == State.SINGLE_REMEMBER) {
+				text = "Now remembering blocks";
 			} else {
 				text = "Now recalling blocks";
 			}
+			
 			if (world.isRemote) caster.addChatMessage( new ChatComponentText( text ) );
 		}
 		
@@ -86,40 +96,177 @@ public class BlockMemory extends PowerInstant {
 		
 	}
 	
-	private boolean recallBlock(PowersWrapper wrap, MovingObjectPosition target, World world) {
+	@Override
+	public String getInfo(PowerProfile profile) {
+		NBTTagCompound info = getNextBlockState(profile);
+		String text;
+		
+		IBlockState state = Block.getStateById(info.getInteger("blockState"));
+		Block block = state.getBlock();
+			
+		if (block != Blocks.air)
+			text = "Next block: " + (new ItemStack(block, 1, block.getMetaFromState(state))).getDisplayName();
+		else
+			text = "No blocks in memory";
+		
+		return text + " (" + getBlocksInMemory(profile).tagCount() + "/" + getMaxMemorySpace(profile) + ")";
+	}
+	
+	public String getDisplayName(PowerProfile profile) {
+		return ("" + StatCollector.translateToLocal(getUnlocalizedName() + ".name" + profile.getState())).trim();
+	}
+	
+	private int getMaxMemorySpace(PowerProfile profile) {
+		return (int) Math.pow(2, profile.level);
+	}
+	
+	public boolean hasBlocksInMemory(PowerProfile profile) {
+		return !getBlocksInMemory(profile).hasNoTags();
+	}
+	
+	public boolean isMemoryFull(PowerProfile profile) {
+		return getBlocksInMemory(profile).tagCount() >= getMaxMemorySpace(profile);
+	}
+	
+	public NBTTagList getBlocksInMemory(PowerProfile profile) {
+		
+		NBTTagCompound tags = profile.powerData;
+		
+		NBTTagList blocks;
+		
+		if (tags.hasKey("memorizedBlocks", 9)) {
+			blocks = tags.getTagList("memorizedBlocks", 10);
+		} else {
+			blocks = new NBTTagList();
+			tags.setTag("memorizedBlocks", blocks);
+		}
+		
+		return blocks;
+	}
+	
+	private boolean addBlockToMemory(PowerProfile profile, IBlockState state, TileEntity entity) {
+		
+		NBTTagList blocks = getBlocksInMemory(profile);
+		
+		if (!isMemoryFull(profile)) {
+			
+			NBTTagCompound blockData = new NBTTagCompound();
+			blockData.setBoolean("isValid", true);
+			blockData.setInteger("blockState", Block.getStateId(state));
+			
+			if (entity != null) {
+				NBTTagCompound compound = new NBTTagCompound();
+				entity.writeToNBT(compound);
+				blockData.setTag("tileEntity", compound);
+				blockData.setBoolean("hasTileEntity", true);
+			}
+			
+			blocks.appendTag(blockData);
+			return true;
+		}
+		
+		return false;	
+	}
+	
+	private NBTTagCompound getNextBlockState(PowerProfile profile) {
+		NBTTagList blocks = getBlocksInMemory(profile);
+		
+		if (!blocks.hasNoTags()) {
+			return blocks.getCompoundTagAt(0);
+		}
+		
+		return new NBTTagCompound();
+	}
+	
+	private NBTTagCompound popNextBlockState(PowerProfile profile) {
+		NBTTagCompound state = getNextBlockState(profile);
+		NBTTagList blocks = getBlocksInMemory(profile);
+		
+		if (state.getBoolean("isValid")) {
+			blocks.removeTag(0);
+		}
+		
+		return state;
+	}
+	
+	@Override
+	public void onKnowledgeTick(PowerProfile profile) {
+		
+		if (hasBlocksInMemory(profile)) {
+			
+			NBTTagList blocks = getBlocksInMemory(profile);
+			
+			for (int i = 0; i < blocks.tagCount(); i++) {
+				
+				NBTTagCompound block = blocks.getCompoundTagAt(i);
+				
+				if (block.getBoolean("hasTileEntity")) {
+					
+					TileEntity entity = TileEntity.createAndLoadEntity(block.getCompoundTag("tileEntity"));
+					
+					if (entity instanceof TileEntityFurnace) {
+						entity.setWorldObj(profile.theEntity.getEntityWorld());
+						((TileEntityFurnace)entity).update();
+					}
+					
+					NBTTagCompound compound = new NBTTagCompound();
+					entity.writeToNBT(compound);
+					block.setTag("tileEntity", compound);
+					
+				}
+				
+			}
+			
+		}
+		
+	}
+	
+	private BlockPos getNextAvailablePosForTileEntity(World world) {
+		BlockPos pos = BlockPos.ORIGIN;
+		
+		while (true) {
+			if (world.getTileEntity(pos) == null) {
+				return pos;
+			} else {
+				pos = pos.north();
+			}
+		}
+	}
+	
+	private boolean recallBlock(PowersEntity wrap, MovingObjectPosition target, World world) {
 
 		if (target.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
 			
-			PowerProfile powerProf = wrap.getPowerProfile(Powers.BLOCK_MEMORY);
-			NBTTagCompound powerData = powerProf.powerData;
-
-			if (powerData.getBoolean("memoryFull")) {
+			PowerProfile powerProf = wrap.getPowerProfile(this);
+			NBTTagCompound nextBlock = this.getNextBlockState(powerProf);
+			
+			if ( nextBlock.getBoolean("isValid") ) {
 
 				BlockPos newPos = UsefulMethods.getBlockFromSideSwap(
 						target.getBlockPos(), target.sideHit);
 
-				IBlockState originalState = Block.getStateById(powerData
-						.getInteger("savedBlock"));
+				IBlockState originalState = Block.getStateById(nextBlock.getInteger("blockState"));
 				Block transportedBlock = originalState.getBlock();
 
 				// Check if block can be placed there
 				if (transportedBlock.canPlaceBlockAt(world, newPos)) {
+					
+					this.popNextBlockState(powerProf);
 
 					// It works with tile entities now!
-					if (powerData.getBoolean("hasTileEntity")) {
+					if (nextBlock.getBoolean("hasTileEntity")) {
 
-						NBTTagCompound tags = new NBTTagCompound();
-						TileEntity entityNew = TileEntity
-								.createAndLoadEntity(powerData
-										.getCompoundTag("savedTileEntity"));
-						entityNew.setPos(newPos);
+						NBTTagCompound tags = nextBlock.getCompoundTag("tileEntity");
+						System.out.println("Full data: " + nextBlock);
+						TileEntity entityNew = TileEntity.createAndLoadEntity(tags);
+						if (entityNew != null) entityNew.setPos(newPos);
 
 						Item toItem = Item.getItemFromBlock(transportedBlock);
 
 						ItemStack placementHelp = toItem != null ? new ItemStack(
 								toItem) : new ItemStack(transportedBlock);
 
-						Powers.BLOCK_MEMORY.playSoundAndPoof(world, newPos);
+						playSoundAndPoof(world, newPos);
 
 						placementHelp.onItemUse((EntityPlayer) wrap.theEntity, world,
 								newPos, target.sideHit,
@@ -127,7 +274,7 @@ public class BlockMemory extends PowerInstant {
 								(float) target.hitVec.yCoord,
 								(float) target.hitVec.zCoord);
 
-						if (world.getTileEntity(newPos) != null) {
+						if (world.getTileEntity(newPos) != null && entityNew != null) {
 							world.removeTileEntity(newPos);
 							world.setTileEntity(newPos, entityNew);
 						}
@@ -135,9 +282,8 @@ public class BlockMemory extends PowerInstant {
 					} else {
 
 						world.setBlockState(newPos, originalState);
-						Powers.BLOCK_MEMORY.playSoundAndPoof(world, newPos);
+						playSoundAndPoof(world, newPos);
 					}
-					powerProf.resetPowerData();
 					return true;
 				}
 			} else {
@@ -152,8 +298,7 @@ public class BlockMemory extends PowerInstant {
 		
 	}
 	
-	private boolean rememberBlock(PowersWrapper wrap, MovingObjectPosition target, World world) {
-		NBTTagCompound nbt = wrap.getPowerProfile(this).powerData;
+	private boolean rememberBlock(PowersEntity wrap, MovingObjectPosition target, World world) {
 
 		if (target.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
 
@@ -162,27 +307,20 @@ public class BlockMemory extends PowerInstant {
 			Block theBlock = theBlockState.getBlock();
 			theBlockState = theBlock.getActualState(theBlockState,
 					world, pos);
+			PowerProfile profile = wrap.getPowerProfile(this);
+			TileEntity entity = null;
 
-			if (canCloneBlock(world.getBlockState(pos).getBlock(),
-					world.getBlockState(pos), pos, world)) {
+			if (this.canCloneBlock(theBlock, theBlockState, pos, world)) {
 
-				if (!nbt.getBoolean("memoryFull")) {
-
-					nbt.setBoolean("memoryFull", true);
-					nbt.setInteger("savedBlock",
-							Block.getStateId(world.getBlockState(pos)));
+				if (!this.isMemoryFull(profile)) {
 
 					if (theBlock.hasTileEntity(theBlockState)) {
-
-						NBTTagCompound tileEntity = new NBTTagCompound();
-						world.getTileEntity(pos).writeToNBT(tileEntity);
-
-						nbt.setTag("savedTileEntity", tileEntity);
-						nbt.setBoolean("hasTileEntity", true);
-						
+						entity = world.getTileEntity(pos);
 					}
 					
-					removeBlockAndPlayEffects(world, pos, theBlock);
+					this.addBlockToMemory(profile, theBlockState, entity);
+					
+					this.removeBlockAndPlayEffects(world, pos, theBlock);
 
 					return true;
 				} else {

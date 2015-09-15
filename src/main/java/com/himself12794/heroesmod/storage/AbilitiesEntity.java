@@ -23,18 +23,18 @@ import com.himself12794.powersapi.network.PowersNetwork;
 import com.himself12794.powersapi.power.Power;
 import com.himself12794.powersapi.power.PowerEffect;
 import com.himself12794.powersapi.storage.EffectContainer;
-import com.himself12794.powersapi.storage.EffectsWrapper;
-import com.himself12794.powersapi.storage.PowersWrapper;
+import com.himself12794.powersapi.storage.EffectsEntity;
+import com.himself12794.powersapi.storage.PowersEntity;
 import com.himself12794.powersapi.storage.PropertiesBase;
 import com.himself12794.powersapi.util.UsefulMethods;
 
-public class AbilitiesWrapper extends PropertiesBase {
+public class AbilitiesEntity extends PropertiesBase {
 	
-	public AbilitiesWrapper(EntityPlayer player) {
+	public AbilitiesEntity(EntityPlayer player) {
 		super(player);
 	}
 	
-	public AbilitiesWrapper(EntityLivingBase entity) {
+	public AbilitiesEntity(EntityLivingBase entity) {
 		super(entity);
 	}
 
@@ -93,7 +93,7 @@ public class AbilitiesWrapper extends PropertiesBase {
 
 		for (AbilitySet set : abilitySets) {
 			
-			EffectsWrapper wrapper = EffectsWrapper.get(theEntity);
+			EffectsEntity wrapper = EffectsEntity.get(theEntity);
 			
 			for (PowerEffect effect : set.getPassivePowers()) {
 				
@@ -113,7 +113,7 @@ public class AbilitiesWrapper extends PropertiesBase {
 				
 			}
 			
-			PowersWrapper wrap = PowersWrapper.get(theEntity);
+			PowersEntity wrap = PowersEntity.get(theEntity);
 			
 			for (Power power : set.getActivePowers()) {
 				
@@ -166,7 +166,7 @@ public class AbilitiesWrapper extends PropertiesBase {
 	}
 
 	
-	public static AbilitiesWrapper get(EntityLivingBase entity) {
-		return (AbilitiesWrapper) entity.getExtendedProperties(ABILITIES_SET);
+	public static AbilitiesEntity get(EntityLivingBase entity) {
+		return (AbilitiesEntity) entity.getExtendedProperties(ABILITIES_SET);
 	}
 }

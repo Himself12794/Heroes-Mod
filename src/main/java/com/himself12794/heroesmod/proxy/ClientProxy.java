@@ -10,6 +10,7 @@ import net.minecraftforge.fml.relauncher.Side;
 
 import com.himself12794.heroesmod.events.SoundHacking;
 import com.himself12794.heroesmod.gui.PowerOverlayGui;
+import com.himself12794.heroesmod.item.ModItems;
 
 public class ClientProxy extends CommonProxy {
 	
@@ -27,7 +28,7 @@ public class ClientProxy extends CommonProxy {
     		
     		MinecraftForge.EVENT_BUS.register(new SoundHacking());
     		MinecraftForge.EVENT_BUS.register(new PowerOverlayGui(Minecraft.getMinecraft()));
-    		//ModItems.registerTextures(event);
+    		ModItems.registerTextures(event);
     		
     	}
     	

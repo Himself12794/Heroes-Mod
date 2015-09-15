@@ -17,7 +17,6 @@ public class Flare extends PowerRanged {
 	public static final String NAME = "flare";
 
 	public Flare() {
-		setTexture(Reference.MODID + ":textures/items/flare.png");
 		setPower(40.0F);
 		setCoolown(200);
 		setUnlocalizedName(NAME);

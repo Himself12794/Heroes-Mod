@@ -65,7 +65,7 @@ public class Powers {
 			NOVA = Power.lookupPower(Nova.class);
 			LAUNCH = Power.lookupPower(Launch.class);
 			SPECIALIZED_PUNCH = Power.lookupPower(SpecializedPunch.class);
-			SPEED_BOOST = Power.lookupPower("speedBoost");
+			SPEED_BOOST = Power.lookupPower("power.speedBoost");
 
 		} else {
 			throw new RuntimeException(

@@ -6,12 +6,15 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.Vec3;
 
+import com.himself12794.heroesmod.Powers;
 import com.himself12794.heroesmod.util.Reference;
 import com.himself12794.heroesmod.util.UtilMethods;
 import com.himself12794.powersapi.power.EffectType;
 import com.himself12794.powersapi.power.Power;
 import com.himself12794.powersapi.power.PowerEffect;
 import com.himself12794.powersapi.storage.EffectContainer;
+import com.himself12794.powersapi.storage.PowerProfile;
+import com.himself12794.powersapi.storage.PowersEntity;
 
 public class PowerEffectsRegistration {
 	
@@ -32,7 +35,7 @@ public class PowerEffectsRegistration {
 		PowerEffect.registerEffect(new Paralysis());
 		PowerEffect.registerEffect(new EnhancedStrength());
 		PowerEffect.registerEffect(new Flight());
-		PowerEffect.registerEffect(new PhasingFx());
+		//PowerEffect.registerEffect(new PhasingFx());
 		PowerEffect.registerEffect(new Telekinesis());
 		PowerEffect.registerEffect(new PowerEffect("break", true, EffectType.BENEFICIAL));
 		PowerEffect.registerEffect(new PowerEffect("telekineticShield", true, EffectType.BENEFICIAL, true));
@@ -42,15 +45,21 @@ public class PowerEffectsRegistration {
 			
 			public boolean onUpdate(EntityLivingBase entity, int timeLeft, EntityLivingBase caster, Power power) {
 
-				if (UtilMethods.getTotalVelocity(entity) >= 0.0F) {
+				PowerProfile profile = PowersEntity.get(entity).getPowerProfile(power);
+				int level = profile != null  && power == Powers.SPEED_BOOST ? 
+						(profile.level < 3 ? profile.level : 3) : 1;
+				
+				//System.out.println(Powers.SPEED_BOOST);
+						
+				if (level == 3) {
 					Vec3 look = entity.getLookVec();
 					Vec3 pos = entity.getPositionVector();
 					pos = pos.add(entity.getLookVec());
 					BlockPos block = new BlockPos(pos.xCoord, pos.yCoord, pos.zCoord);
 					entity.stepHeight = UtilMethods.getDistanceToNextOccupiableSpace(entity.worldObj, block);
 				}
-
-				entity.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 5, 3, false, false));
+				
+				entity.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 5, level, false, false));
 				return true;
 			}
 			

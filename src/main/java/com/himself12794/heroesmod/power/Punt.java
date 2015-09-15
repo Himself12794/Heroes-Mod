@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 
 import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.powersapi.power.PowerInstant;
-import com.himself12794.powersapi.storage.PowersWrapper;
+import com.himself12794.powersapi.storage.PowersEntity;
 
 public class Punt extends PowerInstant {
 
@@ -30,7 +30,7 @@ public class Punt extends PowerInstant {
 		if ( target != null && target.typeOfHit == MovingObjectType.ENTITY) {
 
 			if (target.entityHit instanceof EntityLivingBase) {
-				PowersWrapper.get((EntityLivingBase) target.entityHit).getPowerEffectsData()
+				PowersEntity.get((EntityLivingBase) target.entityHit).getPowerEffectsData()
 						.removePowerEffectSparingly(PowerEffects.telekinesis);
 			}
 

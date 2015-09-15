@@ -1,3 +1,7 @@
+item.HeroesMod_skillBook.name=Skill Book
+item.HeroesMod_skillBook.primary.name=Level up Primary Power
+item.HeroesMod_skillBook.secondary.name=Level up Secondary Power
+
 power.damage.name=Damage
 power.damage.description=Damages Enemies
 power.incinerate.name=Incinerate
@@ -31,11 +35,17 @@ power.eclipse.description=Percentage based attack that blinds
 power.break.name=Break
 power.break.description=Activate to break blocks
 power.blockMemory.name=Block Memory
-power.blockMemory.description=Remembers and recalls block.
+power.blockMemory.name0=Block Remember
+power.blockMemory.name1=Block Recall
+power.blockMemory.description=Remembers and recalls blocks.
 power.charge.name=Charge
 power.charge.description=Charges into an enemy.
 power.nova.name=Nova
 power.nova.description=Explodes only after a charge.
+power.specializedPunch.name=Punch
+power.specializedPunch.name0=Punch (High Velocity)
+power.specializedPunch.name1=Punch (Low Velocity)
+power.speedBoost.name=Speed Boost
 
 ability.rapidCellularRegeneration.name=Rapid Cellular Regeneration
 ability.flight.name=Flight

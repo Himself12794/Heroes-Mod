@@ -13,10 +13,11 @@ import com.himself12794.heroesmod.HeroesMod;
 import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.heroesmod.ability.AbilitySet;
 import com.himself12794.heroesmod.events.PowerEffectHandler;
+import com.himself12794.heroesmod.item.ModItems;
 import com.himself12794.heroesmod.network.HeroesNetwork;
 import com.himself12794.heroesmod.power.PowersRegistraton;
 import com.himself12794.heroesmod.powerfx.PowerEffectsRegistration;
-import com.himself12794.heroesmod.storage.AbilitiesWrapper;
+import com.himself12794.heroesmod.storage.AbilitiesEntity;
 import com.himself12794.heroesmod.util.Reference;
 import com.himself12794.powersapi.storage.PropertiesBase;
 import com.himself12794.powersapi.storage.PropertiesManager;
@@ -56,7 +57,9 @@ public class CommonProxy {
 			HeroesMod.logger.info("Registering ability sets");
 			AbilitySet.registerAbilitySets();
 			
-			PropertiesManager.registerPropertyClass(AbilitiesWrapper.class, EntityPlayer.class);
+			PropertiesManager.registerPropertyClass(AbilitiesEntity.class, EntityPlayer.class);
+			
+			ModItems.addItems();
 		
 		} else {
 			

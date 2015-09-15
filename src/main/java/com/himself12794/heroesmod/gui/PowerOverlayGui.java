@@ -13,21 +13,16 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import org.lwjgl.opengl.GL11;
 
+import com.himself12794.powersapi.power.PowerEffectActivatorBuff;
+import com.himself12794.powersapi.storage.EffectsEntity;
 import com.himself12794.powersapi.storage.PowerProfile;
-import com.himself12794.powersapi.storage.PowersWrapper;
+import com.himself12794.powersapi.storage.PowersEntity;
 
 public class PowerOverlayGui extends Gui {
 	
 	private Minecraft mc;
 	private RenderItem itemRender;
 	private FontRenderer fontRendererObj;
-	
-	private static final int BUFF_ICON_SIZE = 18;
-	private static final int BUFF_ICON_SPACING = BUFF_ICON_SIZE + 2; 
-	private static final int BUFF_ICON_BASE_U_OFFSET = 0;
-	private static final int BUFF_ICON_BASE_V_OFFSET = 198;
-	private static final int BUFF_ICONS_PER_ROW = 8;
-	
 
 	public PowerOverlayGui(Minecraft mc) {
 		super();
@@ -36,73 +31,64 @@ public class PowerOverlayGui extends Gui {
 		this.fontRendererObj = mc.fontRendererObj;
 	}
 
-	//
-	// This event is called by GuiIngameForge during each frame by
-	// GuiIngameForge.pre() and GuiIngameForce.post().
-	//
 	@SubscribeEvent(priority = EventPriority.NORMAL)
 	public void onRenderExperienceBar(RenderGameOverlayEvent event) {
-
-		// Starting position for the buff bar - 2 pixels from the top left
-		// corner.
-	    if(event.isCancelable() || event.type != ElementType.EXPERIENCE) {      
-	      return;
-	    }
+		
+		if (event.isCancelable() || event.type != ElementType.EXPERIENCE) return;
 	    
 		int xPos = 2;
 		int yPos = 2;
 		
-		PowersWrapper wrapper = PowersWrapper.get(Minecraft.getMinecraft().thePlayer);
+		PowersEntity wrapper = PowersEntity.get(mc.thePlayer);
 		PowerProfile powerPrimary = wrapper.getPowerProfile(wrapper.getPrimaryPower());
 		PowerProfile powerSecondary = wrapper.getPowerProfile(wrapper.getSecondaryPower());
 
 		if (powerPrimary != null) { 
-			drawName(powerPrimary, xPos, yPos);
+			drawData(powerPrimary, xPos, yPos);
 		}
-		yPos += 40;
+		yPos += 56;
 		if (powerSecondary != null) { 
-			drawName(powerSecondary, xPos, yPos);
+			drawData(powerSecondary, xPos, yPos);
 		}
 	}
 	
-	private void drawName(PowerProfile profile, int x, int yPos) {
+	private void drawData(PowerProfile profile, int x, int yPos) {
 
-		int color = profile.cooldownRemaining <= 0 ? 128 : 64;  
+		int color = profile.cooldownRemaining <= 0 ? 127 : 63;  
 		
 		GlStateManager.pushMatrix();
-		//GL11.glColor3b((byte)255, (byte)0, (byte)0);
-		drawString(fontRendererObj, profile.thePower.getDisplayName(), x, yPos, color);
-		if (profile.cooldownRemaining > 0) 
-			drawString(fontRendererObj, "Cooldown Remaining: " + String.format("%.1f", profile.cooldownRemaining / 20.0F), x, yPos + 16, color );
+		drawString(fontRendererObj, profile.thePower.getDisplayName(profile) + " (Lv " + profile.level + ")", x, yPos, color);
+		yPos += 8;
+		
+		String info = profile.thePower.getInfo(profile);
+		if (info != null) {
+			drawString(fontRendererObj, info, x, yPos, color);
+			yPos += 8;
+		}
+		
+		drawString(fontRendererObj, "Cooldown: " + String.format("%.1f", profile.thePower.getCooldown(profile) / 20.0F) + "s", x, yPos, color );
+		yPos += 8;
+		
+		if (profile.thePower instanceof PowerEffectActivatorBuff) {
+			PowerEffectActivatorBuff buff = (PowerEffectActivatorBuff)profile.thePower;
+			
+			String word = buff.getEffectDuration(profile) < 0 ? "Until Removed" : String.format("%.1f", buff.getEffectDuration(profile) / 20.0F) + "s"; 
+			
+			drawString(fontRendererObj, "Duration: " + word, x, yPos, color );
+			yPos += 8;
+			
+			int timeLeft = EffectsEntity.get(profile.theEntity).getTimeRemaining(buff.getPowerEffect());
+			if (timeLeft > 0) { 
+				drawString(fontRendererObj, "Time Left: " + String.format("%.1f", timeLeft / 20.0F) + "s", x, yPos, color );
+				yPos += 8;
+			}
+		}
+		
+		if (profile.cooldownRemaining > 0) { 
+			drawString(fontRendererObj, "Cooldown Remaining: " + String.format("%.1f", profile.cooldownRemaining / 20.0F), x, yPos, color );
+			yPos += 8;
+		}
+		
 		GlStateManager.popMatrix();
 	}
-	
-	private void renderPower(PowerProfile profile, int x, int y) {
-		
-		GlStateManager.pushMatrix();
-		//drawString(fontRendererObj, profile.thePower.getDisplayName(), x, y, 64);
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		GL11.glDisable(GL11.GL_LIGHTING);      
-		mc.renderEngine.bindTexture(profile.thePower.getIcon(profile));
-		GL11.glScaled(0.065, 0.065, -185.0D);
-		drawTexturedModalRect(x, y, 2, 2, 256, 256);
-		GlStateManager.popMatrix();
-		
-	}
-	
-    /**
-     * Render an ItemStack. Args : stack, x, y, format
-     */
-    private void drawItemStack(ItemStack stack, int x, int y, String altText) {
-    	GlStateManager.pushMatrix();
-        GlStateManager.translate(0.0F, 0.0F, 32.0F);
-        this.zLevel = -185.0F;
-        this.itemRender.zLevel = -185.0F;
-        FontRenderer font = null;
-        this.itemRender.renderItemAndEffectIntoGUI(stack, x, y);
-        
-        this.zLevel = 0.0F;
-        this.itemRender.zLevel = 0.0F;
-        GlStateManager.popMatrix();
-    }
 }
