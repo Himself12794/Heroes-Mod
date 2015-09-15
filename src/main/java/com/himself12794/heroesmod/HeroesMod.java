@@ -12,6 +12,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.himself12794.heroesmod.proxy.CommonProxy;
 import com.himself12794.heroesmod.util.Reference;
+import com.himself12794.powersapi.PowersAPI;
 
 /**
  * This mod is meant to emulate many of the different abilities found in the
@@ -20,13 +21,14 @@ import com.himself12794.heroesmod.util.Reference;
  * @author phwhitin
  *
  */
-// TODO block transportation
-// TODO mining tool
-@Mod(modid = Reference.MODID, version = Reference.VERSION, name = Reference.NAME, dependencies = Reference.DEPENDENCIES)
+@Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION, useMetadata = true)
 public class HeroesMod {
 
 	boolean init = false;
 
+	@Instance(value = "powersAPI")
+	private static PowersAPI instanceAPI;
+	
 	@Instance(value = Reference.MODID)
 	private static HeroesMod instance;
 
@@ -39,9 +41,13 @@ public class HeroesMod {
 	public static HeroesMod instance() {
 		return instance;
 	}
+	
+	public static PowersAPI instanceAPI() {
+		return instanceAPI;
+	}
 
 	@SidedProxy(clientSide = Reference.CLIENT_PROXY, serverSide = Reference.SERVER_PROXY)
-	public static CommonProxy proxy;
+	private static CommonProxy proxy;
 
 	@EventHandler
 	public void preinit(FMLPreInitializationEvent event) {
@@ -64,5 +70,9 @@ public class HeroesMod {
 
 	public boolean isInitialized() {
 		return init;
+	}
+	
+	public static CommonProxy proxy() {
+		return proxy;
 	}
 }

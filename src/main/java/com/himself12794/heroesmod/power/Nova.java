@@ -1,32 +1,34 @@
 package com.himself12794.heroesmod.power;
 
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
 import com.himself12794.heroesmod.PowerEffects;
-import com.himself12794.heroesmod.Powers;
 import com.himself12794.heroesmod.world.BioticExplosion;
 import com.himself12794.powersapi.power.PowerBuff;
-import com.himself12794.powersapi.util.DataWrapper;
+import com.himself12794.powersapi.storage.PowersEntity;
 
 public class Nova extends PowerBuff {
 	
 	public Nova() {
 		setUnlocalizedName("nova");
-		setCoolDown(0);
-	}
-	
-	
-	public boolean onPreparePower(World worldIn, EntityPlayer playerIn) {
-		int cooldown = DataWrapper.get(playerIn).getCooldownRemaining(Powers.CHARGE);
-		return Powers.CHARGE.getCoolDown() - cooldown < 10 || playerIn.capabilities.isCreativeMode;
 	}
 
-	public boolean onCast(World world, EntityLivingBase caster, float modifier) {
+	@Override
+	public boolean onCast(World world, EntityLivingBase caster, float modifier, int state) {
 		
-		DataWrapper.get(caster).powerEffectsData.addPowerEffect(PowerEffects.slam, 3, caster, this);
+		PowersEntity.get(caster).getPowerEffectsData().addPowerEffect(PowerEffects.slam, 3, caster, this);
+		
+		caster.setSprinting(true);
+
+		return true;
+	}
+	
+	@Override
+	public boolean onFinishedCasting(World world, EntityLivingBase caster, MovingObjectPosition pos, int state) {
+
 		Explosion splodey = new BioticExplosion(world, caster, caster.posX, caster.posY, caster.posZ, 5.0F, false, true);
 		splodey.doExplosionA();
 		splodey.doExplosionB(true);

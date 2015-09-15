@@ -7,8 +7,7 @@ import net.minecraft.world.World;
 
 import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.powersapi.power.PowerInstant;
-import com.himself12794.powersapi.util.DataWrapper;
-import com.himself12794.powersapi.util.UsefulMethods;
+import com.himself12794.powersapi.storage.PowersEntity;
 
 public class Punt extends PowerInstant {
 
@@ -18,7 +17,7 @@ public class Punt extends PowerInstant {
 
 		setPower(0.0F);
 		setMaxConcentrationTime(20 *5);
-		setCoolDown(60);
+		setCoolown(60);
 		setUnlocalizedName("punt");
 		setRange(50);
 
@@ -26,12 +25,12 @@ public class Punt extends PowerInstant {
 
 	@Override
 	public boolean onStrike(World world, MovingObjectPosition target,
-			EntityLivingBase caster, float modifier) {
+			EntityLivingBase caster, float modifier, int state) {
 
-		if (target.typeOfHit == MovingObjectType.ENTITY) {
+		if ( target != null && target.typeOfHit == MovingObjectType.ENTITY) {
 
 			if (target.entityHit instanceof EntityLivingBase) {
-				DataWrapper.get((EntityLivingBase) target.entityHit).powerEffectsData
+				PowersEntity.get((EntityLivingBase) target.entityHit).getPowerEffectsData()
 						.removePowerEffectSparingly(PowerEffects.telekinesis);
 			}
 

@@ -21,8 +21,8 @@ public class RapidCellularRegeneration extends PowerEffect {
 	}
 	
 	@Override
-	public void onUpdate(EntityLivingBase entity, int timeleft, EntityLivingBase caster, Power power ) {
-
+	public boolean onUpdate(EntityLivingBase entity, int timeleft, EntityLivingBase caster, Power power ) {
+		
 		entity.removePotionEffect(Potion.poison.id);
 		entity.removePotionEffect(Potion.wither.id);
 		
@@ -30,6 +30,8 @@ public class RapidCellularRegeneration extends PowerEffect {
 			//entity.setHealth(entity.getHealth() + entity.getMaxHealth() * 0.1F);
 			entity.heal(entity.getMaxHealth() * 0.1F);
 		}
+		
+		return true;
 		
 	}
 

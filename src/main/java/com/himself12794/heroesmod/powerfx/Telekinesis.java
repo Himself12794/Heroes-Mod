@@ -1,16 +1,12 @@
 package com.himself12794.heroesmod.powerfx;
 
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.Vec3;
 
-import com.himself12794.heroesmod.HeroesMod;
-import com.himself12794.heroesmod.network.SpawnParticlesClient;
 import com.himself12794.powersapi.power.EffectType;
 import com.himself12794.powersapi.power.Power;
 import com.himself12794.powersapi.power.PowerEffect;
-import com.himself12794.powersapi.power.PowerEffectActivatorInstant;
+import com.himself12794.powersapi.storage.EffectsEntity;
 
 public class Telekinesis extends PowerEffect {
 
@@ -23,30 +19,36 @@ public class Telekinesis extends PowerEffect {
 	}
 
 	@Override
-	public void onUpdate(EntityLivingBase entity, int timeLeft,
+	public boolean onUpdate(EntityLivingBase entity, int timeLeft,
 			EntityLivingBase caster, Power power) {
-
+		
 		if (entity != null && caster != null) {
 
-			Vec3 vec = caster.getLookVec();
-			double vX = vec.xCoord * DISTANCE_FROM_CASTER;
-			double vY = vec.yCoord * DISTANCE_FROM_CASTER;
-			double vZ = vec.zCoord * DISTANCE_FROM_CASTER;
-			
-			double x = caster.posX + vX;
-			double y = caster.posY + caster.height + vY - entity.height / 2;
-			double z = caster.posZ + vZ;
-					
-			entity.motionX = 0.0D;
-			entity.motionY = 0.0D;
-			entity.motionZ = 0.0D;
-			entity.fallDistance = 0.0F;
-			
-			if (entity.worldObj.isAirBlock(entity.getPosition())) {
-				entity.setPosition(x, y, z);	
+			if (!caster.isDead) {
+				Vec3 vec = caster.getLookVec();
+				double vX = vec.xCoord * DISTANCE_FROM_CASTER;
+				double vY = vec.yCoord * DISTANCE_FROM_CASTER;
+				double vZ = vec.zCoord * DISTANCE_FROM_CASTER;
+				
+				double x = caster.posX + vX;
+				double y = caster.posY + caster.getEyeHeight() + vY - entity.height / 2;
+				double z = caster.posZ + vZ;
+						
+				entity.motionX = 0.0D;
+				entity.motionY = 0.0D;
+				entity.motionZ = 0.0D;
+				entity.fallDistance = 0.0F;
+				
+				if (entity.worldObj.isAirBlock(entity.getPosition())) {
+					entity.setPosition(x, y, z);	
+				}
+				
+				return true;
 			}
 
 		}
+		
+		return false;
 
 	}
 
@@ -78,7 +80,7 @@ public class Telekinesis extends PowerEffect {
 			Power power) {
 		
 		return caster.getDistanceToEntity(entity) <= DISTANCE_FROM_CASTER
-				&& this.getEffectTimeRemainingOn(entity) == 0;
+				&& EffectsEntity.get(entity).isAffectedBy(this);
 	}
 
 }

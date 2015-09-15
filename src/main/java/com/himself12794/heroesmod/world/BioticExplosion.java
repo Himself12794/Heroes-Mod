@@ -9,6 +9,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentProtection;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.BlockPos;
@@ -17,11 +18,14 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import com.himself12794.heroesmod.network.HeroesNetwork;
 import com.himself12794.heroesmod.util.BioticExplosionDamage;
+import com.himself12794.heroesmod.util.EnumRandomType;
 import com.himself12794.heroesmod.util.Reference.Sounds;
 
 /**
@@ -51,12 +55,11 @@ public class BioticExplosion extends Explosion {
 	private final Vec3 position;
 	private float limit = 50.0F;
 
-	public BioticExplosion(World worldIn, Entity exploder,
-			double expX, double expY, double expZ,
-			float size, boolean isFlaming, boolean isSmoking) {
+	public BioticExplosion(World worldIn, Entity exploder, double expX,
+			double expY, double expZ, float size, boolean isFlaming,
+			boolean isSmoking) {
 
-		super(worldIn, exploder, expX, expY, expZ,
-				size, isFlaming, isSmoking);
+		super(worldIn, exploder, expX, expY, expZ, size, isFlaming, isSmoking);
 
 		this.explosionRNG = new Random();
 		this.affectedBlockPositions = Lists.newArrayList();
@@ -76,7 +79,7 @@ public class BioticExplosion extends Explosion {
 	 * Does the first part of the explosion (destroy blocks)
 	 */
 	public void doExplosionA() {
-		
+
 		HashSet hashset = Sets.newHashSet();
 		boolean flag = true;
 		int j;
@@ -150,7 +153,8 @@ public class BioticExplosion extends Explosion {
 		for (int l1 = 0; l1 < list.size(); ++l1) {
 			Entity entity = (Entity) list.get(l1);
 
-			if (entity.equals(exploder)) continue;
+			if (entity.equals(exploder))
+				continue;
 
 			if (!entity.func_180427_aV()) {
 				double d12 = entity.getDistance(this.explosionX,
@@ -171,10 +175,11 @@ public class BioticExplosion extends Explosion {
 						// Being inside of a block cannot protect from explosion
 						double d14 = 1.0F;
 						double d10 = (1.0D - d12) * d14;
-						float amount = (float) ((int) ((d10 * d10 + d10) / 5.0D * 8.0D
-								* (double) f3 + 1.0D));
-						
-						entity.attackEntityFrom(BioticExplosionDamage.explosionFrom(exploder),
+						float amount = (float) ((int) ((d10 * d10 + d10) / 5.0D
+								* 8.0D * (double) f3 + 1.0D));
+
+						entity.attackEntityFrom(
+								BioticExplosionDamage.explosionFrom(exploder),
 								amount > limit ? limit : amount);
 						double d11 = EnchantmentProtection.func_92092_a(entity,
 								d10);
@@ -191,22 +196,22 @@ public class BioticExplosion extends Explosion {
 			}
 		}
 	}
-	
+
 	private float calculateDamage(Entity entity) {
 		float f3 = this.explosionSize * 2.0F;
-		
+
 		float amount = 0.0F;
 
-		double d12 = entity.getDistance(this.explosionX,
-				this.explosionY, this.explosionZ) / (double) f3;
+		double d12 = entity.getDistance(this.explosionX, this.explosionY,
+				this.explosionZ) / (double) f3;
 
 		if (d12 <= 1.0D) {
 			double d5 = entity.posX - this.explosionX;
 			double d7 = entity.posY + (double) entity.getEyeHeight()
 					- this.explosionY;
 			double d9 = entity.posZ - this.explosionZ;
-			double d13 = (double) MathHelper.sqrt_double(d5 * d5 + d7
-					* d7 + d9 * d9);
+			double d13 = (double) MathHelper.sqrt_double(d5 * d5 + d7 * d7 + d9
+					* d9);
 
 			if (d13 != 0.0D) {
 				d5 /= d13;
@@ -219,9 +224,9 @@ public class BioticExplosion extends Explosion {
 						* (double) f3 + 1.0D));
 			}
 		}
-		
+
 		return amount;
-		
+
 	}
 
 	/**
@@ -241,7 +246,7 @@ public class BioticExplosion extends Explosion {
 
 		}
 	}
-	
+
 	/**
 	 * Sets maximum damage for explosion.
 	 * 
@@ -253,14 +258,29 @@ public class BioticExplosion extends Explosion {
 	protected void doParticles(int amount) {
 
 		final float particleRange = explosionSize * 0.20F;
-		
-		for (int i = 0; i < amount; i++) {
-			worldObj.spawnParticle(EnumParticleTypes.SPELL_INSTANT, explosionX
-					+ this.explosionRNG.nextGaussian() * particleRange, explosionY
-					+ this.explosionRNG.nextGaussian() * particleRange, explosionZ
-					+ this.explosionRNG.nextGaussian() * particleRange, 0, 0, 0);
+
+		if (!worldObj.isRemote) {
+
+			TargetPoint point = new TargetPoint(exploder.dimension, explosionX,
+					explosionY, explosionZ, 75);
+
+			double x = explosionX;
+			double y = explosionY;
+			double z = explosionZ;
+
+			HeroesNetwork.client().spawnParticles(
+					EnumParticleTypes.SPELL_INSTANT, x, y, z, particleRange,
+					amount, EnumRandomType.GAUSSIAN, point);
+
 		}
 
+	}
+	
+	public static void doExplosion(World world, EntityLivingBase caster, float size, float maxDamage) {
+		BioticExplosion splodey = new BioticExplosion(world, caster, caster.posX, caster.posY, caster.posZ, size, false, true);
+		splodey.setLimit(maxDamage);
+		splodey.doExplosionA();
+		splodey.doExplosionB(true);
 	}
 
 }

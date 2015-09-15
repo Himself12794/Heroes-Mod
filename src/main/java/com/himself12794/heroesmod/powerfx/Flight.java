@@ -3,10 +3,11 @@ package com.himself12794.heroesmod.powerfx;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 
-import com.himself12794.heroesmod.util.Reference;
 import com.himself12794.powersapi.power.IPlayerOnly;
 import com.himself12794.powersapi.power.Power;
 import com.himself12794.powersapi.power.PowerEffect;
+import com.himself12794.powersapi.storage.EffectContainer;
+import com.himself12794.powersapi.storage.EffectsEntity;
 
 public class Flight extends PowerEffect implements IPlayerOnly {
 	
@@ -17,17 +18,15 @@ public class Flight extends PowerEffect implements IPlayerOnly {
 	}
 	
 	@Override
-	public void onApplied(EntityLivingBase entity, int time, EntityLivingBase caster, Power power) {
+	public void onApplied(EntityLivingBase entity, EntityLivingBase caster, EffectContainer effectContainer) {
 		
 		if (entity instanceof EntityPlayer) {
 			
 			EntityPlayer player = (EntityPlayer)entity;
 			
-			if (player.capabilities.allowFlying) {
-				
-				player.getEntityData().getCompoundTag(Reference.MODID).setBoolean("couldFly", true);
-				
-			}
+			effectContainer.getDataTag().setBoolean("couldFly", player.capabilities.allowFlying);
+			player.capabilities.allowFlying = true;
+
 			
 		}
 		
@@ -36,7 +35,7 @@ public class Flight extends PowerEffect implements IPlayerOnly {
 	@Override
 	public void onUpdate(EntityPlayer entity, int timeLeft, EntityLivingBase caster) {
 		
-		boolean couldFly = entity.getEntityData().getCompoundTag(Reference.MODID).getBoolean("couldFly");
+		boolean couldFly = EffectsEntity.get(caster).getEffectContainer(this).getDataTag().getBoolean("couldFly");
 			
 		if (!couldFly) entity.capabilities.allowFlying = true;
 		
@@ -49,7 +48,7 @@ public class Flight extends PowerEffect implements IPlayerOnly {
 			
 			EntityPlayer player = (EntityPlayer)entity;
 			
-			boolean couldFly = player.getEntityData().getCompoundTag(Reference.MODID).getBoolean("couldFly");
+			boolean couldFly = EffectsEntity.get(caster).getEffectContainer(this).getDataTag().getBoolean("couldFly");
 			
 			if (!couldFly) player.capabilities.allowFlying = false;
 			

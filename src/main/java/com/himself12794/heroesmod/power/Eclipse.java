@@ -16,11 +16,11 @@ public class Eclipse extends PowerInstant {
 	
 	public Eclipse() {
 		setPower(0);
-		setCoolDown(40);
+		setCoolown(40);
 		setUnlocalizedName(NAME);
 	}
 	
-	public boolean onStrike(World world, MovingObjectPosition target, EntityLivingBase caster, float modifier ) {
+	public boolean onStrike(World world, MovingObjectPosition target, EntityLivingBase caster, float modifier, int state ) {
 		
 		if (!(target.entityHit instanceof EntityLivingBase)) return false;
 		

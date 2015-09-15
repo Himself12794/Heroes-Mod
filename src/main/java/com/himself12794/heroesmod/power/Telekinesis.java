@@ -6,33 +6,32 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 import com.himself12794.heroesmod.PowerEffects;
-import com.himself12794.powersapi.power.PowerEffect;
 import com.himself12794.powersapi.power.PowerEffectActivatorInstant;
-import com.himself12794.powersapi.util.DataWrapper;
+import com.himself12794.powersapi.storage.PowersEntity;
 
 public class Telekinesis extends PowerEffectActivatorInstant {
 
 	public Telekinesis() {
-		super("telekinesis", 160, 200, PowerEffects.telekinesis, 200);
+		super("telekinesis", 160, 200, PowerEffects.telekinesis, -1);
 		setPower(0.0F);
 		setDuration(15 * 20);
 		setRange(100);
 
 	}
 
-	public boolean onCast(World world, EntityLivingBase caster, float modifier) {
-		DataWrapper.get(caster).powerEffectsData.addPowerEffect(PowerEffects.telekineticShield, -1, caster, this);
+	public boolean onCast(World world, EntityLivingBase caster, float modifier, int state) {
+		PowersEntity.get(caster).getPowerEffectsData().addPowerEffect(PowerEffects.telekineticShield, -1, caster, this);
 		return true;
 	}
 	
 	@Override
 	public boolean onStrike(World world, MovingObjectPosition target,
-			EntityLivingBase caster, float modifier) {
-
-		if (target.entityHit != null) {
+			EntityLivingBase caster, float modifier, int state) {
+		
+		if (target != null && target.entityHit != null) {
 
 			if (target.entityHit instanceof EntityLivingBase)
-				DataWrapper.get((EntityLivingBase) target.entityHit).powerEffectsData
+				PowersEntity.get((EntityLivingBase) target.entityHit).getPowerEffectsData()
 						.addPowerEffect(PowerEffects.paralysis, getDuration(),
 								caster, this);
 

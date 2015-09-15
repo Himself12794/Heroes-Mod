@@ -1,7 +1,6 @@
 package com.himself12794.heroesmod.power;
 
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
@@ -14,33 +13,33 @@ import com.himself12794.powersapi.power.PowerRanged;
 
 public class Flare extends PowerRanged {
 
-	public static final String NAME = "explodingBolt";
+	public static final String NAME = "flare";
 
 	public Flare() {
 		setPower(40.0F);
-		setCoolDown(200);
+		setCoolown(200);
 		setUnlocalizedName(NAME);
 		shouldRender = true;
 	}
 	
-	public boolean onCast(World world, EntityLivingBase caster, float modifier) {
+	public boolean onCast(World world, EntityLivingBase caster, float modifier, int state) {
 		caster.playSound(Sounds.FIREWORKS_LAUNCH, 2.0F, 1.0F);
 		return true;
 	}
 
 	public boolean onStrike(World world, MovingObjectPosition target,
-			EntityLivingBase caster, float modifier) {
+			EntityLivingBase caster, float modifier, int state) {
 
 		// world.newExplosion(caster, target.hitVec.xCoord,
 		// target.hitVec.yCoord, target.hitVec.zCoord, 3.0F, false, false);
-		BioticExplosion magicalExplosion = new BioticExplosion(world, caster,
+		BioticExplosion bioticExplosion = new BioticExplosion(world, caster,
 				target.hitVec.xCoord, target.hitVec.yCoord,
-				target.hitVec.zCoord, 5.0F, false, true);
+				target.hitVec.zCoord, 5.0F * modifier, false, true);
 		
-		magicalExplosion.setLimit(getPower());
+		bioticExplosion.setLimit(getPower(modifier));
 		
-		magicalExplosion.doExplosionA();
-		magicalExplosion.doExplosionB(true);
+		bioticExplosion.doExplosionA();
+		bioticExplosion.doExplosionB(true);
 
 		return true;
 	}
@@ -76,7 +75,7 @@ public class Flare extends PowerRanged {
 			}
 		}
 	}
-
+	
 	@Override
 	public float getBrightness() {
 		return 15.0F;

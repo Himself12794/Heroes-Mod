@@ -5,96 +5,87 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import com.himself12794.powersapi.PowersAPI;
-import com.himself12794.powersapi.item.ModItems;
-import com.himself12794.powersapi.power.Power;
-import com.himself12794.powersapi.util.DataWrapper;
+import com.himself12794.powersapi.power.PowerEffectActivatorBuff;
+import com.himself12794.powersapi.storage.EffectsEntity;
+import com.himself12794.powersapi.storage.PowerProfile;
+import com.himself12794.powersapi.storage.PowersEntity;
 
-//
-// GuiBuffBar implements a simple status bar at the top of the screen which
-// shows the current buffs/debuffs applied to the character.
-//
-// TODO add effects view, fix cooldown
 public class PowerOverlayGui extends Gui {
 	
 	private Minecraft mc;
 	private RenderItem itemRender;
 	private FontRenderer fontRendererObj;
-	private ItemStack primaryPower;
-	private ItemStack secondaryPower;
-	
-	private static final int BUFF_ICON_SIZE = 18;
-	private static final int BUFF_ICON_SPACING = BUFF_ICON_SIZE + 2; 
-	private static final int BUFF_ICON_BASE_U_OFFSET = 0;
-	private static final int BUFF_ICON_BASE_V_OFFSET = 198;
-	private static final int BUFF_ICONS_PER_ROW = 8;
-	
 
 	public PowerOverlayGui(Minecraft mc) {
 		super();
+		this.mc = mc;
 		this.itemRender = mc.getRenderItem();
 		this.fontRendererObj = mc.fontRendererObj;
-		this.primaryPower = new ItemStack(ModItems.powerActivator);
-		this.secondaryPower = new ItemStack(ModItems.powerActivator);
 	}
 
-	//
-	// This event is called by GuiIngameForge during each frame by
-	// GuiIngameForge.pre() and GuiIngameForce.post().
-	//
 	@SubscribeEvent(priority = EventPriority.NORMAL)
 	public void onRenderExperienceBar(RenderGameOverlayEvent event) {
-
-		// Starting position for the buff bar - 2 pixels from the top left
-		// corner.
-	    if(event.isCancelable() || event.type != ElementType.EXPERIENCE) {      
-	      return;
-	    }
+		
+		if (event.isCancelable() || event.type != ElementType.EXPERIENCE) return;
 	    
 		int xPos = 2;
 		int yPos = 2;
 		
-		DataWrapper wrapper = DataWrapper.get(PowersAPI.proxy.getPlayer());
-		Power powerPrimary = wrapper.getPrimaryPower();
-		Power powerSecondary = wrapper.getSecondaryPower();
-		
-		if (powerPrimary != null) {
-			powerPrimary.setPower(primaryPower);
-			drawItemStack(primaryPower, xPos, yPos, null);
-			xPos += BUFF_ICON_SPACING;
-		}
-		
-		if (powerSecondary != null) { 
-			powerSecondary.setPower(secondaryPower);
-			drawItemStack(secondaryPower, xPos, yPos, null);
-		}
+		PowersEntity wrapper = PowersEntity.get(mc.thePlayer);
+		PowerProfile powerPrimary = wrapper.getPowerProfile(wrapper.getPrimaryPower());
+		PowerProfile powerSecondary = wrapper.getPowerProfile(wrapper.getSecondaryPower());
 
-		
+		if (powerPrimary != null) { 
+			drawData(powerPrimary, xPos, yPos);
+		}
+		yPos += 56;
+		if (powerSecondary != null) { 
+			drawData(powerSecondary, xPos, yPos);
+		}
 	}
 	
-    /**
-     * Render an ItemStack. Args : stack, x, y, format
-     */
-    private void drawItemStack(ItemStack stack, int x, int y, String altText) {
-    	GlStateManager.pushMatrix();
-        GlStateManager.translate(0.0F, 0.0F, 32.0F);
-        this.zLevel = -185.0F;
-        this.itemRender.zLevel = -185.0F;
-        FontRenderer font = null;
-        //if (stack != null) font = stack.getItem().getFontRenderer(stack);
-        //if (font == null) font = fontRendererObj;
-        this.itemRender.renderItemAndEffectIntoGUI(stack, x, y);
-        // TODO fix text bluring
-        //this.itemRender.renderItemOverlayIntoGUI(font, stack, x, y, altText);
-        
-        this.zLevel = 0.0F;
-        this.itemRender.zLevel = 0.0F;
-        GlStateManager.popMatrix();
-    }
+	private void drawData(PowerProfile profile, int x, int yPos) {
+
+		int color = profile.cooldownRemaining <= 0 ? 127 : 63;  
+		
+		GlStateManager.pushMatrix();
+		drawString(fontRendererObj, profile.thePower.getDisplayName(profile) + " (Lv " + profile.level + ")", x, yPos, color);
+		yPos += 8;
+		
+		String info = profile.thePower.getInfo(profile);
+		if (info != null) {
+			drawString(fontRendererObj, info, x, yPos, color);
+			yPos += 8;
+		}
+		
+		drawString(fontRendererObj, "Cooldown: " + String.format("%.1f", profile.thePower.getCooldown(profile) / 20.0F) + "s", x, yPos, color );
+		yPos += 8;
+		
+		if (profile.thePower instanceof PowerEffectActivatorBuff) {
+			PowerEffectActivatorBuff buff = (PowerEffectActivatorBuff)profile.thePower;
+			
+			String word = buff.getEffectDuration(profile) < 0 ? "Until Removed" : String.format("%.1f", buff.getEffectDuration(profile) / 20.0F) + "s"; 
+			
+			drawString(fontRendererObj, "Duration: " + word, x, yPos, color );
+			yPos += 8;
+			
+			int timeLeft = EffectsEntity.get(profile.theEntity).getTimeRemaining(buff.getPowerEffect());
+			if (timeLeft > 0) { 
+				drawString(fontRendererObj, "Time Left: " + String.format("%.1f", timeLeft / 20.0F) + "s", x, yPos, color );
+				yPos += 8;
+			}
+		}
+		
+		if (profile.cooldownRemaining > 0) { 
+			drawString(fontRendererObj, "Cooldown Remaining: " + String.format("%.1f", profile.cooldownRemaining / 20.0F), x, yPos, color );
+			yPos += 8;
+		}
+		
+		GlStateManager.popMatrix();
+	}
 }
