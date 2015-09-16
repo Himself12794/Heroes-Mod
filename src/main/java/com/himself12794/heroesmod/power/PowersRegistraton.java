@@ -2,9 +2,12 @@ package com.himself12794.heroesmod.power;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.World;
 
 import com.himself12794.heroesmod.PowerEffects;
-import com.himself12794.powersapi.power.Power;
+import com.himself12794.heroesmod.Powers;
+import com.himself12794.powersapi.PowersAPI;
+import com.himself12794.powersapi.power.PowerBuff;
 import com.himself12794.powersapi.power.PowerEffectActivatorBuff;
 import com.himself12794.powersapi.storage.PowerProfile;
 
@@ -12,13 +15,10 @@ public class PowersRegistraton {
 
 	public static void registerPowers() {
 
-		//Power.registerPower(new PowerInstant().setUnlocalizedName("damage"));
-		//Power.registerPower(new PowerInstant().setUnlocalizedName("death").setPower(1000.0F).setCoolDown(178));
-		Power.registerPower(new Incinerate());
-		Power.registerPower(new Lightning());
-		Power.registerPower(new Heal());
-		//Power.registerPower(new Dummy());
-		Power.registerPower(new PowerEffectActivatorBuff("immortalize", 0, 0, PowerEffects.rapidCellularRegeneration, -1) {
+		PowersAPI.registerPower(new Incinerate());
+		PowersAPI.registerPower(new Lightning());
+		PowersAPI.registerPower(new Heal());
+		PowersAPI.registerPower(new PowerEffectActivatorBuff("immortalize", 0, 0, PowerEffects.rapidCellularRegeneration, -1) {
 			
 			@Override
 			public boolean isRemoveableByCaster(EntityLivingBase affected,
@@ -31,32 +31,18 @@ public class PowersRegistraton {
 			}
 				
 		});
-		Power.registerPower(new Flames());
-		Power.registerPower(new Slam());
-		Power.registerPower(new Punt());
-		Power.registerPower(new Telekinesis());
-		//Power.registerPower(new PowerEffectActivatorBuff("phasing", 100, 0, PowerEffects.phasing, 100));
-		Power.registerPower(new Flare());
-		Power.registerPower(new Eclipse());
-		Power.registerPower(new PowerEffectActivatorBuff("break", 20 * 60, 0, PowerEffects.breakFx, -1) {
-
-			public boolean isRemoveableByCaster(EntityLivingBase affected,
-					EntityLivingBase caster, int timeRemaining) {
-				return false;
-			}
-
-		});
-		Power.registerPower(new BlockMemory());
-		Power.registerPower(new Charge());
-		Power.registerPower(new Nova());
-		Power.registerPower(new Launch());
-		Power.registerPower(new SpecializedPunch());
-		Power.registerPower(new PowerEffectActivatorBuff("speedBoost", 20 * 10, 0, PowerEffects.speedBoost, 20 * 30){
-			
-			{
-				setMaxLevel(3);
-				setUsesToLevelUp(50);
-			}
+		PowersAPI.registerPower(new Flames());
+		PowersAPI.registerPower(new Slam());
+		PowersAPI.registerPower(new Punt());
+		PowersAPI.registerPower(new Telekinesis());
+		PowersAPI.registerPower(new Flare());
+		PowersAPI.registerPower(new Eclipse());
+		PowersAPI.registerPower(new BlockMemory());
+		PowersAPI.registerPower(new Charge());
+		PowersAPI.registerPower(new Nova());
+		PowersAPI.registerPower(new Launch());
+		PowersAPI.registerPower(new SpecializedPunch());
+		PowersAPI.registerPower(new PowerEffectActivatorBuff("speedBoost", 20 * 10, 0, PowerEffects.speedBoost, 20 * 30, 3){
 			
 			@Override
 			public int getCooldown(PowerProfile profile) {
@@ -66,6 +52,41 @@ public class PowersRegistraton {
 			@Override 
 			public int getEffectDuration(PowerProfile profile) {
 				return profile.level == 1 ? 20 * 30 : (profile.level == 2 ? 20 * 45 : (profile.level == 3 ? 20 * 60 : 20 * 30));
+			}
+			
+		});
+		PowersAPI.registerPower(new PowerBuff("enderAccess", 0) {
+			
+			public boolean onCast(World world, EntityLivingBase caster, float modifier, int state) {
+				
+				if (caster instanceof EntityPlayer) {
+					EntityPlayer player = (EntityPlayer)caster;
+					player.displayGUIChest(player.getInventoryEnderChest());
+					Powers.BLOCK_MEMORY.playSound(world, player.getPosition(), true);
+					return true;
+				}
+				
+				return false;
+			}
+			
+			@Override
+			public String getInfo(PowerProfile profile) {
+				
+				/*if (profile.theEntity instanceof EntityPlayer) {
+					EntityPlayer player = (EntityPlayer)profile.theEntity;
+					
+					InventoryEnderChest enderInv = player.getInventoryEnderChest();
+					int totalSlots = enderInv.getSizeInventory();
+					int filledSlots = 0;
+					
+					for (int i = 0; i < totalSlots; i++) {
+						if (enderInv.getStackInSlot(i) != null) filledSlots++;
+					}
+					
+					//return "Ender Storage Space: " + filledSlots + "/" + totalSlots;					
+				}*/
+				
+				return null;
 			}
 			
 		});

@@ -6,6 +6,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.sound.PlaySoundEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import com.himself12794.heroesmod.ModConfig;
 import com.himself12794.heroesmod.util.Reference.Sounds;
 
 public class SoundHacking {
@@ -14,7 +15,7 @@ public class SoundHacking {
 	@SubscribeEvent
 	public void bansheeScream(PlaySoundEvent event) {
 		
-		if (event.name.equals("mob.endermen.stare")) {
+		if (event.name.equals("mob.endermen.stare") && ModConfig.enderSoundSwap) {
 			ISound orig = event.sound;
 			ISound sound = new PositionedSoundRecord(
 					new ResourceLocation(Sounds.BANSHEE_SCREAM), 

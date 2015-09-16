@@ -10,7 +10,7 @@ public class Dummy extends PowerRanged {
 	
 	public Dummy() {
 		setPower(0.0F);
-		setCoolown(20);
+		setCooldown(20);
 		setDuration(0);
 		setUnlocalizedName("dummy");
 	}

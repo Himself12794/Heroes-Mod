@@ -12,7 +12,7 @@ import com.himself12794.powersapi.storage.EffectsEntity;
 public class Launch extends PowerBuff {
 
 	public Launch() {
-		setUnlocalizedName("launch");
+		super("launch");
 	}
 	
 	public boolean onCast(World world, EntityLivingBase caster, float modifier, int state) {

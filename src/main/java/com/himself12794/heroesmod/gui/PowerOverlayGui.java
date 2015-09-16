@@ -54,16 +54,19 @@ public class PowerOverlayGui extends Gui {
 		int color = profile.cooldownRemaining <= 0 ? 127 : 63;  
 		
 		GlStateManager.pushMatrix();
-		drawString(fontRendererObj, profile.thePower.getDisplayName(profile) + " (Lv " + profile.level + ")", x, yPos, color);
+		String levelIdentifier = profile.getMaxLevel() > 1 ? " (Lv " + profile.level + ")" : "";
+		drawString(fontRendererObj, profile.getDisplayName() + levelIdentifier, x, yPos, color);
 		yPos += 8;
 		
-		String info = profile.thePower.getInfo(profile);
+		String info = profile.getInfo();
 		if (info != null) {
 			drawString(fontRendererObj, info, x, yPos, color);
 			yPos += 8;
 		}
 		
-		drawString(fontRendererObj, "Cooldown: " + String.format("%.1f", profile.thePower.getCooldown(profile) / 20.0F) + "s", x, yPos, color );
+		int cooldown = profile.getCooldown();
+		String cooldownText = cooldown > 0 ? String.format("%.1f", cooldown / 20.0F) + "s" : "None";
+		drawString(fontRendererObj, "Cooldown Time: " + cooldownText, x, yPos, color );
 		yPos += 8;
 		
 		if (profile.thePower instanceof PowerEffectActivatorBuff) {

@@ -219,18 +219,6 @@ public class BlockMemory extends PowerInstant {
 		
 	}
 	
-	private BlockPos getNextAvailablePosForTileEntity(World world) {
-		BlockPos pos = BlockPos.ORIGIN;
-		
-		while (true) {
-			if (world.getTileEntity(pos) == null) {
-				return pos;
-			} else {
-				pos = pos.north();
-			}
-		}
-	}
-	
 	private boolean recallBlock(PowersEntity wrap, MovingObjectPosition target, World world) {
 
 		if (target.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
@@ -338,7 +326,7 @@ public class BlockMemory extends PowerInstant {
 
 	private void removeBlockAndPlayEffects(World world, BlockPos pos, Block block) {
 		
-		playSound(world, pos);
+		playSound(world, pos, false);
 		playPoof(world, pos);
 		world.playRecord(pos, (String) null);
 		world.removeTileEntity(pos);
@@ -347,12 +335,16 @@ public class BlockMemory extends PowerInstant {
 		
 	}
 
-	private void playSound(World world, BlockPos pos) {
+	public void playSound(World world, BlockPos pos, boolean clientOnly) {
 
-		world.playSound((double) pos.getX(), (double) pos.getY(),
-				(double) pos.getZ(), "mob.endermen.portal", 0.5F, 1.0F, false);
+		if (clientOnly && world.isRemote) {
+			world.playSound((double) pos.getX(), (double) pos.getY(),
+					(double) pos.getZ(), "mob.endermen.portal", 0.5F, 1.0F, false);
+		} else if (!clientOnly){
+			world.playSound((double) pos.getX(), (double) pos.getY(),
+					(double) pos.getZ(), "mob.endermen.portal", 0.5F, 1.0F, false);
+		}
 		
-
 	}
 
 	private void playPoof(World world, BlockPos pos) {
@@ -389,7 +381,7 @@ public class BlockMemory extends PowerInstant {
 	}
 
 	private void playSoundAndPoof(World world, BlockPos pos) {
-		playSound(world, pos);
+		playSound(world, pos, false);
 		playPoof(world, pos);
 	}
 

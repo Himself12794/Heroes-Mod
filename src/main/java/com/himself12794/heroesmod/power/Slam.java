@@ -14,7 +14,7 @@ public class Slam extends PowerEffectActivatorInstant {
 	public Slam() {
 		super("slam", 140, 0, PowerEffects.slam, 50);
 		setPower(10.0F);
-		setCoolown(7 * 20);
+		setCooldown(7 * 20);
 		setUnlocalizedName("slam");
 		
 	}	

@@ -15,6 +15,7 @@ public abstract class Reference {
     public static final String AUTHOR = "Himself12794";
     public static final String CLIENT_PROXY = "com.himself12794.heroesmod.proxy.ClientProxy";
     public static final String SERVER_PROXY = "com.himself12794.heroesmod.proxy.CommonProxy";
+    public static final String GUI_FACTORY = "com.himself12794.heroesmod.gui.GuiFactory";
     
     /**
      * References to sounds.

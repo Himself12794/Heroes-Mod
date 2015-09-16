@@ -46,6 +46,9 @@ power.specializedPunch.name=Punch
 power.specializedPunch.name0=Punch (High Velocity)
 power.specializedPunch.name1=Punch (Low Velocity)
 power.speedBoost.name=Speed Boost
+power.launch.name=Launch
+power.enderAccess.name=Ender Access
+power.enderAccess.description=Allows access to the ender storage dimension
 
 ability.rapidCellularRegeneration.name=Rapid Cellular Regeneration
 ability.flight.name=Flight

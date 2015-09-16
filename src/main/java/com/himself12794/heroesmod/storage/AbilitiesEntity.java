@@ -10,9 +10,11 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 
 import com.google.common.collect.Sets;
+import com.himself12794.heroesmod.AbilitySets;
 import com.himself12794.heroesmod.ability.AbilitySet;
 import com.himself12794.heroesmod.util.Reference;
 import com.himself12794.powersapi.power.Power;
@@ -91,6 +93,8 @@ public class AbilitiesEntity extends PropertiesBase {
 			
 			for (PowerEffect effect : set.getPassivePowers()) {
 				
+				if (effect == null) continue;
+				
 				if (!wrapper.isAffectedBy(effect)) {
 					wrapper.addPowerEffect(effect, -1, theEntity, null);
 				}
@@ -119,12 +123,16 @@ public class AbilitiesEntity extends PropertiesBase {
 			
 		}
 		
+		if (abilitySets.contains(null))
+			abilitySets.remove(null);
+		
 	}
 	
 	public void teachAbility(AbilitySet set) {
 		if (!abilitySets.contains(set)) {
 			abilitySets.add(set);
-			System.out.println( "You've evolved the ability of " + set.getDisplayName() + "!" );
+			if (theEntity.worldObj.isRemote)
+				theEntity.addChatMessage( new ChatComponentText( "You've evolved the ability of " + set.getDisplayName() + "!" ) );
 		}
 	}
 
@@ -149,11 +157,13 @@ public class AbilitiesEntity extends PropertiesBase {
 			
 			if (theEntity.getName().equals(Reference.AUTHOR)) {
 				
-				for (AbilitySet set : AbilitySet.abilitySets.values()) {
-					if (!abilitySets.contains(set)) {
-						teachAbility(set);
-					}
-				}
+				//for (AbilitySet set : AbilitySet.abilitySets.values()) {
+				//	if (!abilitySets.contains(set)) {
+				//		teachAbility(set);
+				//	}
+				//}
+				if (!abilitySets.contains(AbilitySets.emphaticMimicry))
+					teachAbility(AbilitySets.emphaticMimicry);
 				
 			}
 		}

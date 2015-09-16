@@ -4,7 +4,6 @@ import com.himself12794.heroesmod.powerfx.EmphaticMimicry;
 import com.himself12794.heroesmod.powerfx.EnhancedStrength;
 import com.himself12794.heroesmod.powerfx.Lift;
 import com.himself12794.heroesmod.powerfx.Paralysis;
-import com.himself12794.heroesmod.powerfx.PhasingFx;
 import com.himself12794.heroesmod.powerfx.RapidCellularRegeneration;
 import com.himself12794.heroesmod.powerfx.Slam;
 import com.himself12794.heroesmod.powerfx.Telekinesis;
@@ -17,7 +16,7 @@ public class PowerEffects {
 	public static final Slam slam;
 	public static final Paralysis paralysis;
 	public static final EnhancedStrength enhancedStrength;
-	public static final PhasingFx phasing;
+	//public static final PhasingFx phasing;
 	public static final Telekinesis telekinesis;
 	public static final EmphaticMimicry emphaticMimicry;
 	public static final PowerEffect levitate;
@@ -38,7 +37,7 @@ public class PowerEffects {
 			paralysis = (Paralysis) PowerEffect.getPowerEffect("paralysis");
 			enhancedStrength = (EnhancedStrength) PowerEffect.getPowerEffect("enhancedStrength");
 			flight = PowerEffect.getPowerEffect("flight");
-			phasing = (PhasingFx) PowerEffect.getPowerEffect("phasing");
+			//phasing = (PhasingFx) PowerEffect.getPowerEffect("phasing");
 			telekinesis = (Telekinesis) PowerEffect.getPowerEffect("telekinesis");
 			breakFx = PowerEffect.getPowerEffect("break");
 			telekineticShield = PowerEffect.getPowerEffect("telekineticShield");

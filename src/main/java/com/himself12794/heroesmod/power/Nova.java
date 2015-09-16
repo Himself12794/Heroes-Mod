@@ -13,7 +13,7 @@ import com.himself12794.powersapi.storage.PowersEntity;
 public class Nova extends PowerBuff {
 	
 	public Nova() {
-		setUnlocalizedName("nova");
+		super("nova");
 	}
 
 	@Override

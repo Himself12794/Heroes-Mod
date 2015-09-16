@@ -258,9 +258,9 @@ public class BioticExplosion extends Explosion {
 	protected void doParticles(int amount) {
 
 		final float particleRange = explosionSize * 0.20F;
-
+		
 		if (!worldObj.isRemote) {
-
+			
 			TargetPoint point = new TargetPoint(exploder.dimension, explosionX,
 					explosionY, explosionZ, 75);
 

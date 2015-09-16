@@ -20,7 +20,7 @@ public class SpecializedPunch extends PowerInstant {
 	public SpecializedPunch() {
 		setRange(5);
 		setPower(10.0F);
-		setCoolown(60);
+		setCooldown(60);
 		setUnlocalizedName(NAME);
 	}
 	

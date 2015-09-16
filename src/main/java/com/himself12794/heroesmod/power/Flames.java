@@ -11,8 +11,8 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.World;
 
+import com.himself12794.heroesmod.ModConfig;
 import com.himself12794.heroesmod.util.Reference;
-import com.himself12794.powersapi.config.Config;
 import com.himself12794.powersapi.entity.EntityPower;
 import com.himself12794.powersapi.power.PowerRanged;
 import com.himself12794.powersapi.storage.PowerProfile;
@@ -23,7 +23,7 @@ public class Flames extends PowerRanged {
 	public Flames() {
 		setMaxConcentrationTime(5 * 20);
 		setPower(6.0F);
-		setCoolown(100);
+		setCooldown(100);
 		setDuration(8 * 20);
 		setPreparationTime(40);
 		setUnlocalizedName("flames");
@@ -55,22 +55,22 @@ public class Flames extends PowerRanged {
 		
 		if (caster.isInsideOfMaterial(Material.water)) return false;
 		
-		if (Config.flamethrowing > 0 && target.typeOfHit == MovingObjectType.BLOCK){
+		if (ModConfig.flamethrowing > 0 && target.typeOfHit == MovingObjectType.BLOCK){
 			
 			BlockPos blockPos = UsefulMethods.getBlockFromSide( target.getBlockPos(), target.sideHit);
 			Block block = UsefulMethods.getBlockAtPos(blockPos, world);
 			
-			if (Config.flamethrowing >= 2 && block.getMaterial().getCanBurn()) {
+			if (ModConfig.flamethrowing >= 2 && block.getMaterial().getCanBurn()) {
 				
 				world.setBlockState(blockPos, Blocks.fire.getDefaultState());
 				
-				if (Config.flamethrowing == 3 && world.isAirBlock(blockPos.up())) {
+				if (ModConfig.flamethrowing == 3 && world.isAirBlock(blockPos.up())) {
 					
 					world.setBlockState(blockPos.up(), Blocks.fire.getDefaultState());
 					
 				}
 			
-			} else if (Config.flamethrowing == 1 && block.getMaterial() == Material.vine) {
+			} else if (ModConfig.flamethrowing == 1 && block.getMaterial() == Material.vine) {
 				
 				world.setBlockState(blockPos, Blocks.fire.getDefaultState());
 			

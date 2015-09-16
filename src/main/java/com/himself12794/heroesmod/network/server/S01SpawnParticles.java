@@ -46,7 +46,7 @@ public class S01SpawnParticles implements IMessage {
 
 	public S01SpawnParticles(EnumParticleTypes particles, double x,
 			double y, double z, float modifier, int amount, EnumRandomType type) {
-		this(particles, x, y, x, modifier, modifier, modifier, amount, type);
+		this(particles, x, y, z, modifier, modifier, modifier, amount, type);
 	}
 
 	@Override
@@ -97,7 +97,7 @@ public class S01SpawnParticles implements IMessage {
 				Runnable task = new Runnable() {
 
 					@Override
-					public void run() {				
+					public void run() {	
 					
 						for (int i = 0; i < message.amount; ++i) {
 							double x = message.x + message.modifierX * getRandomFromType(Minecraft.getMinecraft().theWorld.rand, message.type);

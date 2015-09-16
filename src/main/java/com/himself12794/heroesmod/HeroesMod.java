@@ -1,8 +1,6 @@
 package com.himself12794.heroesmod;
 
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventHandler;
-import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -21,22 +19,18 @@ import com.himself12794.powersapi.PowersAPI;
  * @author phwhitin
  *
  */
-@Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION, useMetadata = true)
+@Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION, useMetadata = true, guiFactory = Reference.GUI_FACTORY)
 public class HeroesMod {
 
 	boolean init = false;
 
-	@Instance(value = "powersAPI")
+	@Mod.Instance(value = "powersAPI")
 	private static PowersAPI instanceAPI;
 	
-	@Instance(value = Reference.MODID)
+	@Mod.Instance(value = Reference.MODID)
 	private static HeroesMod instance;
 
 	public static Logger logger;
-
-	public static void print(Object msg) {
-		logger.info(msg);
-	}
 	
 	public static HeroesMod instance() {
 		return instance;
@@ -49,7 +43,7 @@ public class HeroesMod {
 	@SidedProxy(clientSide = Reference.CLIENT_PROXY, serverSide = Reference.SERVER_PROXY)
 	private static CommonProxy proxy;
 
-	@EventHandler
+	@Mod.EventHandler
 	public void preinit(FMLPreInitializationEvent event) {
 
 		logger = event.getModLog();
@@ -57,13 +51,13 @@ public class HeroesMod {
 		init = true;
 	}
 
-	@EventHandler
+	@Mod.EventHandler
 	public void init(FMLInitializationEvent event) {
 		proxy.init(event);
 
 	}
 	
-	@EventHandler 
+	@Mod.EventHandler 
 	public void postInit(FMLPostInitializationEvent event) {
 		proxy.postinit(event);
 	}
