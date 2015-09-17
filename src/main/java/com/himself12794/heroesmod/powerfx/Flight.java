@@ -9,7 +9,7 @@ import com.himself12794.powersapi.power.PowerEffect;
 import com.himself12794.powersapi.storage.EffectContainer;
 import com.himself12794.powersapi.storage.EffectsEntity;
 
-public class Flight extends PowerEffect implements IPlayerOnly {
+public class Flight extends PowerEffect {
 	
 	private static final String NAME = "flight";
 	
@@ -23,21 +23,9 @@ public class Flight extends PowerEffect implements IPlayerOnly {
 		if (entity instanceof EntityPlayer) {
 			
 			EntityPlayer player = (EntityPlayer)entity;
-			
-			effectContainer.getDataTag().setBoolean("couldFly", player.capabilities.allowFlying);
 			player.capabilities.allowFlying = true;
-
 			
 		}
-		
-	}
-	
-	@Override
-	public void onUpdate(EntityPlayer entity, int timeLeft, EntityLivingBase caster) {
-		
-		boolean couldFly = EffectsEntity.get(caster).getEffectContainer(this).getDataTag().getBoolean("couldFly");
-			
-		if (!couldFly) entity.capabilities.allowFlying = true;
 		
 	}
 	
@@ -48,9 +36,7 @@ public class Flight extends PowerEffect implements IPlayerOnly {
 			
 			EntityPlayer player = (EntityPlayer)entity;
 			
-			boolean couldFly = EffectsEntity.get(caster).getEffectContainer(this).getDataTag().getBoolean("couldFly");
-			
-			if (!couldFly) player.capabilities.allowFlying = false;
+			if (!EffectsEntity.get(entity).isCreativePlayer()) player.capabilities.allowFlying = false;
 			
 		} 
 		

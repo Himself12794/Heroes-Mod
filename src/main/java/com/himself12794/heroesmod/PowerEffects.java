@@ -25,6 +25,7 @@ public class PowerEffects {
 	public static final PowerEffect telekineticShield;
 	public static final PowerEffect immortality;
 	public static final PowerEffect speedBoost;
+	public static final PowerEffect karma;
 	
 	static {
 		
@@ -44,6 +45,7 @@ public class PowerEffects {
 			immortality = PowerEffect.getPowerEffect("immortality");
 			emphaticMimicry = (EmphaticMimicry) PowerEffect.getPowerEffect("emphaticMimicry");
 			speedBoost = PowerEffect.getPowerEffect("speedBoost");
+			karma = PowerEffect.getPowerEffect("karma");
 			
 		} else {
 			throw new RuntimeException("References accessed before registration");

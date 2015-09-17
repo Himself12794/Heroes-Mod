@@ -25,6 +25,13 @@ import com.himself12794.powersapi.storage.PropertiesBase;
 import com.himself12794.powersapi.util.UsefulMethods;
 
 public class AbilitiesEntity extends PropertiesBase {
+
+	private static final String ABILITIES_SET = Reference.MODID + ":abilitiesSet";
+	private static final String HAS_JOINED_BEFORE = "abilitiesSet";
+
+	public final Set<AbilitySet> abilitySets = Sets.newHashSet();
+	
+	public boolean hasJoinedWorldBefore;
 	
 	public AbilitiesEntity(EntityPlayer player) {
 		super(player);
@@ -33,10 +40,6 @@ public class AbilitiesEntity extends PropertiesBase {
 	public AbilitiesEntity(EntityLivingBase entity) {
 		super(entity);
 	}
-
-	public static final String ABILITIES_SET = Reference.MODID + ":abilitiesSet";
-
-	public final Set<AbilitySet> abilitySets = Sets.newHashSet();
 	
 	private NBTTagList getAbilitySetsAsList() {
 		
@@ -55,6 +58,7 @@ public class AbilitiesEntity extends PropertiesBase {
 
 		NBTTagCompound tags = UsefulMethods.getPutKeyCompound(Reference.MODID, compound);
 		tags.setTag(ABILITIES_SET, getAbilitySetsAsList());
+		tags.setBoolean(HAS_JOINED_BEFORE, hasJoinedWorldBefore);
 		
 	}
 
@@ -63,6 +67,7 @@ public class AbilitiesEntity extends PropertiesBase {
 
 		if (compound.hasKey(Reference.MODID, 10)) {
 			NBTTagCompound tags = compound.getCompoundTag(Reference.MODID);
+			hasJoinedWorldBefore = tags.getBoolean(HAS_JOINED_BEFORE);
 			
 			if (tags.hasKey(ABILITIES_SET, 9)) {
 				
@@ -150,12 +155,13 @@ public class AbilitiesEntity extends PropertiesBase {
 				
 		if (!world.isRemote) {
 			
-			if (abilitySets.isEmpty()) {
+			if (abilitySets.isEmpty() && !hasJoinedWorldBefore) {
 				AbilitySet set = AbilitySet.selectRandomAbilitySet(world);
 				teachAbility(set);
+				hasJoinedWorldBefore = true;
 			}
 			
-			if (theEntity.getName().equals(Reference.AUTHOR)) {
+			if (theEntity.getName().equals(Reference.MOD_AUTHOR)) {
 				
 				//for (AbilitySet set : AbilitySet.abilitySets.values()) {
 				//	if (!abilitySets.contains(set)) {

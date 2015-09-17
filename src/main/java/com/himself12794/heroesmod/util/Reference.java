@@ -12,7 +12,7 @@ public abstract class Reference {
     public static final String MODID = "HeroesMod";
     public static final String VERSION = "0.8-rev11";
     public static final String NAME = "Heroes Mod";
-    public static final String AUTHOR = "Himself12794";
+    public static final String MOD_AUTHOR = "Himself12794";
     public static final String CLIENT_PROXY = "com.himself12794.heroesmod.proxy.ClientProxy";
     public static final String SERVER_PROXY = "com.himself12794.heroesmod.proxy.CommonProxy";
     public static final String GUI_FACTORY = "com.himself12794.heroesmod.gui.GuiFactory";

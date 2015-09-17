@@ -16,14 +16,14 @@ public class ModConfig {
 
 	/**
 	 * This bit of hackery allows as to set the default weight when we
-	 * initialize the ability, and have that be static even if the config change
+	 * initialize the ability, and have that be static even if the config changes
 	 */
 	private static final Map defaultWeights = Maps.newHashMap();
 	public static Configuration config;
 	public static ConfigCategory generalModConfig;
 	public static ConfigCategory abilities;
-	public static int flamethrowing = 1;
-	public static boolean enderSoundSwap = true;
+	public static int flamethrowing;
+	public static boolean enderSoundSwap;
 
 	public static void loadConfig(FMLPreInitializationEvent event) {
 		config = new Configuration(event.getSuggestedConfigurationFile(), true);
@@ -47,7 +47,8 @@ public class ModConfig {
 		enderSoundSwap = config.getBoolean("EnderSoundSwapEnabled", generalModConfig.getName(), true, "Swaps ender scream for banshee scream");
 
 		for (AbilitySet set : AbilitySet.abilitySets.values()) {
-
+			
+			// The original weights are stored first time around. This way, the defaults won't change
 			if (!defaultWeights.containsKey(set)) {
 				defaultWeights.put(set, set.getWeight());
 			}
@@ -59,8 +60,7 @@ public class ModConfig {
 
 		}
 
-		if (config.hasChanged())
-			config.save();
+		if (config.hasChanged()) config.save();
 	}
 
 	@SubscribeEvent

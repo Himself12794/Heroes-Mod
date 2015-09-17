@@ -20,45 +20,45 @@ import com.himself12794.powersapi.power.Power;
 
 public class Powers {
 
-	public static final Telekinesis TELEKINESIS;
-	public static final Incinerate INCINERATE;
-	public static final Lightning LIGHTNING;
-	public static final Heal HEAL;
-	public static final Dummy DUMMY;
-	public static final Flames FLAMES;
-	public static final Slam SLAM;
-	public static final Punt PUNT;
-	public static final Flare EXPLODING_BOLT;
-	public static final Eclipse ECLIPSE;
-	public static final BlockMemory BLOCK_MEMORY;
-	public static final Charge CHARGE;
-	public static final Nova NOVA;
-	public static final Launch LAUNCH; 
-	public static final SpecializedPunch SPECIALIZED_PUNCH;
-	public static final Power SPEED_BOOST;
-	public static final Power ENDER_ACCESS;
+	public static final Telekinesis telekinesis;
+	public static final Incinerate incinerate;
+	public static final Lightning lightning;
+	public static final Heal heal;
+	public static final Dummy dummy;
+	public static final Flames flames;
+	public static final Slam slam;
+	public static final Punt punt;
+	public static final Flare explodingBolt;
+	public static final Eclipse eclipse;
+	public static final BlockMemory blockMemory;
+	public static final Charge charge;
+	public static final Nova nova;
+	public static final Launch launch; 
+	public static final SpecializedPunch specializedPunch;
+	public static final Power speedBoost;
+	public static final Power enderAccess;
 
 	static {
 
 		if (HeroesMod.instance().isInitialized()) {
 
-			INCINERATE = PowersRegistry.lookupPower(Incinerate.class);
-			LIGHTNING = PowersRegistry.lookupPower(Lightning.class);
-			HEAL = PowersRegistry.lookupPower(Heal.class);
-			DUMMY = PowersRegistry.lookupPower(Dummy.class);
-			FLAMES = PowersRegistry.lookupPower(Flames.class);
-			SLAM = PowersRegistry.lookupPower(Slam.class);
-			PUNT = PowersRegistry.lookupPower(Punt.class);
-			TELEKINESIS = PowersRegistry.lookupPower(Telekinesis.class);
-			EXPLODING_BOLT = PowersRegistry.lookupPower(Flare.class);
-			ECLIPSE = PowersRegistry.lookupPower(Eclipse.class);
-			BLOCK_MEMORY = PowersRegistry.lookupPower(BlockMemory.class);
-			CHARGE = PowersRegistry.lookupPower(Charge.class);
-			NOVA = PowersRegistry.lookupPower(Nova.class);
-			LAUNCH = PowersRegistry.lookupPower(Launch.class);
-			SPECIALIZED_PUNCH = PowersRegistry.lookupPower(SpecializedPunch.class);
-			SPEED_BOOST = PowersRegistry.lookupPower("power.speedBoost");
-			ENDER_ACCESS = PowersRegistry.lookupPower("power.enderAccess");
+			incinerate = PowersRegistry.lookupPower(Incinerate.class);
+			lightning = PowersRegistry.lookupPower(Lightning.class);
+			heal = PowersRegistry.lookupPower(Heal.class);
+			dummy = PowersRegistry.lookupPower(Dummy.class);
+			flames = PowersRegistry.lookupPower(Flames.class);
+			slam = PowersRegistry.lookupPower(Slam.class);
+			punt = PowersRegistry.lookupPower(Punt.class);
+			telekinesis = PowersRegistry.lookupPower(Telekinesis.class);
+			explodingBolt = PowersRegistry.lookupPower(Flare.class);
+			eclipse = PowersRegistry.lookupPower(Eclipse.class);
+			blockMemory = PowersRegistry.lookupPower(BlockMemory.class);
+			charge = PowersRegistry.lookupPower(Charge.class);
+			nova = PowersRegistry.lookupPower(Nova.class);
+			launch = PowersRegistry.lookupPower(Launch.class);
+			specializedPunch = PowersRegistry.lookupPower(SpecializedPunch.class);
+			speedBoost = PowersRegistry.lookupPower("power.speedBoost");
+			enderAccess = PowersRegistry.lookupPower("power.enderAccess");
 
 		} else {
 			throw new RuntimeException("References accessed before initialization");

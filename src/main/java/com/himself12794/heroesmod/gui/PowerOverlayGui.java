@@ -43,7 +43,7 @@ public class PowerOverlayGui extends Gui {
 		if (powerPrimary != null) { 
 			drawData(powerPrimary, xPos, yPos);
 		}
-		yPos += 56;
+		yPos += 64;
 		if (powerSecondary != null) { 
 			drawData(powerSecondary, xPos, yPos);
 		}
@@ -51,24 +51,50 @@ public class PowerOverlayGui extends Gui {
 	
 	private void drawData(PowerProfile profile, int x, int yPos) {
 
-		int color = profile.cooldownRemaining <= 0 ? 127 : 63;  
+		PowersEntity wrapper = PowersEntity.get(Minecraft.getMinecraft().thePlayer);
 		
+		int color;  
+		
+		if (wrapper.getPrimaryPower() == profile.thePower) {
+			color = profile.cooldownRemaining <= 0 ? 0xAAFFFFFF : 0x80808080;
+		} else {
+			color = profile.cooldownRemaining <= 0 ? 0xAA4A9288 : 0x802D5C55;
+		}
 		GlStateManager.pushMatrix();
+		
+		// Name and level
 		String levelIdentifier = profile.getMaxLevel() > 1 ? " (Lv " + profile.level + ")" : "";
 		drawString(fontRendererObj, profile.getDisplayName() + levelIdentifier, x, yPos, color);
 		yPos += 8;
 		
+		// Optional info line
 		String info = profile.getInfo();
 		if (info != null) {
 			drawString(fontRendererObj, info, x, yPos, color);
 			yPos += 8;
 		}
 		
+		// Cooldown time line
 		int cooldown = profile.getCooldown();
 		String cooldownText = cooldown > 0 ? String.format("%.1f", cooldown / 20.0F) + "s" : "None";
 		drawString(fontRendererObj, "Cooldown Time: " + cooldownText, x, yPos, color );
 		yPos += 8;
 		
+		// Use time left (if applicable)
+		int useTimeLeft = wrapper.isPowerInUse(profile.thePower) ? wrapper.getPowerInUseTimeLeft(profile.thePower) : 0;
+		if (useTimeLeft > 0) {
+			drawString(fontRendererObj, "Use Time Left: " + String.format("%.1f", useTimeLeft / 20.0F) + "s", x, yPos, color );
+			yPos += 8;
+		}
+		
+		// Use time left (if applicable)
+		int preparationTimeLeft = wrapper.isPowerInUse(profile.thePower) ? wrapper.getPreparationTimeLeft(profile.thePower) : 0;
+		if (preparationTimeLeft > 0) {
+			drawString(fontRendererObj, "Preparation Time Left: " + String.format("%.1f", preparationTimeLeft / 20.0F) + "s", x, yPos, color );
+			yPos += 8;
+		}
+		
+		// Additional information for buffs
 		if (profile.thePower instanceof PowerEffectActivatorBuff) {
 			PowerEffectActivatorBuff buff = (PowerEffectActivatorBuff)profile.thePower;
 			
@@ -84,8 +110,9 @@ public class PowerOverlayGui extends Gui {
 			}
 		}
 		
+		// Cooldown remaining (if applicable)
 		if (profile.cooldownRemaining > 0) { 
-			drawString(fontRendererObj, "Cooldown Remaining: " + String.format("%.1f", profile.cooldownRemaining / 20.0F), x, yPos, color );
+			drawString(fontRendererObj, "Cooldown Remaining: " + String.format("%.1f", profile.cooldownRemaining / 20.0F) + "s", x, yPos, color );
 			yPos += 8;
 		}
 		

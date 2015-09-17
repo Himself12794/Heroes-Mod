@@ -20,7 +20,6 @@ public class Telekinesis extends PowerEffectActivatorInstant {
 	}
 
 	public boolean onCast(World world, EntityLivingBase caster, float modifier, int state) {
-		PowersEntity.get(caster).getPowerEffectsData().addPowerEffect(PowerEffects.telekineticShield, -1, caster, this);
 		return true;
 	}
 	
@@ -31,9 +30,9 @@ public class Telekinesis extends PowerEffectActivatorInstant {
 		if (target != null && target.entityHit != null) {
 
 			if (target.entityHit instanceof EntityLivingBase)
-				PowersEntity.get((EntityLivingBase) target.entityHit).getPowerEffectsData()
-						.addPowerEffect(PowerEffects.paralysis, getDuration(),
-								caster, this);
+				PowersEntity.get(caster).getPowerEffectsData()
+						.addPowerEffect(PowerEffects.karma, -1,
+								(EntityLivingBase) target.entityHit, this);
 
 			if (target.entityHit.getDistanceToEntity(caster) >= 5.0F) {
 

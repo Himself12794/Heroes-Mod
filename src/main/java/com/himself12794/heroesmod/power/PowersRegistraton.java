@@ -62,7 +62,7 @@ public class PowersRegistraton {
 				if (caster instanceof EntityPlayer) {
 					EntityPlayer player = (EntityPlayer)caster;
 					player.displayGUIChest(player.getInventoryEnderChest());
-					Powers.BLOCK_MEMORY.playSound(world, player.getPosition(), true);
+					Powers.blockMemory.playSound(world, player.getPosition(), true);
 					return true;
 				}
 				
