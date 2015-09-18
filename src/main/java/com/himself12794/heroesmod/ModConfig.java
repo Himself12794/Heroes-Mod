@@ -41,8 +41,8 @@ public class ModConfig {
 
 	public static void syncConfig() {
 
-		flamethrowing = config.getInt("FlamethrowingGriefing", generalModConfig.getName(), 1, 0, 3,
-						"Griefing level for the flames power. 0=Nothing, 1=Grass, 2=Burnable Objects, 3=Everything");
+		flamethrowing = config.getInt("FlamethrowingGriefing", generalModConfig.getName(), 0, 0, 4,
+						"Griefing level for the flames power. 0=Entities, 1=Grass, 2=Grass and Leaves, 3=Burnable Objects, 4=Everything");
 		
 		enderSoundSwap = config.getBoolean("EnderSoundSwapEnabled", generalModConfig.getName(), true, "Swaps ender scream for banshee scream");
 

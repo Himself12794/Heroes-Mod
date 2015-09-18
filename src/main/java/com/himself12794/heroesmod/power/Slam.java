@@ -7,6 +7,7 @@ import net.minecraft.world.World;
 
 import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.powersapi.power.PowerEffectActivatorInstant;
+import com.himself12794.powersapi.storage.EffectsEntity;
 import com.himself12794.powersapi.storage.PowersEntity;
 
 public class Slam extends PowerEffectActivatorInstant {
@@ -26,7 +27,7 @@ public class Slam extends PowerEffectActivatorInstant {
 		if (target.typeOfHit == MovingObjectType.ENTITY) {
 
 			if (target.entityHit instanceof EntityLivingBase) {
-				PowersEntity.get((EntityLivingBase) target.entityHit).getPowerEffectsData()
+				EffectsEntity.get((EntityLivingBase) target.entityHit)
 						.removePowerEffectSparingly(PowerEffects.telekinesis);
 			}
 		}

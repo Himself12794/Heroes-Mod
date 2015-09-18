@@ -5,8 +5,12 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
@@ -23,10 +27,11 @@ public class Flames extends PowerRanged {
 	
 	public Flames() {
 		setMaxConcentrationTime(5 * 20);
+		setMaxFunctionalState(3);
 		setPower(6.0F);
 		setCooldown(100);
 		setDuration(8 * 20);
-		setPreparationTime(40);
+		setPreparationTime(20);
 		setUnlocalizedName("flames");
 	}	
 	
@@ -43,45 +48,49 @@ public class Flames extends PowerRanged {
 	
 	public boolean onStrike(World world, MovingObjectPosition target, EntityLivingBase caster, float modifier, int state ) {
 		
-		if (target.entityHit != null) {
-			
-			if (!target.entityHit.isImmuneToFire()) {
-				
-				target.entityHit.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) caster).setFireDamage(), this.getPower(modifier));
-				target.entityHit.setFire(this.getDuration() / 20 );
-				
-			}
-			
-		} 
-		
 		if (caster.isInsideOfMaterial(Material.water)) return false;
 		
-		if (ModConfig.flamethrowing > 0 && target.typeOfHit == MovingObjectType.BLOCK){
-			
-			BlockPos blockPos = UsefulMethods.getBlockFromSide( target.getBlockPos(), target.sideHit);
-			Block block = UsefulMethods.getBlockAtPos(blockPos, world);
-			
-			if (ModConfig.flamethrowing >= 2 && block.getMaterial().getCanBurn()) {
+		BurnState burnState = BurnState.getBurnStateById(state);
+		
+		if (burnState.canBurnPosition(target, world) || isEntity(target)) {
+
+			if (isEntity(target) && !target.entityHit.isImmuneToFire()) {
 				
-				world.setBlockState(blockPos, Blocks.fire.getDefaultState());
+				if(burnState.burnsEntity()) target.entityHit.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) caster).setFireDamage(), this.getPower(modifier));
+				target.entityHit.setFire(burnState.burnsEntity() ? getDuration() : 1);
 				
-				if (ModConfig.flamethrowing == 3 && world.isAirBlock(blockPos.up())) {
-					
-					world.setBlockState(blockPos.up(), Blocks.fire.getDefaultState());
-					
-				}
-			
-			} else if (ModConfig.flamethrowing == 1 && block.getMaterial() == Material.vine) {
-				
-				world.setBlockState(blockPos, Blocks.fire.getDefaultState());
-			
+			} else if (burnState.burnsBlocks() && caster instanceof EntityPlayer){
+				setFireToPos(target.getBlockPos(), target.sideHit, (EntityPlayer) caster, world);
 			} 
+			
 		}
 		
 		return true;
 		
 	}
 	
+	@Override
+	public void onStateChanged(World world, EntityLivingBase caster, int prevState, int currState) {
+		
+		if (world.isRemote && prevState != currState) caster.addChatMessage( new ChatComponentText( BurnState.getBurnStateById(currState).text ) );
+		
+	}
+	
+	@Override
+	public int getMaxFunctionalState(PowerProfile profile) { 
+		return ModConfig.flamethrowing;
+	}
+	
+	@Override
+	public void onKnowledgeTick(PowerProfile profile) {
+		
+		if (profile.getState() > ModConfig.flamethrowing) {
+			profile.setState(getMaxFunctionalState(profile), false);
+		}
+		
+	}
+	
+	@Override
 	public void onUpdate(EntityPower spell) {
 		
 		if (!spell.isInWater()) {
@@ -109,7 +118,7 @@ public class Flames extends PowerRanged {
 					
 					if (UsefulMethods.getBlockAtPos(pos, world).getMaterial().isSolid()) break awaylabel;
 						
-					world.spawnParticle(EnumParticleTypes.FLAME,
+					world.spawnParticle(spell.castState < 4 ? EnumParticleTypes.FLAME : EnumParticleTypes.LAVA,
 						spell.prevPosX + (spell.motionX * j) - world.rand.nextFloat() * 0.5F,
 						spell.prevPosY + (spell.motionY * j) - world.rand.nextFloat() * 0.5F,
 						spell.prevPosZ + (spell.motionZ * j) - world.rand.nextFloat() * 0.5F,
@@ -125,8 +134,85 @@ public class Flames extends PowerRanged {
 		
 	}
 	
+	public void setFireToPos(BlockPos pos, EnumFacing side, EntityPlayer playerIn, World worldIn) {
+		
+		pos = pos.offset(side);
+
+        if (playerIn.canPlayerEdit(pos, side, null)) {
+            if (worldIn.isAirBlock(pos)) {
+                worldIn.setBlockState(pos, Blocks.fire.getDefaultState());
+            }
+        }
+	}
+	
+	private static boolean isEntity(MovingObjectPosition target) {
+		return target.typeOfHit == MovingObjectType.ENTITY;
+	}
+	
+	@Override
+	public String getDisplayName(PowerProfile profile) {
+		return BurnState.getBurnStateById(profile.getState()).title;
+	}
+	
 	public boolean isPiercingSpell() { return true; }
 	
 	public float getSpellVelocity() { return 5.0F; }
+	
+	public static enum BurnState {
+		
+		LEVEL_ZERO_BURN(0, "War Flames", "Setting fire to entities"),
+		LEVEL_ONE_BURN(1, "Brush Flames", "Setting fire to grass"),
+		LEVEL_TWO_BURN(2, "Hedging Flames", "Setting fire to grass and leaves"),
+		LEVEL_THREE_BURN(3, "Demolition Flames", "Setting fire to burnable objects"),
+		LEVEL_FOUR_BURN(4, "Napalm Flames", "Setting fire to everything");
+		
+		public final int id;
+		public final String title;
+		public final String text;
+		
+		BurnState(int id, String title, String text) {
+			this.id = id;
+			this.title = title;
+			this.text = text;
+		}
+		
+		public boolean canBurnPosition(MovingObjectPosition pos, World world) {
+			
+			BlockPos blockPos = pos.typeOfHit == MovingObjectType.ENTITY ? pos.entityHit.getPosition() : pos.getBlockPos();
+			Block block = UsefulMethods.getBlockAtPos(blockPos, world);
+			
+			switch(this) {
+				case LEVEL_ZERO_BURN:
+					return pos.typeOfHit == MovingObjectType.ENTITY;
+				case LEVEL_ONE_BURN:
+					return ModConfig.flamethrowing >= 1 && block.getMaterial() == Material.vine;
+				case LEVEL_TWO_BURN:
+					return ModConfig.flamethrowing >= 2 && (block.getMaterial() == Material.leaves || block.getMaterial() == Material.vine);
+				case LEVEL_THREE_BURN:
+					return ModConfig.flamethrowing >= 3 && block.getMaterial().getCanBurn();
+				case LEVEL_FOUR_BURN:
+					return ModConfig.flamethrowing == 4;
+				default:
+					return false;
+			}
+		}
+		
+		public boolean burnsEntity() {
+			return this.id == 0 || this.id == 4;
+		}
+		
+		public boolean burnsBlocks() {
+			return this.id != 0;
+		}
+		
+		public static BurnState getBurnStateById(int state) {
+			if (state > BurnState.values().length - 1 || state < 0) {
+				return null;
+			} else {
+				return BurnState.values()[state];
+			}
+		}
+		
+	}
 
 }

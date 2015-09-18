@@ -31,9 +31,8 @@ import com.himself12794.powersapi.storage.PowersEntity;
  */
 public class AbilitySet implements RandomUtils.IWeightedItem {
 
-	private float weight;
-	// TODO Make map and add level qualifier for power use 
-	private final Set<Power> activePowers = Sets.newHashSet();
+	private float weight; 
+	private final Map<Power, Integer> activePowers = Maps.newHashMap();
 	private final Set<PowerEffect> passivePowerEffects = Sets.newHashSet();
 	private final Set<Integer> potionEffects = Sets.newHashSet();
 	private final String unlocalizedName;
@@ -43,10 +42,14 @@ public class AbilitySet implements RandomUtils.IWeightedItem {
 		this.unlocalizedName = name;
 	}
 
-	protected AbilitySet addActivePower(Power power) {
+	protected AbilitySet addActivePower( Power power ) {
+		return addActivePower( power, 1 );
+	}
 
-		if (!activePowers.contains(power))
-			activePowers.add(power);
+	protected AbilitySet addActivePower( Power power, int requiredLevel ) {
+
+		if (!activePowers.containsKey(power))
+			activePowers.put(power, requiredLevel);
 
 		return this;
 
@@ -80,7 +83,7 @@ public class AbilitySet implements RandomUtils.IWeightedItem {
 	}
 
 	public boolean hasPower(Power power) {
-		return activePowers.contains(power);
+		return activePowers.containsKey(power);
 	}
 
 	public boolean hasPower(PowerEffect pfx) {
@@ -97,7 +100,7 @@ public class AbilitySet implements RandomUtils.IWeightedItem {
 	 * @return
 	 */
 	public Collection<Power> getActivePowers() {
-		return activePowers;
+		return activePowers.keySet();
 	}
 
 	/**
@@ -140,12 +143,19 @@ public class AbilitySet implements RandomUtils.IWeightedItem {
 		PowersEntity pwrs = PowersEntity.get(entity);
 		int sum = 0;
 		
-		for (Power power : activePowers) {
+		for ( Power power : activePowers.keySet() ) {
 			PowerProfile profile = pwrs.getPowerProfile(power);
 			sum += profile.level;
 		}
 		
 		return sum;
+	}
+	
+	public int getRequiredLevel(Power power) {
+		if (activePowers.containsKey(power)) 
+			return activePowers.get(power);
+		
+		return 0;
 	}
 
 	/**
@@ -184,7 +194,7 @@ public class AbilitySet implements RandomUtils.IWeightedItem {
 		registerAbilitySet((new AbilitySet("telekinesis")).setWeight(5.0F)
 				.addActivePower(Powers.punt)
 				.addActivePower(Powers.telekinesis)
-				.addActivePower(Powers.slam)
+				.addActivePower(Powers.slam, 6)
 				.addPassivePower(PowerEffects.telekineticShield)
 				.setDescription("The ability to move things with the mind."));
 
@@ -200,6 +210,7 @@ public class AbilitySet implements RandomUtils.IWeightedItem {
 		registerAbilitySet((new AbilitySet("materialManipulation"))
 				.setWeight(10.0F)
 				.addActivePower(Powers.blockMemory)
+				.addActivePower(Powers.enderAccess)
 				.addPassivePower(PowerEffects.breakFx)
 				.setDescription("The ability to manipulate solid matter and shift it between dimensions."));
 
@@ -207,7 +218,7 @@ public class AbilitySet implements RandomUtils.IWeightedItem {
 				.setWeight(4.0F)
 				.addActivePower(Powers.launch)
 				.addActivePower(Powers.nova)
-				.addActivePower(Powers.charge)
+				.addActivePower(Powers.charge, 6)
 				.addPassivePower(PowerEffects.flight)
 				.setDescription("The ability of flight."));
 		
@@ -220,24 +231,24 @@ public class AbilitySet implements RandomUtils.IWeightedItem {
 				.setWeight(3.0F)
 				.addActivePower(Powers.speedBoost)
 				.addActivePower(Powers.charge)
-				.addActivePower(Powers.specializedPunch)
+				.addActivePower(Powers.specializedPunch, 5)
 				.addPassivePower(Potion.digSpeed)
 				.setDescription("The ability to move very fast.")
 				);
 		
 		registerAbilitySet((new AbilitySet("enhancedStrength"))
 				.setWeight(3.0F)
-				.addActivePower(Powers.nova)
 				.addActivePower(Powers.specializedPunch)
+				.addActivePower(Powers.nova, 4)
 				.addPassivePower(Potion.damageBoost)
 				.setDescription("The ability of super strength")
 				);
 
-		HeroesMod.logger.info("Registered " + abilitySetsCount
+		HeroesMod.logger().info("Registered " + abilitySetsCount
 				+ " ability set(s)");
 	}
 
-	private static AbilitySet registerAbilitySet(AbilitySet abs) {
+	protected static AbilitySet registerAbilitySet(AbilitySet abs) {
 
 		String name = abs.getUnlocalizedName();
 
@@ -251,7 +262,7 @@ public class AbilitySet implements RandomUtils.IWeightedItem {
 
 		} else {
 
-			HeroesMod.logger.error("Could not register ability set " + abs
+			HeroesMod.logger().error("Could not register ability set " + abs
 					+ " under name \"" + name
 					+ "\", name has already been registered for "
 					+ lookupAbilitySet(name));

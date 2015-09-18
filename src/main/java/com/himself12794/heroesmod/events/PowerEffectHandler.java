@@ -84,7 +84,7 @@ public class PowerEffectHandler {
 	@SubscribeEvent
 	public void deflectProjectile(LivingAttackEvent event) {
 		
-		if (PowersEntity.get(event.entityLiving).getPowerEffectsData().isAffectedBy(PowerEffects.telekineticShield)) {
+		if (EffectsEntity.get(event.entityLiving).isAffectedBy(PowerEffects.telekineticShield)) {
 			
 			if (event.entity.worldObj.rand.nextInt(4) == 0) {
 				
@@ -120,7 +120,7 @@ public class PowerEffectHandler {
 			
 		}
 		
-		if (PowersEntity.get(event.entityLiving).getPowerEffectsData().isAffectedBy(PowerEffects.immortality)) {
+		if (EffectsEntity.get(event.entityLiving).isAffectedBy(PowerEffects.immortality)) {
 			
 			if (!event.source.canHarmInCreative()) {
 				

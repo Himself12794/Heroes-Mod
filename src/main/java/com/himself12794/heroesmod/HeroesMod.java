@@ -30,13 +30,13 @@ public class HeroesMod {
 	@Mod.Instance(value = Reference.MODID)
 	private static HeroesMod instance;
 
-	public static Logger logger;
+	private static Logger logger;
 	
 	public static HeroesMod instance() {
 		return instance;
 	}
 	
-	public static PowersAPI instanceAPI() {
+	public static PowersAPI apiInstance() {
 		return instanceAPI;
 	}
 
@@ -68,5 +68,9 @@ public class HeroesMod {
 	
 	public static CommonProxy proxy() {
 		return proxy;
+	}
+	
+	public static Logger logger() {
+		return logger;
 	}
 }

@@ -42,17 +42,17 @@ public class CommonProxy {
 	public void postinit(FMLPostInitializationEvent event) {
 			
 		PowerEffectsRegistration.registerEffects();
-		HeroesMod.logger.info("Registered " + PowerEffects.class.getDeclaredFields().length + " power effects");
+		HeroesMod.logger().info("Registered " + PowerEffects.class.getDeclaredFields().length + " power effects");
 		
-		HeroesMod.logger.info("Registering powers");
+		HeroesMod.logger().info("Registering powers");
 		PowersRegistraton.registerPowers();
 		
-		HeroesMod.logger.info("Registering ability sets");
+		HeroesMod.logger().info("Registering ability sets");
 		AbilitySet.registerAbilitySets();
 		
 		MinecraftForge.EVENT_BUS.register(new PowerEffectHandler());
 		
-		HeroesMod.instanceAPI().propertiesManager().registerPropertyClass(AbilitiesEntity.class, EntityPlayer.class);
+		HeroesMod.apiInstance().propertiesManager().registerPropertyClass(AbilitiesEntity.class, EntityPlayer.class);
 		
 		ModConfig.syncConfig();
 	}

@@ -24,7 +24,7 @@ public class AbilitySets {
 			emphaticMimicry = AbilitySet.lookupAbilitySet("ability.emphaticMimicry");
 			enhancedSpeed = AbilitySet.lookupAbilitySet("ability.enhancedSpeed");
 			enhancedStrength = AbilitySet.lookupAbilitySet("ability.enhancedStrength");
-			HeroesMod.logger.debug("Ability set references instantiated");
+			HeroesMod.logger().debug("Ability set references instantiated");
 			
 		} else {
 			throw new RuntimeException("Referenced ability sets before instantiation");
