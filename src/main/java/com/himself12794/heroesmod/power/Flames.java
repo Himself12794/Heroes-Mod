@@ -1,12 +1,11 @@
 package com.himself12794.heroesmod.power;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockTNT;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.DamageSource;
@@ -135,6 +134,15 @@ public class Flames extends PowerRanged {
 	}
 	
 	public void setFireToPos(BlockPos pos, EnumFacing side, EntityPlayer playerIn, World worldIn) {
+		
+		if (UsefulMethods.getBlockAtPos(pos, worldIn) == Blocks.tnt) {
+			BlockTNT tnt = (BlockTNT)Blocks.tnt;
+			
+			tnt.explode(worldIn, pos, tnt.getDefaultState().withProperty(BlockTNT.EXPLODE, Boolean.valueOf(true)), playerIn);
+			worldIn.setBlockToAir(pos);
+			
+			return;
+		}
 		
 		pos = pos.offset(side);
 

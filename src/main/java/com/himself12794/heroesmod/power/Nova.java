@@ -9,7 +9,6 @@ import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.heroesmod.world.BioticExplosion;
 import com.himself12794.powersapi.power.PowerBuff;
 import com.himself12794.powersapi.storage.EffectsEntity;
-import com.himself12794.powersapi.storage.PowersEntity;
 
 public class Nova extends PowerBuff {
 	

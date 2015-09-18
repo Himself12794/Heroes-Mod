@@ -13,7 +13,6 @@ import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.heroesmod.util.Reference.Sounds;
 import com.himself12794.powersapi.power.PowerInstant;
 import com.himself12794.powersapi.storage.EffectsEntity;
-import com.himself12794.powersapi.storage.PowersEntity;
 
 public class Charge extends PowerInstant {
 

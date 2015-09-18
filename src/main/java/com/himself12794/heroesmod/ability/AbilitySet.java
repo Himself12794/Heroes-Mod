@@ -1,7 +1,6 @@
 package com.himself12794.heroesmod.ability;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -10,7 +9,6 @@ import net.minecraft.potion.Potion;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.himself12794.heroesmod.HeroesMod;

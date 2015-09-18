@@ -8,7 +8,6 @@ import net.minecraft.world.World;
 import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.powersapi.power.PowerInstant;
 import com.himself12794.powersapi.storage.EffectsEntity;
-import com.himself12794.powersapi.storage.PowersEntity;
 
 public class Punt extends PowerInstant {
 

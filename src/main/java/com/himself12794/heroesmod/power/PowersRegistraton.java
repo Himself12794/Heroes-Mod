@@ -7,7 +7,6 @@ import net.minecraft.world.World;
 import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.heroesmod.Powers;
 import com.himself12794.powersapi.PowersAPI;
-import com.himself12794.powersapi.PowersRegistry;
 import com.himself12794.powersapi.power.PowerBuff;
 import com.himself12794.powersapi.power.PowerEffectActivatorBuff;
 import com.himself12794.powersapi.storage.PowerProfile;
