@@ -203,6 +203,6 @@ public class AbilitiesEntity extends PropertiesBase {
 
 	
 	public static AbilitiesEntity get(EntityLivingBase entity) {
-		return PowersAPI.propertiesManager().getWrapper(AbilitiesEntity.class, entity);
+		return PowersAPI.propertiesHandler().getWrapper(AbilitiesEntity.class, entity);
 	}
 }

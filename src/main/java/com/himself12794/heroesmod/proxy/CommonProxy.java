@@ -52,7 +52,7 @@ public class CommonProxy {
 		
 		MinecraftForge.EVENT_BUS.register(new PowerEffectHandler());
 		
-		HeroesMod.apiInstance().propertiesManager().registerPropertyClass(AbilitiesEntity.class, EntityPlayer.class);
+		HeroesMod.apiInstance().propertiesHandler().registerPropertyClass(AbilitiesEntity.class, EntityPlayer.class, Reference.MODID + ":abilitiesWrapper");
 		
 		ModConfig.syncConfig();
 	}
