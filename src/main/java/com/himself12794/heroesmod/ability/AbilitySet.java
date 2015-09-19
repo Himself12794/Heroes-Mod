@@ -120,7 +120,7 @@ public class AbilitySet implements RandomUtils.IWeightedItem {
 		return potionEffects;
 	}
 	
-	public String getRegisteredName() {
+	public String getLoggerFriendlyName() {
 		char[] chars = unlocalizedName.toCharArray();
 		chars[0] = String.valueOf(chars[0]).toUpperCase().toCharArray()[0];
 		
@@ -241,9 +241,6 @@ public class AbilitySet implements RandomUtils.IWeightedItem {
 				.addPassivePower(Potion.damageBoost)
 				.setDescription("The ability of super strength")
 				);
-
-		HeroesMod.logger().info("Registered " + abilitySetsCount
-				+ " ability set(s)");
 	}
 
 	protected static AbilitySet registerAbilitySet(AbilitySet abs) {
@@ -254,7 +251,7 @@ public class AbilitySet implements RandomUtils.IWeightedItem {
 
 			abilitySets.put(name, abs);
 			abilitySetIds.put(++abilitySetsCount, name);
-			// HeroesMod.logger.info("Registered ability set " + name);
+			HeroesMod.logger().info("Registered ability set " + abs.getLoggerFriendlyName());
 
 			return abs;
 

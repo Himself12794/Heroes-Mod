@@ -5,6 +5,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 
 import com.himself12794.heroesmod.Powers;
@@ -48,7 +49,7 @@ public class PowerEffectsRegistration {
 				PowerProfile profile = PowersEntity.get(entity).getPowerProfile(power);
 				int level = profile != null  && power == Powers.speedBoost ? 
 						(profile.level < 3 ? profile.level : 3) : 1;
-						
+		
 				if (level == 3) {
 					Vec3 look = entity.getLookVec();
 					Vec3 pos = entity.getPositionVector();

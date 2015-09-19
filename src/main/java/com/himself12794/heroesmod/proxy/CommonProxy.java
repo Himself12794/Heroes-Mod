@@ -13,6 +13,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import com.himself12794.heroesmod.HeroesMod;
 import com.himself12794.heroesmod.ModConfig;
 import com.himself12794.heroesmod.PowerEffects;
+import com.himself12794.heroesmod.Powers;
 import com.himself12794.heroesmod.ability.AbilitySet;
 import com.himself12794.heroesmod.events.PowerEffectHandler;
 import com.himself12794.heroesmod.item.ModItems;
@@ -33,7 +34,8 @@ public class CommonProxy {
 
 	}
 
-	public void init(FMLInitializationEvent event) {		
+	public void init(FMLInitializationEvent event) {
+		
 		ModItems.addItems();
 		
 		FMLCommonHandler.instance().bus().register( new ModConfig() );
@@ -41,18 +43,19 @@ public class CommonProxy {
 
 	public void postinit(FMLPostInitializationEvent event) {
 			
-		PowerEffectsRegistration.registerEffects();
-		HeroesMod.logger().info("Registered " + PowerEffects.class.getDeclaredFields().length + " power effects");
+		HeroesMod.apiInstance().propertiesHandler().registerPropertyClass(AbilitiesEntity.class, EntityPlayer.class, Reference.MODID + ":abilitiesWrapper");
 		
-		HeroesMod.logger().info("Registering powers");
+		PowerEffectsRegistration.registerEffects();
+		
 		PowersRegistraton.registerPowers();
 		
-		HeroesMod.logger().info("Registering ability sets");
 		AbilitySet.registerAbilitySets();
 		
 		MinecraftForge.EVENT_BUS.register(new PowerEffectHandler());
 		
-		HeroesMod.apiInstance().propertiesHandler().registerPropertyClass(AbilitiesEntity.class, EntityPlayer.class, Reference.MODID + ":abilitiesWrapper");
+		HeroesMod.logger().info("Registered " + PowerEffects.class.getDeclaredFields().length + " power effects");
+		HeroesMod.logger().info("Registered " + Powers.class.getDeclaredFields().length + " powers");
+		HeroesMod.logger().info("Registered " + AbilitySet.getAbilitySetCount() + " ability sets");
 		
 		ModConfig.syncConfig();
 	}

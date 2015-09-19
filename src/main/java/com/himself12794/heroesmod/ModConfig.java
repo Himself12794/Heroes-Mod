@@ -41,7 +41,7 @@ public class ModConfig {
 
 	public static void syncConfig() {
 
-		flamethrowing = config.getInt("FlamethrowingGriefing", generalModConfig.getName(), 0, 0, 4,
+		flamethrowing = config.getInt("FlamethrowingGriefing", generalModConfig.getName(), 4, 0, 4,
 						"Griefing level for the flames power. 0=Entities, 1=Grass, 2=Grass and Leaves, 3=Burnable Objects, 4=Everything");
 		
 		enderSoundSwap = config.getBoolean("EnderSoundSwapEnabled", generalModConfig.getName(), true, "Swaps ender scream for banshee scream");
@@ -55,7 +55,7 @@ public class ModConfig {
 
 			float defaultWeight = (Float) defaultWeights.get(set);
 
-			set.setWeight(config.getFloat(set.getRegisteredName(), abilities.getName(), defaultWeight, 0.0F, 20.0F,
+			set.setWeight(config.getFloat(set.getLoggerFriendlyName(), abilities.getName(), defaultWeight, 0.0F, 20.0F,
 					set.getDescription()));
 
 		}

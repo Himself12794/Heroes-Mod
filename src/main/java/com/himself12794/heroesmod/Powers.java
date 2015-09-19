@@ -57,8 +57,8 @@ public class Powers {
 			nova = PowersRegistry.lookupPower(Nova.class);
 			launch = PowersRegistry.lookupPower(Launch.class);
 			specializedPunch = PowersRegistry.lookupPower(SpecializedPunch.class);
-			speedBoost = PowersRegistry.lookupPower("power.speedBoost");
-			enderAccess = PowersRegistry.lookupPower("power.enderAccess");
+			speedBoost = PowersRegistry.lookupPower("speedBoost");
+			enderAccess = PowersRegistry.lookupPower("enderAccess");
 
 		} else {
 			throw new RuntimeException("References accessed before initialization");

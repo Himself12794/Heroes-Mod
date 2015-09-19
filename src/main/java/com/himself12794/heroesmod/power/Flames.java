@@ -1,6 +1,5 @@
 package com.himself12794.heroesmod.power;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockTNT;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
@@ -16,6 +15,9 @@ import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.World;
 
 import com.himself12794.heroesmod.ModConfig;
+import com.himself12794.heroesmod.network.HeroesNetwork;
+import com.himself12794.heroesmod.util.EnumRandomType;
+import com.himself12794.heroesmod.util.FlamesType;
 import com.himself12794.heroesmod.util.Reference;
 import com.himself12794.powersapi.entity.EntityPower;
 import com.himself12794.powersapi.power.PowerRanged;
@@ -49,17 +51,17 @@ public class Flames extends PowerRanged {
 		
 		if (caster.isInsideOfMaterial(Material.water)) return false;
 		
-		BurnState burnState = BurnState.getBurnStateById(state);
+		FlamesType burnState = FlamesType.getFlamesTypeById(state);
 		
 		if (burnState.canBurnPosition(target, world) || isEntity(target)) {
 
 			if (isEntity(target) && !target.entityHit.isImmuneToFire()) {
 				
 				if(burnState.burnsEntity()) target.entityHit.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) caster).setFireDamage(), this.getPower(modifier));
-				target.entityHit.setFire(burnState.burnsEntity() ? getDuration() : 1);
+				target.entityHit.setFire(burnState.burnsEntity() ? getDuration() / 20 : 1);
 				
 			} else if (burnState.burnsBlocks() && caster instanceof EntityPlayer){
-				setFireToPos(target.getBlockPos(), target.sideHit, (EntityPlayer) caster, world);
+				setFireToPos(target.getBlockPos(), target.sideHit, (EntityPlayer) caster, world, burnState);
 			} 
 			
 		}
@@ -71,7 +73,7 @@ public class Flames extends PowerRanged {
 	@Override
 	public void onStateChanged(World world, EntityLivingBase caster, int prevState, int currState) {
 		
-		if (world.isRemote && prevState != currState) caster.addChatMessage( new ChatComponentText( BurnState.getBurnStateById(currState).text ) );
+		if (world.isRemote && prevState != currState) caster.addChatMessage( new ChatComponentText( FlamesType.getFlamesTypeById(currState).text ) );
 		
 	}
 	
@@ -103,6 +105,7 @@ public class Flames extends PowerRanged {
 				
 			}
 			
+			boolean positionInvalid = false;
 				
 			awaylabel:
 			
@@ -115,7 +118,10 @@ public class Flames extends PowerRanged {
 							spell.prevPosY + (spell.motionY * j),
 							spell.prevPosZ + (spell.motionZ * j));
 					
-					if (UsefulMethods.getBlockAtPos(pos, world).getMaterial().isSolid()) break awaylabel;
+					if (UsefulMethods.getBlockAtPos(pos, world).getMaterial().isSolid()) {
+						positionInvalid = true;
+						break awaylabel;
+					}
 						
 					world.spawnParticle(spell.castState < 4 ? EnumParticleTypes.FLAME : EnumParticleTypes.LAVA,
 						spell.prevPosX + (spell.motionX * j) - world.rand.nextFloat() * 0.5F,
@@ -133,7 +139,7 @@ public class Flames extends PowerRanged {
 		
 	}
 	
-	public void setFireToPos(BlockPos pos, EnumFacing side, EntityPlayer playerIn, World worldIn) {
+	public void setFireToPos(BlockPos pos, EnumFacing side, EntityPlayer playerIn, World worldIn, FlamesType type) {
 		
 		if (UsefulMethods.getBlockAtPos(pos, worldIn) == Blocks.tnt) {
 			BlockTNT tnt = (BlockTNT)Blocks.tnt;
@@ -141,16 +147,35 @@ public class Flames extends PowerRanged {
 			tnt.explode(worldIn, pos, tnt.getDefaultState().withProperty(BlockTNT.EXPLODE, Boolean.valueOf(true)), playerIn);
 			worldIn.setBlockToAir(pos);
 			
-			return;
-		}
+		} else {
+			
+			if (!type.incinerates()) {
 		
-		pos = pos.offset(side);
-
-        if (playerIn.canPlayerEdit(pos, side, null)) {
-            if (worldIn.isAirBlock(pos)) {
-                worldIn.setBlockState(pos, Blocks.fire.getDefaultState());
-            }
-        }
+				pos = pos.offset(side);
+		
+		        if (playerIn.canPlayerEdit(pos, side, null)) {
+		            if (worldIn.isAirBlock(pos)) {
+		                worldIn.setBlockState(pos, Blocks.fire.getDefaultState());
+		            }
+		        }
+			} else {
+				if (playerIn.canPlayerEdit(pos, side, null)) {
+					worldIn.setBlockToAir(pos);
+					/*for (int i = 0; i < 10; ++i) {
+						worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, 
+								pos.getX(), pos.getY(), pos.getZ(), 
+								worldIn.rand.nextGaussian() * 0.5, 
+								worldIn.rand.nextGaussian() * 0.5, 
+								worldIn.rand.nextGaussian() * 0.5);
+					}*/
+					if (!worldIn.isRemote) {
+						HeroesNetwork.client().spawnParticles(EnumParticleTypes.SMOKE_NORMAL, 
+								pos.getX(), pos.getY(), pos.getZ(), 
+								0.5F, 100, EnumRandomType.GAUSSIAN, null);
+					}
+				}
+			}
+		}
 	}
 	
 	private static boolean isEntity(MovingObjectPosition target) {
@@ -159,68 +184,11 @@ public class Flames extends PowerRanged {
 	
 	@Override
 	public String getDisplayName(PowerProfile profile) {
-		return BurnState.getBurnStateById(profile.getState()).title;
+		return FlamesType.getFlamesTypeById(profile.getState()).title;
 	}
 	
 	public boolean isPiercingSpell() { return true; }
 	
 	public float getSpellVelocity() { return 5.0F; }
-	
-	public static enum BurnState {
-		
-		LEVEL_ZERO_BURN(0, "War Flames", "Setting fire to entities"),
-		LEVEL_ONE_BURN(1, "Brush Flames", "Setting fire to grass"),
-		LEVEL_TWO_BURN(2, "Hedging Flames", "Setting fire to grass and leaves"),
-		LEVEL_THREE_BURN(3, "Demolition Flames", "Setting fire to burnable objects"),
-		LEVEL_FOUR_BURN(4, "Napalm Flames", "Setting fire to everything");
-		
-		public final int id;
-		public final String title;
-		public final String text;
-		
-		BurnState(int id, String title, String text) {
-			this.id = id;
-			this.title = title;
-			this.text = text;
-		}
-		
-		public boolean canBurnPosition(MovingObjectPosition pos, World world) {
-			
-			BlockPos blockPos = pos.typeOfHit == MovingObjectType.ENTITY ? pos.entityHit.getPosition() : pos.getBlockPos();
-			Block block = UsefulMethods.getBlockAtPos(blockPos, world);
-			
-			switch(this) {
-				case LEVEL_ZERO_BURN:
-					return pos.typeOfHit == MovingObjectType.ENTITY;
-				case LEVEL_ONE_BURN:
-					return ModConfig.flamethrowing >= 1 && block.getMaterial() == Material.vine;
-				case LEVEL_TWO_BURN:
-					return ModConfig.flamethrowing >= 2 && (block.getMaterial() == Material.leaves || block.getMaterial() == Material.vine);
-				case LEVEL_THREE_BURN:
-					return ModConfig.flamethrowing >= 3 && block.getMaterial().getCanBurn();
-				case LEVEL_FOUR_BURN:
-					return ModConfig.flamethrowing == 4;
-				default:
-					return false;
-			}
-		}
-		
-		public boolean burnsEntity() {
-			return this.id == 0 || this.id == 4;
-		}
-		
-		public boolean burnsBlocks() {
-			return this.id != 0;
-		}
-		
-		public static BurnState getBurnStateById(int state) {
-			if (state > BurnState.values().length - 1 || state < 0) {
-				return null;
-			} else {
-				return BurnState.values()[state];
-			}
-		}
-		
-	}
 
 }

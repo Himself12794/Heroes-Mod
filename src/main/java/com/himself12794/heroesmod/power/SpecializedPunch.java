@@ -25,7 +25,7 @@ public class SpecializedPunch extends PowerInstant {
 	}
 	
 	public boolean onStrike(World world, MovingObjectPosition target, EntityLivingBase caster, float modifier, int state ) {
-		
+
 		if (state == 0 && target.entityHit instanceof EntityLivingBase) {
 			doHighVelocityPunch(caster, (EntityLivingBase) target.entityHit);
 			return true;
@@ -33,8 +33,6 @@ public class SpecializedPunch extends PowerInstant {
 			doLowVelocityPunch(caster, (EntityLivingBase) target.entityHit);
 			return true;
 		}
-		
-		
 		
 		return false;
 	}
