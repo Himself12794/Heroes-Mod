@@ -52,7 +52,7 @@ public class Flames extends PowerRanged {
 		
 		if (caster.isInsideOfMaterial(Material.water)) return false;
 		
-		FlamesType burnState = FlamesType.getFlamesTypeById(state);
+		FlamesType burnState = FlamesType.getFlamesTypeByStateId(state);
 		
 		if (burnState.canBurnPosition(target, world) || isEntity(target)) {
 
@@ -74,19 +74,19 @@ public class Flames extends PowerRanged {
 	@Override
 	public void onStateChanged(World world, EntityLivingBase caster, int prevState, int currState) {
 		
-		if (world.isRemote && prevState != currState) caster.addChatMessage( new ChatComponentText( FlamesType.getFlamesTypeById(currState).text ) );
+		if (world.isRemote && prevState != currState) caster.addChatMessage( new ChatComponentText( FlamesType.getFlamesTypeByStateId(currState).text ) );
 		
 	}
 	
 	@Override
 	public int getMaxFunctionalState(PowerProfile profile) { 
-		return HeroesMod.config().getFlamethrowingLevel();
+		return ModConfig.getFlamethrowingLevel();
 	}
 	
 	@Override
 	public void onKnowledgeTick(PowerProfile profile) {
 		
-		if (profile.getState() > HeroesMod.config().getFlamethrowingLevel()) {
+		if (profile.getState() > ModConfig.getFlamethrowingLevel()) {
 			profile.setState(getMaxFunctionalState(profile), false);
 		}
 		
@@ -185,7 +185,7 @@ public class Flames extends PowerRanged {
 	
 	@Override
 	public String getDisplayName(PowerProfile profile) {
-		return FlamesType.getFlamesTypeById(profile.getState()).title;
+		return FlamesType.getFlamesTypeByStateId(profile.getState()).title;
 	}
 	
 	public boolean isPiercingSpell() { return true; }

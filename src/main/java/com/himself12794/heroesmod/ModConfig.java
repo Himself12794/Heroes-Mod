@@ -72,12 +72,16 @@ public class ModConfig {
 
 	}
 	
-	public int getFlamethrowingLevel() {
-		return flamethrowing;
+	public static ModConfig get() {
+		return HeroesMod.config();
+	}
+	
+	public static int getFlamethrowingLevel() {
+		return get().flamethrowing;
 	}
 	
 	public boolean isEnderSoundSwapEnabled() {
-		return enderSoundSwap;
+		return get().enderSoundSwap;
 	}
 
 }

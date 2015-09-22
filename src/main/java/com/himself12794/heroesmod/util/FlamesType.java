@@ -10,7 +10,6 @@ import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.World;
 
 import com.google.common.collect.Lists;
-import com.himself12794.heroesmod.HeroesMod;
 import com.himself12794.heroesmod.ModConfig;
 import com.himself12794.powersapi.util.UsefulMethods;
 
@@ -23,6 +22,7 @@ public enum FlamesType {
 	NAPALM_FLAMES(4, "Napalm Flames", "Setting fire to everything", true, true, false );
 	
 	public final int permissionLevel;
+	public final int stateId;
 	public final String title;
 	public final String text;
 	private final boolean burnsEntities;
@@ -31,8 +31,9 @@ public enum FlamesType {
 	private final boolean incinerates;
 	private final List burnMaterials;	
 	
-	FlamesType(int id, String title, String text, boolean burnsEntities, boolean burnsBlocks, boolean incinerates, List materials) {
-		this.permissionLevel = id;
+	FlamesType(int stateId, int permissionLevel, String title, String text, boolean burnsEntities, boolean burnsBlocks, boolean incinerates, List materials) {
+		this.permissionLevel = permissionLevel;
+		this.stateId = stateId;
 		this.title = title;
 		this.text = text;
 		this.burnsEntities = burnsEntities;
@@ -41,13 +42,17 @@ public enum FlamesType {
 		this.burnMaterials = materials;
 	}
 	
+	FlamesType(int permissionLevel, String title, String text, boolean burnsEntities, boolean burnsBlocks, boolean incinerates, List materials) {
+		this(permissionLevel, permissionLevel, title, text, burnsEntities, burnsBlocks, incinerates, materials);
+	}
+	
 	FlamesType(int id, String title, String text, boolean burnsEntities, boolean burnsBlocks, boolean incinerates, Material...materials) {
 		this(id, title, text, burnsEntities, burnsBlocks, incinerates, Lists.newArrayList(materials));
 	}
 	
 	public boolean canBurnPosition(MovingObjectPosition pos, World world) {
 		
-		if (permissionLevel <= HeroesMod.config().getFlamethrowingLevel()) {
+		if (permissionLevel <= ModConfig.getFlamethrowingLevel()) {
 			
 			if (pos.typeOfHit == MovingObjectType.ENTITY) {
 				return burnsEntities;
@@ -75,12 +80,13 @@ public enum FlamesType {
 		return incinerates;
 	}
 	
-	public static FlamesType getFlamesTypeById(int id) {
-		if (id > FlamesType.values().length - 1 || id < 0) {
-			return WAR_FLAMES;
-		} else {
-			return FlamesType.values()[id];
+	public static FlamesType getFlamesTypeByStateId(int id) {
+		
+		for (FlamesType type : values()) {
+			if (type.stateId == id) return type;
 		}
+		
+		return FlamesType.WAR_FLAMES;
 	}
 	
 	private static List getBurnableMaterials() {
