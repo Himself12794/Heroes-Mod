@@ -3,18 +3,38 @@
  http://modcoderpack.com/    
  Searge, ProfMobius, Fesh0r, 
  R4wk, ZeuX, IngisKahn, bspkrs
- MCP Data version : snapshot_20141130
+ MCP Data version : 9.10
 ****************************
+:deobfCompileDummyTask
+:deobfProvidedDummyTask
+:compileApiJava UP-TO-DATE
+:processApiResources UP-TO-DATE
+:apiClasses UP-TO-DATE
+:sourceMainJava
+:compileJavawarning: [options] bootstrap class path not set in conjunction with -source 1.6
+1 warning
 
-FAILURE: Build failed with an exception.
+:processResources
+:classes
+:jar
+:compileTestJava UP-TO-DATE
+:processTestResources UP-TO-DATE
+:testClasses UP-TO-DATE
+:test UP-TO-DATE
+:extractMcpData SKIPPED
+:extractMcpMappings SKIPPED
+:getVersionJson
+:extractUserdev UP-TO-DATE
+:genSrgs SKIPPED
+:reobfJar
+:extractRangemapSrc
+:retromapSources
+remapping source...
+:sourceJar
+:assemble
+:check UP-TO-DATE
+:build
 
-* What went wrong:
-Problem configuring task :build from command line.
-> Unknown command-line option '-X'.
+BUILD SUCCESSFUL
 
-* Try:
-Run gradlew help --task :build to get task usage details. Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
-
-BUILD FAILED
-
-Total time: 6.683 secs
+Total time: 11.615 secs
