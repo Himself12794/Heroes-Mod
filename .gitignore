@@ -1,22 +1,22 @@
-/bin/
-/eclipse/
-/logs/
+# eclipse
+bin
+*.launch
+.settings
+.metadata
 .classpath
 .project
-*.json
-!sounds.json
-!/src/*/*.json
-*.text
-*.properties
-/world/
-/saves/
-/mods/
-/libs/
-/build/
-/config/
-/crash-reports/
-/build.gradle
-/eula.txt
-/options.txt
-/.settings/
-/screenshots/
+
+# idea
+out
+*.ipr
+*.iws
+*.iml
+.idea
+
+# gradle
+build
+.gradle
+
+# other
+eclipse
+run
