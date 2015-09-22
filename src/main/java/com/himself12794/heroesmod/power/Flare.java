@@ -49,9 +49,13 @@ public class Flare extends PowerRanged {
 
 		World world = spell.worldObj;
 		
+		if (spell.getThrower().getDistanceToEntity(spell) > 100.0F) spell.setDead();
+		
 		if (spell.getThrower().getDistanceToEntity(spell) > 2.0F) {
 			
-
+			spell.motionX *= 1.5;
+			spell.motionY *= 1.5;
+			spell.motionZ *= 1.5;
 			
 			double x = spell.motionX;
 			double y = spell.motionY;

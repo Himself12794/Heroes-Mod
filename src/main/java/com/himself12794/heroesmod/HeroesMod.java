@@ -22,8 +22,6 @@ import com.himself12794.powersapi.PowersAPI;
 @Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION, useMetadata = true, guiFactory = Reference.GUI_FACTORY)
 public class HeroesMod {
 
-	boolean init = false;
-
 	@Mod.Instance(value = "powersAPI")
 	private static PowersAPI instanceAPI;
 	
@@ -31,24 +29,20 @@ public class HeroesMod {
 	private static HeroesMod instance;
 
 	private static Logger logger;
-	
-	public static HeroesMod instance() {
-		return instance;
-	}
-	
-	public static PowersAPI apiInstance() {
-		return instanceAPI;
-	}
 
 	@SidedProxy(clientSide = Reference.CLIENT_PROXY, serverSide = Reference.SERVER_PROXY)
 	private static CommonProxy proxy;
+	
+	private ModConfig config;
+	boolean preInit;
 
 	@Mod.EventHandler
 	public void preinit(FMLPreInitializationEvent event) {
 
+		config = new ModConfig(event);
 		logger = event.getModLog();
 		proxy.preinit(event);
-		init = true;
+		preInit = true;
 	}
 
 	@Mod.EventHandler
@@ -63,7 +57,19 @@ public class HeroesMod {
 	}
 
 	public boolean isInitialized() {
-		return init;
+		return preInit;
+	}
+	
+	public static ModConfig config() {
+		return instance().config;
+	}
+	
+	public static HeroesMod instance() {
+		return instance;
+	}
+	
+	public static PowersAPI apiInstance() {
+		return instanceAPI;
 	}
 	
 	public static CommonProxy proxy() {

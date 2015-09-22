@@ -22,12 +22,11 @@ import com.himself12794.heroesmod.power.PowersRegistraton;
 import com.himself12794.heroesmod.powerfx.PowerEffectsRegistration;
 import com.himself12794.heroesmod.storage.AbilitiesEntity;
 import com.himself12794.heroesmod.util.Reference;
+import com.himself12794.powersapi.PowersAPI;
 
 public class CommonProxy {
 
 	public void preinit(FMLPreInitializationEvent event) {
-		
-		ModConfig.loadConfig(event);
 		
 		HeroesNetwork.init(NetworkRegistry.INSTANCE.newSimpleChannel( Reference.MODID + " NetChannel" ));
 		HeroesNetwork.registerMessages();
@@ -38,7 +37,7 @@ public class CommonProxy {
 		
 		ModItems.addItems();
 		
-		FMLCommonHandler.instance().bus().register( new ModConfig() );
+		FMLCommonHandler.instance().bus().register( HeroesMod.config() );
 	}
 
 	public void postinit(FMLPostInitializationEvent event) {
@@ -57,7 +56,7 @@ public class CommonProxy {
 		HeroesMod.logger().info("Registered " + Powers.class.getDeclaredFields().length + " powers");
 		HeroesMod.logger().info("Registered " + AbilitySet.getAbilitySetCount() + " ability sets");
 		
-		ModConfig.syncConfig();
+		HeroesMod.config().syncConfig();
 	}
 	
 	public Side getSide() {

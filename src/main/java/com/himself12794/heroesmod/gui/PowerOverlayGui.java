@@ -60,6 +60,7 @@ public class PowerOverlayGui extends Gui {
 		} else {
 			color = profile.cooldownRemaining <= 0 ? 0xAA4A9288 : 0x802D5C55;
 		}
+		GlStateManager.pushAttrib();
 		GlStateManager.pushMatrix();
 		
 		// Name and level
@@ -116,6 +117,7 @@ public class PowerOverlayGui extends Gui {
 			yPos += 8;
 		}
 		
+		GlStateManager.popAttrib();
 		GlStateManager.popMatrix();
 	}
 }

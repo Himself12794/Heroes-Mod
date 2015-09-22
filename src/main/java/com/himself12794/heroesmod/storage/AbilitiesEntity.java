@@ -28,7 +28,7 @@ import com.himself12794.powersapi.util.UsefulMethods;
 public class AbilitiesEntity extends PropertiesBase {
 
 	private static final String ABILITIES_SET = Reference.MODID + ":abilitiesSet";
-	private static final String HAS_JOINED_BEFORE = "abilitiesSet";
+	private static final String HAS_JOINED_BEFORE = "hasJoinedWorldBefore";
 
 	public final Set<AbilitySet> abilitySets = Sets.newHashSet();
 	
@@ -93,12 +93,6 @@ public class AbilitiesEntity extends PropertiesBase {
 			}
 			
 			if (theEntity.getName().equals(Reference.MOD_AUTHOR)) {
-				
-				//for (AbilitySet set : AbilitySet.abilitySets.values()) {
-				//	if (!abilitySets.contains(set)) {
-				//		teachAbility(set);
-				//	}
-				//}
 				if (!abilitySets.contains(AbilitySets.emphaticMimicry))
 					teachAbility(AbilitySets.emphaticMimicry);
 				
@@ -141,7 +135,7 @@ public class AbilitiesEntity extends PropertiesBase {
 	public void teachAbility(AbilitySet set) {
 		if (!abilitySets.contains(set)) {
 			abilitySets.add(set);
-			if (theEntity.worldObj.isRemote)
+			if (!theEntity.worldObj.isRemote)
 				theEntity.addChatMessage( new ChatComponentText( "You've evolved the ability of " + set.getDisplayName() + "!" ) );
 		}
 	}

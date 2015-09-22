@@ -228,8 +228,7 @@ public class BlockMemory extends PowerInstant {
 			
 			if ( nextBlock.getBoolean("isValid") ) {
 
-				BlockPos newPos = UsefulMethods.getBlockFromSideSwap(
-						target.getBlockPos(), target.sideHit);
+				BlockPos newPos = target.getBlockPos().offset(target.sideHit);
 
 				IBlockState originalState = Block.getStateById(nextBlock.getInteger("blockState"));
 				Block transportedBlock = originalState.getBlock();
@@ -372,7 +371,7 @@ public class BlockMemory extends PowerInstant {
 
 		for (EnumFacing side : EnumFacing.VALUES) {
 
-			BlockPos temp = UsefulMethods.getBlockFromSide(originalPos, side);
+			BlockPos temp = originalPos.offset( side, -1 );
 			IBlockState state = world.getBlockState(temp);
 			state.getBlock().onNeighborBlockChange(world, temp, state, block);
 

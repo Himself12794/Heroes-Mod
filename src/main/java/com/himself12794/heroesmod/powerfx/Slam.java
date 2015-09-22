@@ -30,7 +30,7 @@ public class Slam extends Lift {
 			entity.motionY = -10.0D;
 			
 			if (caster != entity) {
-				entity.fallDistance = 9.0F;
+				entity.fallDistance = 15.0F;
 			} 
 			
 			if (!entity.worldObj.isRemote) {

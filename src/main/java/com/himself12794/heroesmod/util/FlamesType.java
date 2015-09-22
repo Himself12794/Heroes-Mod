@@ -10,6 +10,7 @@ import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.World;
 
 import com.google.common.collect.Lists;
+import com.himself12794.heroesmod.HeroesMod;
 import com.himself12794.heroesmod.ModConfig;
 import com.himself12794.powersapi.util.UsefulMethods;
 
@@ -46,7 +47,7 @@ public enum FlamesType {
 	
 	public boolean canBurnPosition(MovingObjectPosition pos, World world) {
 		
-		if (permissionLevel <= ModConfig.flamethrowing) {
+		if (permissionLevel <= HeroesMod.config().getFlamethrowingLevel()) {
 			
 			if (pos.typeOfHit == MovingObjectType.ENTITY) {
 				return burnsEntities;

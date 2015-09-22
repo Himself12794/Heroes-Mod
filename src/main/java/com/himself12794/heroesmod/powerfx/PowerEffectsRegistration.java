@@ -32,7 +32,6 @@ public class PowerEffectsRegistration {
 				return true;
 			}
 		});
-		
 		PowerEffect.registerEffect(new Paralysis());
 		PowerEffect.registerEffect(new EnhancedStrength());
 		PowerEffect.registerEffect(new Flight());
@@ -49,8 +48,10 @@ public class PowerEffectsRegistration {
 				PowerProfile profile = PowersEntity.get(entity).getPowerProfile(power);
 				int level = profile != null  && power == Powers.speedBoost ? 
 						(profile.level < 3 ? profile.level : 3) : 1;
+					
+				if (entity.moveForward > 1.0 && entity.getActivePotionEffect(Potion.moveSlowdown) == null) entity.setSprinting(true);
 		
-				if (level == 3) {
+				if (level >= 3) {
 					Vec3 look = entity.getLookVec();
 					Vec3 pos = entity.getPositionVector();
 					pos = pos.add(entity.getLookVec());

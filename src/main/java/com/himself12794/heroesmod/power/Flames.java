@@ -14,6 +14,7 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.World;
 
+import com.himself12794.heroesmod.HeroesMod;
 import com.himself12794.heroesmod.ModConfig;
 import com.himself12794.heroesmod.network.HeroesNetwork;
 import com.himself12794.heroesmod.util.EnumRandomType;
@@ -79,13 +80,13 @@ public class Flames extends PowerRanged {
 	
 	@Override
 	public int getMaxFunctionalState(PowerProfile profile) { 
-		return ModConfig.flamethrowing;
+		return HeroesMod.config().getFlamethrowingLevel();
 	}
 	
 	@Override
 	public void onKnowledgeTick(PowerProfile profile) {
 		
-		if (profile.getState() > ModConfig.flamethrowing) {
+		if (profile.getState() > HeroesMod.config().getFlamethrowingLevel()) {
 			profile.setState(getMaxFunctionalState(profile), false);
 		}
 		

@@ -18,33 +18,33 @@ public class ModConfig {
 	 * This bit of hackery allows as to set the default weight when we
 	 * initialize the ability, and have that be static even if the config changes
 	 */
-	private static final Map defaultWeights = Maps.newHashMap();
-	public static Configuration config;
-	public static ConfigCategory generalModConfig;
-	public static ConfigCategory abilities;
-	public static int flamethrowing;
-	public static boolean enderSoundSwap;
+	private final Map defaultWeights = Maps.newHashMap();
+	final Configuration mainConfig;
+	final ConfigCategory generalModConfig;
+	final ConfigCategory abilities;
+	private int flamethrowing;
+	private boolean enderSoundSwap;
 
-	public static void loadConfig(FMLPreInitializationEvent event) {
-		config = new Configuration(event.getSuggestedConfigurationFile(), true);
+	ModConfig(FMLPreInitializationEvent event) {
+		mainConfig = new Configuration(event.getSuggestedConfigurationFile(), true);
 		
-		generalModConfig = config.getCategory(Reference.NAME + " Config");
+		generalModConfig = mainConfig.getCategory(Reference.NAME + " Config");
 		generalModConfig.setLanguageKey("heroesmod.config.general");
 		generalModConfig.setComment("General " + Reference.NAME + " Configuration");
 		
-		abilities = config.getCategory("Ability Weights");
+		abilities = mainConfig.getCategory("Ability Weights");
 		abilities.setLanguageKey("heroesmod.config.weights");
 		abilities.setComment("Determine weight of learning ability when first joining world. Higher value means higher chance");
 		
 		syncConfig();
 	}
 
-	public static void syncConfig() {
+	public void syncConfig() {
 
-		flamethrowing = config.getInt("FlamethrowingGriefing", generalModConfig.getName(), 4, 0, 4,
+		flamethrowing = mainConfig.getInt("FlamethrowingGriefing", generalModConfig.getName(), 4, 0, 4,
 						"Griefing level for the flames power. 0=Entities, 1=Grass, 2=Grass and Leaves, 3=Burnable Objects, 4=Everything");
 		
-		enderSoundSwap = config.getBoolean("EnderSoundSwapEnabled", generalModConfig.getName(), true, "Swaps ender scream for banshee scream");
+		enderSoundSwap = mainConfig.getBoolean("EnderSoundSwapEnabled", generalModConfig.getName(), true, "Swaps ender scream for banshee scream");
 
 		for (AbilitySet set : AbilitySet.abilitySets.values()) {
 			
@@ -55,12 +55,12 @@ public class ModConfig {
 
 			float defaultWeight = (Float) defaultWeights.get(set);
 
-			set.setWeight(config.getFloat(set.getLoggerFriendlyName(), abilities.getName(), defaultWeight, 0.0F, 20.0F,
+			set.setWeight(mainConfig.getFloat(set.getLoggerFriendlyName(), abilities.getName(), defaultWeight, 0.0F, 20.0F,
 					set.getDescription()));
 
 		}
 
-		if (config.hasChanged()) config.save();
+		if (mainConfig.hasChanged()) mainConfig.save();
 	}
 
 	@SubscribeEvent
@@ -70,6 +70,14 @@ public class ModConfig {
 			syncConfig();
 		}
 
+	}
+	
+	public int getFlamethrowingLevel() {
+		return flamethrowing;
+	}
+	
+	public boolean isEnderSoundSwapEnabled() {
+		return enderSoundSwap;
 	}
 
 }
