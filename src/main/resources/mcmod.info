@@ -1,16 +1,10 @@
-[
-{
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
-  "version": "${version}",
-  "mcversion": "${mcversion}",
-  "url": "",
-  "updateUrl": "",
-  "authorList": ["ExampleDude"],
-  "credits": "The Forge and FML guys, for making this example",
-  "logoFile": "",
-  "screenshots": [],
-  "dependencies": []
-}
-]
+[{
+  "modid" : "HeroesMod",
+  "name" : "Heroes Mod",
+  "version" : "0.8-rev11",
+  "description": "An emulation of the powers from the TV Show Heroes",
+  "mcversion" : "1.8-11.14.1.1375",
+  "authorList": [ "Himself12794" ],
+  "useDependencyInformation" : true,
+  "requiredMods": [ "Forge", "powersAPI" ]
+}]
