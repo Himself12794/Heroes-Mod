@@ -7,7 +7,8 @@ import net.minecraft.world.World;
 
 import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.powersapi.power.PowerEffectActivatorInstant;
-import com.himself12794.powersapi.storage.PowersEntity;
+import com.himself12794.powersapi.storage.EffectContainer;
+import com.himself12794.powersapi.storage.EffectsEntity;
 
 public class Telekinesis extends PowerEffectActivatorInstant {
 
@@ -20,7 +21,6 @@ public class Telekinesis extends PowerEffectActivatorInstant {
 	}
 
 	public boolean onCast(World world, EntityLivingBase caster, float modifier, int state) {
-		PowersEntity.get(caster).getPowerEffectsData().addPowerEffect(PowerEffects.telekineticShield, -1, caster, this);
 		return true;
 	}
 	
@@ -29,11 +29,10 @@ public class Telekinesis extends PowerEffectActivatorInstant {
 			EntityLivingBase caster, float modifier, int state) {
 		
 		if (target != null && target.entityHit != null) {
-
-			if (target.entityHit instanceof EntityLivingBase)
-				PowersEntity.get((EntityLivingBase) target.entityHit).getPowerEffectsData()
-						.addPowerEffect(PowerEffects.paralysis, getDuration(),
-								caster, this);
+			if (target.entityHit instanceof EntityLivingBase) {
+				EffectContainer cont = new EffectContainer((EntityLivingBase) target.entityHit, -1, PowerEffects.karma, this);
+				EffectsEntity.get(caster).addPowerEffect(cont);
+			}
 
 			if (target.entityHit.getDistanceToEntity(caster) >= 5.0F) {
 

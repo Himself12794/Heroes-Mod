@@ -11,11 +11,11 @@ import com.himself12794.powersapi.storage.EffectsEntity;
 public class Heal extends PowerBuff {
 	
 	public Heal() {
+		super("heal");
 		setDuration(0);
 		setPower(0.25F);
-		setCoolown(1);
+		setCooldown(1);
 		//setType(SpellType.BUFF);
-		setUnlocalizedName("heal");
 	} 
 	
 	public boolean onCast(World world, EntityLivingBase caster, float modifier, int state) {

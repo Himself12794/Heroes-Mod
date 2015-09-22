@@ -10,13 +10,13 @@ import com.himself12794.powersapi.util.UsefulMethods;
 
 public class Lift extends PowerEffect {
 	
-	private static final String NAME = "lift";
+	private final String NAME = "lift";
+	
+	private final double LIFT_HEIGHT = 5.0D;
 	
 	public Lift() {
 		setUnlocalizedName(NAME);
 	}
-	
-	private static final double LIFT_HEIGHT = 5.0D;
 	
 	@Override
 	public boolean onUpdate(EntityLivingBase entity, int timeLeft,	EntityLivingBase caster, Power power) {
@@ -30,7 +30,7 @@ public class Lift extends PowerEffect {
 				if (groundDistance < LIFT_HEIGHT) entity.motionY = 1.0D;
 				else entity.motionY = 0.0D;
 				
-				if (power == Powers.NOVA && caster == entity) entity.motionY = 0.5D;
+				if (power == Powers.nova && caster == entity) entity.motionY = 0.5D;
 			}
 		}
 		

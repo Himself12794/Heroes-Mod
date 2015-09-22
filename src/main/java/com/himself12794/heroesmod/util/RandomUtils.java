@@ -43,9 +43,7 @@ public final class RandomUtils {
 			
 			if (item.getWeight() > 0.0F) {
 				float temp = totalWeight + item.getWeight();
-				ranges.put(
-						Range.closedOpen(totalWeight,
-							temp ), item);
+				ranges.put(	Range.closedOpen(totalWeight, temp ), item);
 				totalWeight = temp;
 			}
 			

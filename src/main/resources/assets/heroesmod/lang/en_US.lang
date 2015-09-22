@@ -46,11 +46,16 @@ power.specializedPunch.name=Punch
 power.specializedPunch.name0=Punch (High Velocity)
 power.specializedPunch.name1=Punch (Low Velocity)
 power.speedBoost.name=Speed Boost
+power.launch.name=Launch
+power.enderAccess.name=Ender Access
+power.enderAccess.description=Allows access to the ender storage dimension
 
 ability.rapidCellularRegeneration.name=Rapid Cellular Regeneration
 ability.flight.name=Flight
 ability.materialManipulation.name=Material Manipulation
 ability.telekinesis.name=Telekinesis
+ability.enhancedSpeed.name=Enhanced Speed
+ability.emphaticMimicry.name=Emphatic Mimicry
 
 
 death.attack.player.magicalExplosion.power=%1$s was reduced to an ethereal mist by %2$s

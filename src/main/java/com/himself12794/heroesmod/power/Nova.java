@@ -8,18 +8,18 @@ import net.minecraft.world.World;
 import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.heroesmod.world.BioticExplosion;
 import com.himself12794.powersapi.power.PowerBuff;
-import com.himself12794.powersapi.storage.PowersEntity;
+import com.himself12794.powersapi.storage.EffectsEntity;
 
 public class Nova extends PowerBuff {
 	
 	public Nova() {
-		setUnlocalizedName("nova");
+		super("nova");
 	}
 
 	@Override
 	public boolean onCast(World world, EntityLivingBase caster, float modifier, int state) {
 		
-		PowersEntity.get(caster).getPowerEffectsData().addPowerEffect(PowerEffects.slam, 3, caster, this);
+		EffectsEntity.get(caster).addPowerEffect(PowerEffects.slam, 3, caster, this);
 		
 		caster.setSprinting(true);
 

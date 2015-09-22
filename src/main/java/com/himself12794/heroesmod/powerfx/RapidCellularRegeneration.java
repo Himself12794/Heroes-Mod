@@ -24,6 +24,7 @@ public class RapidCellularRegeneration extends PowerEffect {
 	public boolean onUpdate(EntityLivingBase entity, int timeleft, EntityLivingBase caster, Power power ) {
 		
 		entity.removePotionEffect(Potion.poison.id);
+		entity.removePotionEffect(Potion.hunger.id);
 		entity.removePotionEffect(Potion.wither.id);
 		
 		if (entity.getHealth() < entity.getMaxHealth() && entity.posY > -5.0D) {

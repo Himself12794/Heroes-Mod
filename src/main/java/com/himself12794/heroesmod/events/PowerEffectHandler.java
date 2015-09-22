@@ -18,7 +18,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.powersapi.power.PowerEffect;
 import com.himself12794.powersapi.storage.EffectsEntity;
-import com.himself12794.powersapi.storage.PowersEntity;
 
 public class PowerEffectHandler {
 
@@ -84,7 +83,7 @@ public class PowerEffectHandler {
 	@SubscribeEvent
 	public void deflectProjectile(LivingAttackEvent event) {
 		
-		if (PowersEntity.get(event.entityLiving).getPowerEffectsData().isAffectedBy(PowerEffects.telekineticShield)) {
+		if (EffectsEntity.get(event.entityLiving).isAffectedBy(PowerEffects.telekineticShield)) {
 			
 			if (event.entity.worldObj.rand.nextInt(4) == 0) {
 				
@@ -120,7 +119,7 @@ public class PowerEffectHandler {
 			
 		}
 		
-		if (PowersEntity.get(event.entityLiving).getPowerEffectsData().isAffectedBy(PowerEffects.immortality)) {
+		if (EffectsEntity.get(event.entityLiving).isAffectedBy(PowerEffects.immortality)) {
 			
 			if (!event.source.canHarmInCreative()) {
 				

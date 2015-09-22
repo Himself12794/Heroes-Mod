@@ -30,7 +30,7 @@ public class Slam extends Lift {
 			entity.motionY = -10.0D;
 			
 			if (caster != entity) {
-				entity.fallDistance = 9.0F;
+				entity.fallDistance = 15.0F;
 			} 
 			
 			if (!entity.worldObj.isRemote) {
@@ -39,7 +39,7 @@ public class Slam extends Lift {
 						entity.posZ, 1.0F, 1, EnumRandomType.NORMAL, null);
 			}
 			
-			if (power != Powers.NOVA) entity.playSound(Sounds.BIOTIC_EXPLOSION, 2.5F, 1.5F);
+			if (power != Powers.nova) entity.playSound(Sounds.BIOTIC_EXPLOSION, 2.5F, 1.5F);
 			
 			double x = caster != null ? caster.getLookVec().xCoord : entity.getLookVec().xCoord;
 			double y = caster != null ? caster.getLookVec().xCoord : entity.getLookVec().yCoord;

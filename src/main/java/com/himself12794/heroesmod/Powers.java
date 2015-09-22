@@ -15,61 +15,53 @@ import com.himself12794.heroesmod.power.Punt;
 import com.himself12794.heroesmod.power.Slam;
 import com.himself12794.heroesmod.power.SpecializedPunch;
 import com.himself12794.heroesmod.power.Telekinesis;
+import com.himself12794.powersapi.PowersRegistry;
 import com.himself12794.powersapi.power.Power;
 
 public class Powers {
 
-	public static final Power DAMAGE;
-	public static final Power IMMORTALIZE;
-	public static final Power DEATH;
-	public static final Power BREAK;
-	public static final Power PHASING;
-	public static final Telekinesis TELEKINESIS;
-	public static final Incinerate INCINERATE;
-	public static final Lightning LIGHTNING;
-	public static final Heal HEAL;
-	public static final Dummy DUMMY;
-	public static final Flames FLAMES;
-	public static final Slam SLAM;
-	public static final Punt PUNT;
-	public static final Flare EXPLODING_BOLT;
-	public static final Eclipse ECLIPSE;
-	public static final BlockMemory BLOCK_MEMORY;
-	public static final Charge CHARGE;
-	public static final Nova NOVA;
-	public static final Launch LAUNCH; 
-	public static final SpecializedPunch SPECIALIZED_PUNCH;
-	public static final Power SPEED_BOOST;
+	public static final Telekinesis telekinesis;
+	public static final Incinerate incinerate;
+	public static final Lightning lightning;
+	public static final Heal heal;
+	public static final Dummy dummy;
+	public static final Flames flames;
+	public static final Slam slam;
+	public static final Punt punt;
+	public static final Flare explodingBolt;
+	public static final Eclipse eclipse;
+	public static final BlockMemory blockMemory;
+	public static final Charge charge;
+	public static final Nova nova;
+	public static final Launch launch; 
+	public static final SpecializedPunch specializedPunch;
+	public static final Power speedBoost;
+	public static final Power enderAccess;
 
 	static {
 
 		if (HeroesMod.instance().isInitialized()) {
 
-			DAMAGE = Power.lookupPower("damage");
-			DEATH = Power.lookupPower("power");
-			INCINERATE = Power.lookupPower(Incinerate.class);
-			LIGHTNING = Power.lookupPower(Lightning.class);
-			HEAL = Power.lookupPower(Heal.class);
-			DUMMY = Power.lookupPower(Dummy.class);
-			IMMORTALIZE = Power.lookupPower("immortalize");
-			FLAMES = Power.lookupPower(Flames.class);
-			SLAM = Power.lookupPower(Slam.class);
-			PUNT = Power.lookupPower(Punt.class);
-			TELEKINESIS = Power.lookupPower(Telekinesis.class);
-			PHASING = Power.lookupPower("phasing");
-			EXPLODING_BOLT = Power.lookupPower(Flare.class);
-			ECLIPSE = Power.lookupPower(Eclipse.class);
-			BREAK = Power.lookupPower("break");
-			BLOCK_MEMORY = Power.lookupPower(BlockMemory.class);
-			CHARGE = Power.lookupPower(Charge.class);
-			NOVA = Power.lookupPower(Nova.class);
-			LAUNCH = Power.lookupPower(Launch.class);
-			SPECIALIZED_PUNCH = Power.lookupPower(SpecializedPunch.class);
-			SPEED_BOOST = Power.lookupPower("power.speedBoost");
+			incinerate = PowersRegistry.lookupPower(Incinerate.class);
+			lightning = PowersRegistry.lookupPower(Lightning.class);
+			heal = PowersRegistry.lookupPower(Heal.class);
+			dummy = PowersRegistry.lookupPower(Dummy.class);
+			flames = PowersRegistry.lookupPower(Flames.class);
+			slam = PowersRegistry.lookupPower(Slam.class);
+			punt = PowersRegistry.lookupPower(Punt.class);
+			telekinesis = PowersRegistry.lookupPower(Telekinesis.class);
+			explodingBolt = PowersRegistry.lookupPower(Flare.class);
+			eclipse = PowersRegistry.lookupPower(Eclipse.class);
+			blockMemory = PowersRegistry.lookupPower(BlockMemory.class);
+			charge = PowersRegistry.lookupPower(Charge.class);
+			nova = PowersRegistry.lookupPower(Nova.class);
+			launch = PowersRegistry.lookupPower(Launch.class);
+			specializedPunch = PowersRegistry.lookupPower(SpecializedPunch.class);
+			speedBoost = PowersRegistry.lookupPower("speedBoost");
+			enderAccess = PowersRegistry.lookupPower("enderAccess");
 
 		} else {
-			throw new RuntimeException(
-					"References accessed before initialization");
+			throw new RuntimeException("References accessed before initialization");
 		}
 
 	}

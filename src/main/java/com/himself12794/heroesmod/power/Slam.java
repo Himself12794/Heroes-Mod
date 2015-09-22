@@ -7,14 +7,14 @@ import net.minecraft.world.World;
 
 import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.powersapi.power.PowerEffectActivatorInstant;
-import com.himself12794.powersapi.storage.PowersEntity;
+import com.himself12794.powersapi.storage.EffectsEntity;
 
 public class Slam extends PowerEffectActivatorInstant {
 	
 	public Slam() {
 		super("slam", 140, 0, PowerEffects.slam, 50);
 		setPower(10.0F);
-		setCoolown(7 * 20);
+		setCooldown(7 * 20);
 		setUnlocalizedName("slam");
 		
 	}	
@@ -26,7 +26,7 @@ public class Slam extends PowerEffectActivatorInstant {
 		if (target.typeOfHit == MovingObjectType.ENTITY) {
 
 			if (target.entityHit instanceof EntityLivingBase) {
-				PowersEntity.get((EntityLivingBase) target.entityHit).getPowerEffectsData()
+				EffectsEntity.get((EntityLivingBase) target.entityHit)
 						.removePowerEffectSparingly(PowerEffects.telekinesis);
 			}
 		}

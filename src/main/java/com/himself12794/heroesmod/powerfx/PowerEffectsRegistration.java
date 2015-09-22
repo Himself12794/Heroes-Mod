@@ -4,6 +4,8 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.BlockPos;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 
 import com.himself12794.heroesmod.Powers;
@@ -11,6 +13,7 @@ import com.himself12794.heroesmod.util.UtilMethods;
 import com.himself12794.powersapi.power.EffectType;
 import com.himself12794.powersapi.power.Power;
 import com.himself12794.powersapi.power.PowerEffect;
+import com.himself12794.powersapi.storage.EffectsEntity;
 import com.himself12794.powersapi.storage.PowerProfile;
 import com.himself12794.powersapi.storage.PowersEntity;
 
@@ -29,7 +32,6 @@ public class PowerEffectsRegistration {
 				return true;
 			}
 		});
-		
 		PowerEffect.registerEffect(new Paralysis());
 		PowerEffect.registerEffect(new EnhancedStrength());
 		PowerEffect.registerEffect(new Flight());
@@ -44,12 +46,12 @@ public class PowerEffectsRegistration {
 			public boolean onUpdate(EntityLivingBase entity, int timeLeft, EntityLivingBase caster, Power power) {
 
 				PowerProfile profile = PowersEntity.get(entity).getPowerProfile(power);
-				int level = profile != null  && power == Powers.SPEED_BOOST ? 
+				int level = profile != null  && power == Powers.speedBoost ? 
 						(profile.level < 3 ? profile.level : 3) : 1;
-				
-				//System.out.println(Powers.SPEED_BOOST);
-						
-				if (level == 3) {
+					
+				if (entity.moveForward > 1.0 && entity.getActivePotionEffect(Potion.moveSlowdown) == null) entity.setSprinting(true);
+		
+				if (level >= 3) {
 					Vec3 look = entity.getLookVec();
 					Vec3 pos = entity.getPositionVector();
 					pos = pos.add(entity.getLookVec());
@@ -65,6 +67,21 @@ public class PowerEffectsRegistration {
 				entity.stepHeight = 0.0F;
 			}
 			
+			
+		});
+		PowerEffect.registerEffect(new PowerEffect("karma", true, EffectType.MALICIOUS) {
+			
+			public boolean onUpdate(final EntityLivingBase entity, final int timeLeft, final EntityLivingBase caster, final Power initiatedPower){ return caster != null; }
+			
+			public float onDamaged(EntityLivingBase affectedEntity, EntityLivingBase casterEntity, DamageSource damageSource, float amount, boolean hasChanged) {
+				
+				if (casterEntity != null && !EffectsEntity.get(casterEntity).isAffectedBy(this)) {
+					casterEntity.attackEntityFrom(damageSource, amount);
+					return 0.0F;
+				}
+				
+				return amount;
+			}
 			
 		});
 		

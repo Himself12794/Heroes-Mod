@@ -12,7 +12,7 @@ import net.minecraft.world.World;
 import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.heroesmod.util.Reference.Sounds;
 import com.himself12794.powersapi.power.PowerInstant;
-import com.himself12794.powersapi.storage.PowersEntity;
+import com.himself12794.powersapi.storage.EffectsEntity;
 
 public class Charge extends PowerInstant {
 
@@ -20,7 +20,7 @@ public class Charge extends PowerInstant {
 		setUnlocalizedName("charge");
 		setMaxConcentrationTime(0);
 		setRange(40);
-		setCoolown(60);
+		setCooldown(60);
 		setPower(10.0F);
 	}
 	
@@ -29,7 +29,7 @@ public class Charge extends PowerInstant {
 		if (target.entityHit instanceof EntityLivingBase || target.entityHit instanceof EntityDragonPart) {
 			Vec3 move = target.hitVec;
 			
-			PowersEntity.get(caster).getPowerEffectsData().addPowerEffect(PowerEffects.immortality, 10, caster, this);
+			EffectsEntity.get(caster).addPowerEffect(PowerEffects.immortality, 10, caster, this);
 			caster.motionY = 0.25D;world.playSoundAtEntity(caster, Sounds.BIOTIC_EXPLOSION, 1.5F, 2.0F);
 			caster.setPosition(move.xCoord , move.yCoord, move.zCoord);
 			caster.motionY = 0.25D;world.playSoundAtEntity(caster, Sounds.BIOTIC_EXPLOSION, 1.5F, 2.0F);

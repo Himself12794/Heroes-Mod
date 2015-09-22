@@ -1,45 +1,59 @@
 package com.himself12794.heroesmod.ability;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 import java.util.Map;
+import java.util.Set;
 
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import com.himself12794.heroesmod.HeroesMod;
 import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.heroesmod.Powers;
 import com.himself12794.heroesmod.util.RandomUtils;
 import com.himself12794.powersapi.power.Power;
 import com.himself12794.powersapi.power.PowerEffect;
+import com.himself12794.powersapi.storage.PowerProfile;
+import com.himself12794.powersapi.storage.PowersEntity;
 
+/**
+ * The ability set. Contains the powers this ability should allow, and the effects
+ * that should be constant on the entity.
+ * 
+ * @author Himself12794
+ *
+ */
 public class AbilitySet implements RandomUtils.IWeightedItem {
 
-	private float weight = 1.0F;
-	private final List<Power> activePowers = Lists.newArrayList();
-	private final List<PowerEffect> passivePowerEffects = Lists.newArrayList();
-	private final List<Integer> potionEffects = Lists.newArrayList();
+	private float weight; 
+	private final Map<Power, Integer> activePowers = Maps.newHashMap();
+	private final Set<PowerEffect> passivePowerEffects = Sets.newHashSet();
+	private final Set<Integer> potionEffects = Sets.newHashSet();
 	private final String unlocalizedName;
 	private String description = "";
 
-	AbilitySet(String name) {
+	public AbilitySet(String name) {
 		this.unlocalizedName = name;
 	}
 
-	AbilitySet addActivePower(Power power) {
+	protected AbilitySet addActivePower( Power power ) {
+		return addActivePower( power, 1 );
+	}
 
-		if (!activePowers.contains(power))
-			activePowers.add(power);
+	protected AbilitySet addActivePower( Power power, int requiredLevel ) {
+
+		if (!activePowers.containsKey(power))
+			activePowers.put(power, requiredLevel);
 
 		return this;
 
 	}
 
-	AbilitySet addPassivePower(PowerEffect pfx) {
+	protected AbilitySet addPassivePower(PowerEffect pfx) {
 
 		if (!passivePowerEffects.contains(pfx))
 			passivePowerEffects.add(pfx);
@@ -47,7 +61,7 @@ public class AbilitySet implements RandomUtils.IWeightedItem {
 
 	}
 
-	AbilitySet addPassivePower(Potion pfx) {
+	protected AbilitySet addPassivePower(Potion pfx) {
 
 		if (!potionEffects.contains(pfx.id))
 			potionEffects.add(pfx.id);
@@ -55,7 +69,7 @@ public class AbilitySet implements RandomUtils.IWeightedItem {
 
 	}
 
-	AbilitySet setDescription(String desc) {
+	protected AbilitySet setDescription(String desc) {
 
 		this.description = desc;
 		return this;
@@ -67,7 +81,7 @@ public class AbilitySet implements RandomUtils.IWeightedItem {
 	}
 
 	public boolean hasPower(Power power) {
-		return activePowers.contains(power);
+		return activePowers.containsKey(power);
 	}
 
 	public boolean hasPower(PowerEffect pfx) {
@@ -83,27 +97,34 @@ public class AbilitySet implements RandomUtils.IWeightedItem {
 	 * 
 	 * @return
 	 */
-	public List<Power> getActivePowers() {
-		return new ArrayList<Power>(activePowers);
+	public Collection<Power> getActivePowers() {
+		return activePowers.keySet();
 	}
 
 	/**
-	 * Returns a copy of the passive powers attributed to this Ability Set.
+	 * Returns the passive powers attributed to this Ability Set.
 	 * 
 	 * @return
 	 */
-	public List<PowerEffect> getPassivePowers() {
-		return new ArrayList<PowerEffect>(passivePowerEffects);
+	public Collection<PowerEffect> getPassivePowers() {
+		return passivePowerEffects;
 	}
 
 	/**
-	 * Returns a copy of the passive powers (Potion effects) attributed to this
+	 * Returns the passive powers (Potion effects) attributed to this
 	 * Ability Set.
 	 * 
 	 * @return
 	 */
-	public List<Integer> getPassivePowersPotion() {
-		return new ArrayList<Integer>(potionEffects);
+	public Collection<Integer> getPassivePowersPotion() {
+		return potionEffects;
+	}
+	
+	public String getLoggerFriendlyName() {
+		char[] chars = unlocalizedName.toCharArray();
+		chars[0] = String.valueOf(chars[0]).toUpperCase().toCharArray()[0];
+		
+		return String.valueOf(chars);
 	}
 
 	public String getUnlocalizedName() {
@@ -114,16 +135,36 @@ public class AbilitySet implements RandomUtils.IWeightedItem {
 		return ("" + StatCollector.translateToLocal(getUnlocalizedName()
 				+ ".name")).trim();
 	}
+	
+	public int getTotalLevels(EntityLivingBase entity) {
+		
+		PowersEntity pwrs = PowersEntity.get(entity);
+		int sum = 0;
+		
+		for ( Power power : activePowers.keySet() ) {
+			PowerProfile profile = pwrs.getPowerProfile(power);
+			sum += profile.level;
+		}
+		
+		return sum;
+	}
+	
+	public int getRequiredLevel(Power power) {
+		if (activePowers.containsKey(power)) 
+			return activePowers.get(power);
+		
+		return 0;
+	}
 
 	/**
 	 * Determines how common an ability is. The higher the number, the more
-	 * common the ability.
+	 * common the ability. Range is 0.0F - 20.0F
 	 * 
 	 * @param weight
 	 * @return
 	 */
-	private AbilitySet setRarity(float weight) {
-		this.weight = weight;
+	public AbilitySet setWeight(float weight) {
+		this.weight = weight > 20.0F ? 20.0F : (weight < 0.0F ? 0.0F : weight);
 		return this;
 	}
 
@@ -142,62 +183,67 @@ public class AbilitySet implements RandomUtils.IWeightedItem {
 
 	public static void registerAbilitySets() {
 
-		registerAbilitySet((new AbilitySet("pyrokinesis")).setRarity(2.0F)
-				.addActivePower(Powers.FLAMES)
-				.addActivePower(Powers.INCINERATE)
+		registerAbilitySet((new AbilitySet("pyrokinesis")).setWeight(2.0F)
+				.addActivePower(Powers.flames)
+				.addActivePower(Powers.incinerate)
 				.addPassivePower(Potion.fireResistance)
 				.setDescription("The ability to manipulate and resist heat."));
 
-		registerAbilitySet((new AbilitySet("telekinesis")).setRarity(5.0F)
-				.addActivePower(Powers.PUNT).addActivePower(Powers.TELEKINESIS)
+		registerAbilitySet((new AbilitySet("telekinesis")).setWeight(5.0F)
+				.addActivePower(Powers.punt)
+				.addActivePower(Powers.telekinesis)
+				.addActivePower(Powers.slam, 6)
 				.addPassivePower(PowerEffects.telekineticShield)
 				.setDescription("The ability to move things with the mind."));
 
 		registerAbilitySet((new AbilitySet("rapidCellularRegeneration"))
-				.setRarity(0.5F)
+				.setWeight(0.5F)
 				.addPassivePower(PowerEffects.rapidCellularRegeneration)
-				.setDescription(
-						"The ability to recover near-instantly from any wound, fatal or non-fatal."));
+				.setDescription("The ability to recover near-instantly from any wound, fatal or non-fatal."));
 
-		registerAbilitySet(new AbilitySet("spaceTimeManipulation").setRarity(
-				0.1F).setDescription(
-				"The ability to teleport and slow/stop time."));
+		//registerAbilitySet(new AbilitySet("spaceTimeManipulation").setWeight(
+		//		0.1F).setDescription(
+		//		"The ability to teleport and slow/stop time."));
 
-		registerAbilitySet(new AbilitySet("materialManipulation")
-				.setRarity(10.0F).addActivePower(Powers.BLOCK_MEMORY)
+		registerAbilitySet((new AbilitySet("materialManipulation"))
+				.setWeight(10.0F)
+				.addActivePower(Powers.blockMemory)
+				.addActivePower(Powers.enderAccess)
 				.addPassivePower(PowerEffects.breakFx)
-				.setDescription("The ability to manipulate solid matter."));
+				.setDescription("The ability to manipulate solid matter and shift it between dimensions."));
 
-		registerAbilitySet(new AbilitySet("flight")
-				.setRarity(4.0F)
-				.addActivePower(Powers.LAUNCH)
-				.addActivePower(Powers.NOVA)
+		registerAbilitySet((new AbilitySet("flight"))
+				.setWeight(4.0F)
+				.addActivePower(Powers.launch)
+				.addActivePower(Powers.nova)
+				.addActivePower(Powers.charge, 6)
 				.addPassivePower(PowerEffects.flight)
 				.setDescription("The ability of flight."));
 		
-		registerAbilitySet(new AbilitySet("emphaticMimicry")
-				.setRarity(0.0F)
+		registerAbilitySet((new AbilitySet("emphaticMimicry"))
+				.setWeight(0.0F)
 				.addPassivePower(PowerEffects.emphaticMimicry)
 				.setDescription("Harmless at first, you absorb abilities of others simply by being near them."));
 		
-		registerAbilitySet(new AbilitySet("enhancedSpeed")
-				.setRarity(3.0F)
-				.addActivePower(Powers.SPEED_BOOST)
-				.addActivePower(Powers.CHARGE)
-				.addActivePower(Powers.SPECIALIZED_PUNCH)
+		registerAbilitySet((new AbilitySet("enhancedSpeed"))
+				.setWeight(3.0F)
+				.addActivePower(Powers.speedBoost)
+				.addActivePower(Powers.charge)
+				.addActivePower(Powers.specializedPunch, 5)
 				.addPassivePower(Potion.digSpeed)
+				.setDescription("The ability to move very fast.")
 				);
 		
-		registerAbilitySet(new AbilitySet("enhancedStrength")
-				.setRarity(3.0F)
+		registerAbilitySet((new AbilitySet("enhancedStrength"))
+				.setWeight(3.0F)
+				.addActivePower(Powers.specializedPunch)
+				.addActivePower(Powers.nova, 4)
 				.addPassivePower(Potion.damageBoost)
+				.setDescription("The ability of super strength")
 				);
-
-		HeroesMod.logger.info("Registered " + abilitySetsCount
-				+ " ability set(s)");
 	}
 
-	private static AbilitySet registerAbilitySet(AbilitySet abs) {
+	protected static AbilitySet registerAbilitySet(AbilitySet abs) {
 
 		String name = abs.getUnlocalizedName();
 
@@ -205,13 +251,13 @@ public class AbilitySet implements RandomUtils.IWeightedItem {
 
 			abilitySets.put(name, abs);
 			abilitySetIds.put(++abilitySetsCount, name);
-			// HeroesMod.logger.info("Registered ability set " + name);
+			HeroesMod.logger().info("Registered ability set " + abs.getLoggerFriendlyName());
 
 			return abs;
 
 		} else {
 
-			HeroesMod.logger.error("Could not register ability set " + abs
+			HeroesMod.logger().error("Could not register ability set " + abs
 					+ " under name \"" + name
 					+ "\", name has already been registered for "
 					+ lookupAbilitySet(name));
@@ -227,6 +273,12 @@ public class AbilitySet implements RandomUtils.IWeightedItem {
 	
 	public static AbilitySet selectRandomAbilitySet(World world) {
 		return RandomUtils.selectRandomWeightedItem(world.rand, abilitySets.values());
+	}
+	
+	public static AbilitySet lookupAbilitySet(int id) {
+		if (abilitySetIds.containsKey(id)) {
+			return abilitySets.get(abilitySetIds.get(id));
+		} else return null;
 	}
 
 	public static AbilitySet lookupAbilitySet(String name) {
