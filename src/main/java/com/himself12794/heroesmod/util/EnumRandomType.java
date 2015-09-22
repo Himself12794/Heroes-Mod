@@ -19,7 +19,7 @@ public enum EnumRandomType {
 			if (i == type.id) return type;
 		}
 		
-		return null;
+		return NORMAL;
 		
 	}
 }
