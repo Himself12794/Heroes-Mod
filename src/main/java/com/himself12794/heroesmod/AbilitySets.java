@@ -2,7 +2,8 @@ package com.himself12794.heroesmod;
 
 import com.himself12794.heroesmod.ability.AbilitySet;
 
-
+// TODO add Weather Manipulation
+// TODO add Teleportation
 public class AbilitySets {
 	
 	public static final AbilitySet pyrokinesis; 
