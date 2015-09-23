@@ -49,6 +49,12 @@ power.speedBoost.name=Speed Boost
 power.launch.name=Launch
 power.enderAccess.name=Ender Access
 power.enderAccess.description=Allows access to the ender storage dimension
+power.blinkJump.name=Blink Jump
+power.blinkJump.description=Teleports to the potinted location
+power.teleportation.name=Teleportation
+power.teleportation.name0=Teleportation (Set Location)
+power.teleportation.name1=Teleportation (Teleport)
+power.teleportation.description=Teleports to a remembered location
 
 ability.rapidCellularRegeneration.name=Rapid Cellular Regeneration
 ability.flight.name=Flight

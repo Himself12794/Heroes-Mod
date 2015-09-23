@@ -90,6 +90,8 @@ public class PowersRegistraton {
 			}
 			
 		});
+		PowersAPI.registerPower(new BlinkJump());
+		PowersAPI.registerPower(new Teleportation());
 
 	}
 }

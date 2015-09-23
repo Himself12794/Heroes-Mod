@@ -2,7 +2,6 @@ package com.himself12794.heroesmod.power;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
 import com.himself12794.heroesmod.PowerEffects;

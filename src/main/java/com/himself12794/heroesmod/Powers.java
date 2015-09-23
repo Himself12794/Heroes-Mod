@@ -1,5 +1,6 @@
 package com.himself12794.heroesmod;
 
+import com.himself12794.heroesmod.power.BlinkJump;
 import com.himself12794.heroesmod.power.BlockMemory;
 import com.himself12794.heroesmod.power.Charge;
 import com.himself12794.heroesmod.power.Dummy;
@@ -15,6 +16,7 @@ import com.himself12794.heroesmod.power.Punt;
 import com.himself12794.heroesmod.power.Slam;
 import com.himself12794.heroesmod.power.SpecializedPunch;
 import com.himself12794.heroesmod.power.Telekinesis;
+import com.himself12794.heroesmod.power.Teleportation;
 import com.himself12794.powersapi.PowersRegistry;
 import com.himself12794.powersapi.power.Power;
 
@@ -35,6 +37,8 @@ public class Powers {
 	public static final Nova nova;
 	public static final Launch launch; 
 	public static final SpecializedPunch specializedPunch;
+	public static final BlinkJump blinkJump;
+	public static final Teleportation teleportation;
 	public static final Power speedBoost;
 	public static final Power enderAccess;
 
@@ -57,6 +61,8 @@ public class Powers {
 			nova = PowersRegistry.lookupPower(Nova.class);
 			launch = PowersRegistry.lookupPower(Launch.class);
 			specializedPunch = PowersRegistry.lookupPower(SpecializedPunch.class);
+			blinkJump = PowersRegistry.lookupPower(BlinkJump.class);
+			teleportation = PowersRegistry.lookupPower(Teleportation.class);
 			speedBoost = PowersRegistry.lookupPower("speedBoost");
 			enderAccess = PowersRegistry.lookupPower("enderAccess");
 

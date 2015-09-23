@@ -16,6 +16,7 @@ public class Telekinesis extends PowerEffect {
 	public Telekinesis() {
 		setUnlocalizedName(NAME);
 		setType(EffectType.HIDDEN);
+		setRequiresCaster();
 	}
 
 	@Override

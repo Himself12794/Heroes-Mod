@@ -4,7 +4,6 @@ import io.netty.buffer.ByteBuf;
 
 import java.util.Random;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.world.World;

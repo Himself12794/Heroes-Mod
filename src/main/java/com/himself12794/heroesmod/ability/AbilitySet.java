@@ -201,9 +201,11 @@ public class AbilitySet implements RandomUtils.IWeightedItem {
 				.addPassivePower(PowerEffects.rapidCellularRegeneration)
 				.setDescription("The ability to recover near-instantly from any wound, fatal or non-fatal."));
 
-		//registerAbilitySet(new AbilitySet("spaceTimeManipulation").setWeight(
-		//		0.1F).setDescription(
-		//		"The ability to teleport and slow/stop time."));
+		registerAbilitySet(new AbilitySet("teleportation")
+				.setWeight(0.1F)
+				.addActivePower(Powers.teleportation)
+				.addActivePower(Powers.blinkJump)
+				.setDescription("The ability to teleport."));
 
 		registerAbilitySet((new AbilitySet("materialManipulation"))
 				.setWeight(10.0F)
