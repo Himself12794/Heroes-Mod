@@ -1,5 +1,8 @@
 package com.himself12794.heroesmod.proxy;
 
+import java.lang.reflect.Method;
+
+import net.minecraft.crash.CrashReport;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -11,7 +14,6 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 
 import com.himself12794.heroesmod.HeroesMod;
-import com.himself12794.heroesmod.ModConfig;
 import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.heroesmod.Powers;
 import com.himself12794.heroesmod.ability.AbilitySet;
@@ -22,7 +24,6 @@ import com.himself12794.heroesmod.power.PowersRegistraton;
 import com.himself12794.heroesmod.powerfx.PowerEffectsRegistration;
 import com.himself12794.heroesmod.storage.AbilitiesEntity;
 import com.himself12794.heroesmod.util.Reference;
-import com.himself12794.powersapi.PowersAPI;
 
 public class CommonProxy {
 
@@ -77,5 +78,6 @@ public class CommonProxy {
 			ctx.getServerHandler().playerEntity.getServerForPlayer().addScheduledTask( task );
 		}
 	}
+	
 
 }

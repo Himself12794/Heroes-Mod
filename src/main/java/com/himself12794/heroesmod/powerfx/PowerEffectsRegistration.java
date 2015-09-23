@@ -5,7 +5,6 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 
 import com.himself12794.heroesmod.Powers;
@@ -35,7 +34,6 @@ public class PowerEffectsRegistration {
 		PowerEffect.registerEffect(new Paralysis());
 		PowerEffect.registerEffect(new EnhancedStrength());
 		PowerEffect.registerEffect(new Flight());
-		//PowerEffect.registerEffect(new PhasingFx());
 		PowerEffect.registerEffect(new Telekinesis());
 		PowerEffect.registerEffect(new PowerEffect("break", true, EffectType.BENEFICIAL));
 		PowerEffect.registerEffect(new PowerEffect("telekineticShield", true, EffectType.BENEFICIAL, true));
@@ -70,6 +68,10 @@ public class PowerEffectsRegistration {
 			
 		});
 		PowerEffect.registerEffect(new PowerEffect("karma", true, EffectType.MALICIOUS) {
+			
+			{
+				setRequiresCaster();
+			}
 			
 			public boolean onUpdate(final EntityLivingBase entity, final int timeLeft, final EntityLivingBase caster, final Power initiatedPower){ return caster != null; }
 			

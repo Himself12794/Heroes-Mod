@@ -1,8 +1,27 @@
-/bin/
-/eclipse/
-/logs/
+# eclipse
+bin
+*.launch
+.settings
+.metadata
 .classpath
 .project
+
+# idea
+out
+*.ipr
+*.iws
+*.iml
+.idea
+
+# gradle
+build
+.gradle
+
+# other
+eclipse
+run
+
+/logs/
 *.json
 !sounds.json
 !/src/*/*.json

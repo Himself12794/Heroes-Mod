@@ -4,6 +4,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 import com.himself12794.heroesmod.util.Reference.Sounds;
@@ -29,17 +30,9 @@ public class Flare extends PowerRanged {
 
 	public boolean onStrike(World world, MovingObjectPosition target,
 			EntityLivingBase caster, float modifier, int state) {
-
-		// world.newExplosion(caster, target.hitVec.xCoord,
-		// target.hitVec.yCoord, target.hitVec.zCoord, 3.0F, false, false);
-		BioticExplosion bioticExplosion = new BioticExplosion(world, caster,
-				target.hitVec.xCoord, target.hitVec.yCoord,
-				target.hitVec.zCoord, 5.0F * modifier, false, true);
 		
-		bioticExplosion.setLimit(getPower(modifier));
-		
-		bioticExplosion.doExplosionA();
-		bioticExplosion.doExplosionB(true);
+		Vec3 hitVec = target.hitVec;
+		BioticExplosion.doExplosion(world, caster, hitVec.xCoord, hitVec.yCoord, hitVec.zCoord, 5.0F * modifier, getPower(modifier));
 
 		return true;
 	}

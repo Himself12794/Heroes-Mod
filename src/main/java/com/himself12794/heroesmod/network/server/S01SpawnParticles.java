@@ -4,9 +4,9 @@ import io.netty.buffer.ByteBuf;
 
 import java.util.Random;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -94,22 +94,23 @@ public class S01SpawnParticles implements IMessage {
 
 				if (message.particles == null) return null;
 				
-				Runnable task = new Runnable() {
+				HeroesMod.proxy().scheduleTaskBasedOnContext(ctx, new Runnable() {
 
 					@Override
 					public void run() {	
 					
+						World world = HeroesMod.proxy().getPlayerFromContext(ctx).worldObj;
+						
 						for (int i = 0; i < message.amount; ++i) {
-							double x = message.x + message.modifierX * getRandomFromType(Minecraft.getMinecraft().theWorld.rand, message.type);
-							double y = message.y + message.modifierY * getRandomFromType(Minecraft.getMinecraft().theWorld.rand, message.type);
-							double z = message.z + message.modifierZ * getRandomFromType(Minecraft.getMinecraft().theWorld.rand, message.type);
-							HeroesMod.proxy().getPlayerFromContext(ctx).worldObj.spawnParticle(message.particles, x, y, z, 0, 0, 0);
+							double x = message.x + message.modifierX * getRandomFromType(world.rand, message.type);
+							double y = message.y + message.modifierY * getRandomFromType(world.rand, message.type);
+							double z = message.z + message.modifierZ * getRandomFromType(world.rand, message.type);
+							world.spawnParticle(message.particles, x, y, z, 0, 0, 0);
 						}
 						
 					}
 					
-				};
-				HeroesMod.proxy().scheduleTaskBasedOnContext(ctx, task);
+				});
 			}
 			return null;
 		}

@@ -1,6 +1,7 @@
 package com.himself12794.heroesmod;
 
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.ModMetadata;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -22,11 +23,14 @@ import com.himself12794.powersapi.PowersAPI;
 @Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION, useMetadata = true, guiFactory = Reference.GUI_FACTORY)
 public class HeroesMod {
 
-	@Mod.Instance(value = "powersAPI")
+	@Mod.Instance("powersAPI")
 	private static PowersAPI instanceAPI;
 	
-	@Mod.Instance(value = Reference.MODID)
+	@Mod.Instance(Reference.MODID)
 	private static HeroesMod instance;
+	
+	@Mod.Metadata(Reference.MODID)
+	private static ModMetadata meta;
 
 	private static Logger logger;
 
@@ -39,6 +43,7 @@ public class HeroesMod {
 	@Mod.EventHandler
 	public void preinit(FMLPreInitializationEvent event) {
 
+		configureMetadata(meta);
 		config = new ModConfig(event);
 		logger = event.getModLog();
 		proxy.preinit(event);
@@ -59,6 +64,13 @@ public class HeroesMod {
 	public boolean isInitialized() {
 		return preInit;
 	}
+    
+    private void configureMetadata(ModMetadata meta) {
+
+		meta.name = Reference.NAME;
+		meta.modId = Reference.MODID;
+		meta.version = Reference.VERSION;
+    }
 	
 	public static ModConfig config() {
 		return instance().config;

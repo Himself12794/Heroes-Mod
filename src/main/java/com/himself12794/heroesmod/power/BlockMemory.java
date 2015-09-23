@@ -32,7 +32,6 @@ import com.himself12794.heroesmod.util.EnumRandomType;
 import com.himself12794.powersapi.power.PowerInstant;
 import com.himself12794.powersapi.storage.PowerProfile;
 import com.himself12794.powersapi.storage.PowersEntity;
-import com.himself12794.powersapi.util.UsefulMethods;
 
 public class BlockMemory extends PowerInstant {
 
@@ -353,17 +352,6 @@ public class BlockMemory extends PowerInstant {
 		double z = pos.getZ();
 
 		HeroesNetwork.client().spawnParticles(EnumParticleTypes.EXPLOSION_NORMAL, x, y, z, 0.5F, 1.5F, 0.5F, 25, EnumRandomType.GAUSSIAN, null);
-		
-		/*// TODO use network so all clients see this
-		for (int i = 0; i < 25; i++) {
-
-			world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, x + 0.5D
-					* world.rand.nextGaussian(),
-					y + 1.5D * world.rand.nextGaussian(),
-					z + 0.5D * world.rand.nextGaussian(), 0, 0, 0);
-
-		}*/
-
 	}
 
 	private void updateSurroundingBlocks(World world, BlockPos originalPos,

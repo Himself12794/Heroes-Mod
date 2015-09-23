@@ -18,6 +18,7 @@ public class Slam extends Lift {
 	public Slam() {
 		setUnlocalizedName(NAME);
 		setType(EffectType.MALICIOUS);
+		setRequiresCaster();
 	}
 
 	@Override
