@@ -1,5 +1,6 @@
 package com.himself12794.heroesmod;
 
+import java.io.File;
 import java.util.Map;
 
 import net.minecraftforge.common.config.ConfigCategory;
@@ -25,8 +26,8 @@ public class ModConfig {
 	private int flamethrowing;
 	private boolean enderSoundSwap;
 
-	ModConfig(FMLPreInitializationEvent event) {
-		mainConfig = new Configuration(event.getSuggestedConfigurationFile(), true);
+	public ModConfig(File file) {
+		mainConfig = new Configuration(file, true);
 		
 		generalModConfig = mainConfig.getCategory(Reference.NAME + " Config");
 		generalModConfig.setLanguageKey("heroesmod.config.general");

@@ -1,5 +1,7 @@
 package com.himself12794.heroesmod;
 
+import java.io.File;
+
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ModMetadata;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -24,7 +26,7 @@ import com.himself12794.powersapi.PowersAPI;
 public class HeroesMod {
 
 	@Mod.Instance("powersAPI")
-	private static PowersAPI instanceAPI;
+	private static PowersAPI apiInstance;
 	
 	@Mod.Instance(Reference.MODID)
 	private static HeroesMod instance;
@@ -37,14 +39,14 @@ public class HeroesMod {
 	@SidedProxy(clientSide = Reference.CLIENT_PROXY, serverSide = Reference.SERVER_PROXY)
 	private static CommonProxy proxy;
 	
-	private ModConfig config;
+	public final ModConfig config = new ModConfig(new File("config/" + Reference.MODID + ".cfg"));
+	
 	boolean preInit;
 
 	@Mod.EventHandler
 	public void preinit(FMLPreInitializationEvent event) {
 
 		configureMetadata(meta);
-		config = new ModConfig(event);
 		logger = event.getModLog();
 		proxy.preinit(event);
 		preInit = true;
@@ -73,15 +75,15 @@ public class HeroesMod {
     }
 	
 	public static ModConfig config() {
-		return instance().config;
+		return getMod().config;
 	}
 	
-	public static HeroesMod instance() {
+	public static HeroesMod getMod() {
 		return instance;
 	}
 	
 	public static PowersAPI apiInstance() {
-		return instanceAPI;
+		return apiInstance;
 	}
 	
 	public static CommonProxy proxy() {

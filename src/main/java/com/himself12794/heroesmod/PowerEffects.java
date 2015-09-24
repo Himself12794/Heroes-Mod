@@ -29,7 +29,7 @@ public class PowerEffects {
 	
 	static {
 		
-		if (HeroesMod.instance().isInitialized()) {
+		if (HeroesMod.getMod().isInitialized()) {
 			
 			rapidCellularRegeneration = (RapidCellularRegeneration) PowerEffect.getPowerEffect("rapidCellularRegeneration");
 			lift = (Lift) PowerEffect.getPowerEffect("lift");

@@ -46,9 +46,7 @@ public class CommonProxy {
 		HeroesMod.apiInstance().propertiesHandler().registerPropertyClass(AbilitiesEntity.class, EntityPlayer.class, Reference.MODID + ":abilitiesWrapper");
 		
 		PowerEffectsRegistration.registerEffects();
-		
 		PowersRegistraton.registerPowers();
-		
 		AbilitySet.registerAbilitySets();
 		
 		MinecraftForge.EVENT_BUS.register(new PowerEffectHandler());

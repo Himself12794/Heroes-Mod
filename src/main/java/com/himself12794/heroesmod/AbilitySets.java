@@ -16,7 +16,7 @@ public class AbilitySets {
 
 	static {
 		
-		if (HeroesMod.instance().isInitialized()) {
+		if (HeroesMod.getMod().isInitialized()) {
 			
 			pyrokinesis = AbilitySet.lookupAbilitySet("ability.pyrokinesis");
 			telekinesis = AbilitySet.lookupAbilitySet("ability.telekinesis");
