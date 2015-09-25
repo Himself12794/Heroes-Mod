@@ -1,2 +1,4 @@
 language: java
 sudo: required
+required-before:
+	- echo 'test'
