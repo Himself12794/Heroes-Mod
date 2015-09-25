@@ -1,8 +1,5 @@
 package com.himself12794.heroesmod.proxy;
 
-import java.lang.reflect.Method;
-
-import net.minecraft.crash.CrashReport;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;

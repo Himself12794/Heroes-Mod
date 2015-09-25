@@ -46,7 +46,7 @@ minecraft {
 }
 
 dependencies {
-	compile "com.himself12794:powersAPI:1.1-rev0"
+	compile "com.himself12794:powersAPI:1.1-rev1"
 }
 
 processResources
