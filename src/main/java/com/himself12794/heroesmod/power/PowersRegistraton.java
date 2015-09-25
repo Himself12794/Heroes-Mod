@@ -45,7 +45,7 @@ public class PowersRegistraton {
 		PowersAPI.registerPower(new PowerEffectActivatorBuff("speedBoost", 20 * 10, 0, PowerEffects.speedBoost, 20 * 30, 3){
 			
 			@Override
-			public int getCooldown(PowerProfile profile) {
+			public int getCost(PowerProfile profile) {
 				return profile.level == 1 ? 20 * 30 : (profile.level == 2 ? 20 * 15 : (profile.level == 3 ? 20 * 5 : 20 * 30));
 			}
 			

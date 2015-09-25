@@ -16,7 +16,7 @@ public class Eclipse extends PowerInstant {
 	
 	public Eclipse() {
 		setPower(0);
-		setCooldown(40);
+		setCost(40);
 		setUnlocalizedName(NAME);
 	}
 	

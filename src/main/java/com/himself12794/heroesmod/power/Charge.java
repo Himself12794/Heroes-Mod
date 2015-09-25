@@ -20,7 +20,7 @@ public class Charge extends PowerInstant {
 		setUnlocalizedName("charge");
 		setMaxConcentrationTime(0);
 		setRange(40);
-		setCooldown(60);
+		setCost(60);
 		setPower(10.0F);
 	}
 	

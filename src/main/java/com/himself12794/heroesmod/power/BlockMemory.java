@@ -81,7 +81,7 @@ public class BlockMemory extends PowerInstant {
 	}
 	
 	@Override
-	public int getCooldown(PowerProfile profile) {
+	public int getCost(PowerProfile profile) {
 		
 		int uses = profile.getUses();
 		

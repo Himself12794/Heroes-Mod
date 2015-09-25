@@ -14,7 +14,7 @@ public class Heal extends PowerBuff {
 		super("heal");
 		setDuration(0);
 		setPower(0.25F);
-		setCooldown(1);
+		setCost(1);
 		//setType(SpellType.BUFF);
 	} 
 	

@@ -21,7 +21,7 @@ public class Teleportation extends PowerBuff {
 	public Teleportation() {
 		super("teleportation");
 		//setPreparationTime(40);
-		setCooldown(20 * 5);
+		setCost(20 * 5);
 		setMaxFunctionalState(1);
 	}
 	
