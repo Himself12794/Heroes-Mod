@@ -1,12 +1,5 @@
 package com.himself12794.heroesmod;
 
-import com.himself12794.heroesmod.powerfx.EmphaticMimicry;
-import com.himself12794.heroesmod.powerfx.EnhancedStrength;
-import com.himself12794.heroesmod.powerfx.Lift;
-import com.himself12794.heroesmod.powerfx.Paralysis;
-import com.himself12794.heroesmod.powerfx.RapidCellularRegeneration;
-import com.himself12794.heroesmod.powerfx.Slam;
-import com.himself12794.heroesmod.powerfx.Telekinesis;
 import com.himself12794.powersapi.power.PowerEffect;
 
 public class PowerEffects {

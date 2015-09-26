@@ -9,12 +9,14 @@ import net.minecraft.item.ItemFlintAndSteel;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSourceIndirect;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import com.himself12794.heroesmod.HeroesMod;
 import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.powersapi.power.PowerEffect;
 import com.himself12794.powersapi.storage.EffectsEntity;
@@ -37,16 +39,14 @@ public class PowerEffectHandler {
 	public void allowBreakBlockFist(PlayerEvent.HarvestCheck event) {
 
 		boolean canBreak = true;
-
+		
 		if (event.entityPlayer.getHeldItem() != null) {
 			Item item = event.entityPlayer.getHeldItem().getItem();
 			canBreak = item == null ? true : !item.isDamageable();
 		}
 
 		EffectsEntity wrapper = EffectsEntity.get(event.entityPlayer);
-
-		if (wrapper.isAffectedBy(PowerEffects.breakFx)
-				&& canBreak) {
+		if (wrapper.isAffectedBy(PowerEffects.breakFx) && canBreak) {
 			event.success = Items.iron_pickaxe.canHarvestBlock(event.block);
 		}
 

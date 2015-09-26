@@ -1,22 +1,12 @@
 package com.himself12794.heroesmod.powerfx;
 
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.Vec3;
 
-import com.himself12794.heroesmod.HeroesMod;
-import com.himself12794.heroesmod.Powers;
-import com.himself12794.heroesmod.util.UtilMethods;
 import com.himself12794.powersapi.power.EffectType;
 import com.himself12794.powersapi.power.Power;
 import com.himself12794.powersapi.power.PowerEffect;
 import com.himself12794.powersapi.storage.EffectsEntity;
-import com.himself12794.powersapi.storage.PowerProfile;
-import com.himself12794.powersapi.storage.PowersEntity;
 
 public class PowerEffectsRegistration {
 	

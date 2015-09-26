@@ -3,6 +3,7 @@ package com.himself12794.heroesmod;
 import java.io.File;
 import java.util.Map;
 
+import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
@@ -24,6 +25,8 @@ public class ModConfig {
 	final ConfigCategory abilities;
 	private int flamethrowing;
 	private boolean enderSoundSwap;
+	private boolean registeredDimension;
+	private int customDimensionId;
 
 	public ModConfig(File file) {
 		mainConfig = new Configuration(file, true);
@@ -62,6 +65,15 @@ public class ModConfig {
 
 		if (mainConfig.hasChanged()) mainConfig.save();
 	}
+	
+	public void registerDimensionId() {
+		
+		if (!this.registeredDimension) {
+			customDimensionId = DimensionManager.getNextFreeDimId();
+			DimensionManager.registerDimension(customDimensionId, 1);
+		}
+		
+	}
 
 	@SubscribeEvent
 	public void configChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
@@ -70,6 +82,10 @@ public class ModConfig {
 			syncConfig();
 		}
 
+	}
+	
+	public static int getCustomDimensionId() {
+		return get().customDimensionId;
 	}
 	
 	public static ModConfig get() {

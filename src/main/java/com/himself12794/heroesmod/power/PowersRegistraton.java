@@ -69,26 +69,6 @@ public class PowersRegistraton {
 				return false;
 			}
 			
-			@Override
-			public String getInfo(PowerProfile profile) {
-				
-				/*if (profile.theEntity instanceof EntityPlayer) {
-					EntityPlayer player = (EntityPlayer)profile.theEntity;
-					
-					InventoryEnderChest enderInv = player.getInventoryEnderChest();
-					int totalSlots = enderInv.getSizeInventory();
-					int filledSlots = 0;
-					
-					for (int i = 0; i < totalSlots; i++) {
-						if (enderInv.getStackInSlot(i) != null) filledSlots++;
-					}
-					
-					//return "Ender Storage Space: " + filledSlots + "/" + totalSlots;					
-				}*/
-				
-				return null;
-			}
-			
 		});
 		PowersAPI.registerPower(new BlinkJump());
 		PowersAPI.registerPower(new Teleportation());

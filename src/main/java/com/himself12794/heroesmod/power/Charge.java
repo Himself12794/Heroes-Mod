@@ -43,6 +43,7 @@ public class Charge extends PowerInstant {
 			//target.entityHit.motionY = move.yCoord * 8.0D;
 			//target.entityHit.motionZ = move.zCoord * 6.0D;
 			((EntityLivingBase)target.entityHit).attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) caster), getPower(modifier));
+			//caster.travelToDimension(ModConfig.getCustomDimensionId());
 
 			
 			return true;

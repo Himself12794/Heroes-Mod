@@ -11,6 +11,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 
 import com.himself12794.heroesmod.HeroesMod;
+import com.himself12794.heroesmod.ModConfig;
 import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.heroesmod.Powers;
 import com.himself12794.heroesmod.ability.AbilitySet;
@@ -28,6 +29,7 @@ public class CommonProxy {
 		
 		HeroesNetwork.init(NetworkRegistry.INSTANCE.newSimpleChannel( Reference.MODID + " NetChannel" ));
 		HeroesNetwork.registerMessages();
+		ModConfig.get().registerDimensionId();
 
 	}
 
@@ -36,6 +38,7 @@ public class CommonProxy {
 		ModItems.addItems();
 		
 		FMLCommonHandler.instance().bus().register( HeroesMod.config() );
+		
 	}
 
 	public void postinit(FMLPostInitializationEvent event) {
