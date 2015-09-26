@@ -74,7 +74,6 @@ public class BlockMemory extends PowerInstant {
 			} else {
 				text = "Now recalling blocks";
 			}
-			
 			if (world.isRemote) caster.addChatMessage( new ChatComponentText( text ) );
 		}
 		

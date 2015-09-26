@@ -5,8 +5,10 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 
+import com.himself12794.heroesmod.HeroesMod;
 import com.himself12794.heroesmod.Powers;
 import com.himself12794.heroesmod.util.UtilMethods;
 import com.himself12794.powersapi.power.EffectType;
@@ -39,34 +41,7 @@ public class PowerEffectsRegistration {
 		PowerEffect.registerEffect(new PowerEffect("telekineticShield", true, EffectType.BENEFICIAL, true));
 		PowerEffect.registerEffect(new PowerEffect("immortality", false, EffectType.TAG, true));
 		PowerEffect.registerEffect(new EmphaticMimicry());
-		PowerEffect.registerEffect(new PowerEffect("speedBoost", true, EffectType.BENEFICIAL){
-			
-			public boolean onUpdate(EntityLivingBase entity, int timeLeft, EntityLivingBase caster, Power power) {
-
-				PowerProfile profile = PowersEntity.get(entity).getPowerProfile(power);
-				int level = profile != null  && power == Powers.speedBoost ? 
-						(profile.level < 3 ? profile.level : 3) : 1;
-					
-				if (entity.moveForward > 1.0 && entity.getActivePotionEffect(Potion.moveSlowdown) == null) entity.setSprinting(true);
-		
-				if (level >= 3) {
-					Vec3 look = entity.getLookVec();
-					Vec3 pos = entity.getPositionVector();
-					pos = pos.add(entity.getLookVec());
-					BlockPos block = new BlockPos(pos.xCoord, pos.yCoord, pos.zCoord);
-					entity.stepHeight = UtilMethods.getDistanceToNextOccupiableSpace(entity.worldObj, block);
-				}
-				
-				entity.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 5, level, false, false));
-				return true;
-			}
-			
-			public void onRemoval(final EntityLivingBase entity, final EntityLivingBase caster, final Power power){
-				entity.stepHeight = 0.0F;
-			}
-			
-			
-		});
+		PowerEffect.registerEffect(new SpeedBoost());
 		PowerEffect.registerEffect(new PowerEffect("karma", true, EffectType.MALICIOUS) {
 			
 			{

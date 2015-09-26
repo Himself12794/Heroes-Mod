@@ -11,14 +11,13 @@ import com.himself12794.powersapi.power.PowerEffect;
 
 public class PowerEffects {
 	
-	public static final RapidCellularRegeneration rapidCellularRegeneration;
-	public static final Lift lift;
-	public static final Slam slam;
-	public static final Paralysis paralysis;
-	public static final EnhancedStrength enhancedStrength;
-	//public static final PhasingFx phasing;
-	public static final Telekinesis telekinesis;
-	public static final EmphaticMimicry emphaticMimicry;
+	public static final PowerEffect rapidCellularRegeneration;
+	public static final PowerEffect lift;
+	public static final PowerEffect slam;
+	public static final PowerEffect paralysis;
+	public static final PowerEffect enhancedStrength;
+	public static final PowerEffect telekinesis;
+	public static final PowerEffect emphaticMimicry;
 	public static final PowerEffect levitate;
 	public static final PowerEffect flight;
 	public static final PowerEffect breakFx;
@@ -31,19 +30,18 @@ public class PowerEffects {
 		
 		if (HeroesMod.getMod().isInitialized()) {
 			
-			rapidCellularRegeneration = (RapidCellularRegeneration) PowerEffect.getPowerEffect("rapidCellularRegeneration");
-			lift = (Lift) PowerEffect.getPowerEffect("lift");
-			slam = (Slam) PowerEffect.getPowerEffect("slam");
+			rapidCellularRegeneration = PowerEffect.getPowerEffect("rapidCellularRegeneration");
+			lift = PowerEffect.getPowerEffect("lift");
+			slam = PowerEffect.getPowerEffect("slam");
 			levitate = PowerEffect.getPowerEffect("levitate");		
-			paralysis = (Paralysis) PowerEffect.getPowerEffect("paralysis");
-			enhancedStrength = (EnhancedStrength) PowerEffect.getPowerEffect("enhancedStrength");
+			paralysis = PowerEffect.getPowerEffect("paralysis");
+			enhancedStrength = PowerEffect.getPowerEffect("enhancedStrength");
 			flight = PowerEffect.getPowerEffect("flight");
-			//phasing = (PhasingFx) PowerEffect.getPowerEffect("phasing");
-			telekinesis = (Telekinesis) PowerEffect.getPowerEffect("telekinesis");
+			telekinesis = PowerEffect.getPowerEffect("telekinesis");
 			breakFx = PowerEffect.getPowerEffect("break");
 			telekineticShield = PowerEffect.getPowerEffect("telekineticShield");
 			immortality = PowerEffect.getPowerEffect("immortality");
-			emphaticMimicry = (EmphaticMimicry) PowerEffect.getPowerEffect("emphaticMimicry");
+			emphaticMimicry = PowerEffect.getPowerEffect("emphaticMimicry");
 			speedBoost = PowerEffect.getPowerEffect("speedBoost");
 			karma = PowerEffect.getPowerEffect("karma");
 			
