@@ -29,7 +29,6 @@ import net.minecraft.world.World;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import com.himself12794.heroesmod.HeroesMod;
 
 /**
  * Blocks destroyed by this explosion don't drop anything.

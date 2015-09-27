@@ -93,6 +93,11 @@ public final class UtilMethods {
 				return list.getCompoundTagAt(currValue++);
 			}
 			
+			@Override
+			public void remove() {
+				//list.removeTag(currValue);
+			}
+			
 		}
 		
 	}
