@@ -11,6 +11,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 import org.apache.logging.log4j.Logger;
 
+import com.himself12794.heroesmod.handlers.WorldHealingHandler;
 import com.himself12794.heroesmod.proxy.CommonProxy;
 import com.himself12794.heroesmod.util.Reference;
 import com.himself12794.powersapi.PowersAPI;
@@ -40,6 +41,7 @@ public class HeroesMod {
 	private static CommonProxy proxy;
 	
 	public final ModConfig config = new ModConfig(new File("config/" + Reference.MODID + ".cfg"));
+	public final WorldHealingHandler worldHealingHandler = new WorldHealingHandler();
 	
 	boolean preInit;
 

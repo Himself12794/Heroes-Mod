@@ -28,7 +28,7 @@ repositories {
     }
 }
 
-version = "0.8-rev12"
+version = "0.9-rev0"
 group = "com.himself12794" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "Heroes-Mod"
 
@@ -47,6 +47,12 @@ minecraft {
 
 dependencies {
 	compile "com.himself12794:powersAPI:1.1-rev1"
+}
+
+jar {
+	manifest {
+	attributes 'FMLAT': 'accessTransformer.cfg'
+	}
 }
 
 processResources

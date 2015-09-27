@@ -11,7 +11,7 @@ import com.himself12794.powersapi.power.PowerBuff;
 import com.himself12794.powersapi.power.PowerEffectActivatorBuff;
 import com.himself12794.powersapi.storage.PowerProfile;
 
-public class PowersRegistraton {
+public class PowersRegistration {
 
 	public static void registerPowers() {
 

@@ -13,7 +13,6 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 
 import com.himself12794.heroesmod.HeroesMod;
-import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.heroesmod.Powers;
 import com.himself12794.heroesmod.network.HeroesNetwork;
 import com.himself12794.heroesmod.util.EnumRandomType;
@@ -21,7 +20,6 @@ import com.himself12794.heroesmod.util.UtilMethods;
 import com.himself12794.powersapi.power.EffectType;
 import com.himself12794.powersapi.power.Power;
 import com.himself12794.powersapi.power.PowerEffect;
-import com.himself12794.powersapi.storage.EffectsEntity;
 import com.himself12794.powersapi.storage.PowerProfile;
 import com.himself12794.powersapi.storage.PowersEntity;
 

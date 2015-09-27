@@ -1,7 +1,11 @@
 package com.himself12794.heroesmod.util;
 
+import java.util.Iterator;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -54,6 +58,43 @@ public final class UtilMethods {
 		
 		double totalVelocity = MathHelper.sqrt_double(x * x + z * z);
 		return totalVelocity;
+	}
+	
+	public static Iterable<NBTTagCompound> getIterable(NBTTagList list) {
+		return new NBTTagListIterable(list);
+	}
+	
+	public static class NBTTagListIterable implements Iterable<NBTTagCompound> {
+		
+		private final NBTTagList list;
+		
+		public NBTTagListIterable(NBTTagList list) {
+			this.list = list;
+		}
+		
+		public Iterator<NBTTagCompound> iterator() {
+			return new Itr();
+		}
+		
+		public class Itr implements Iterator<NBTTagCompound> {
+			private int currValue;
+			
+			private Itr() {
+				this.currValue = list.tagCount() > 0 ? 0 : -1;
+			}
+
+			@Override
+			public boolean hasNext() {
+				return currValue > 0 && currValue < list.tagCount() - 1 && list.getTagType() == 10;
+			}
+
+			@Override
+			public NBTTagCompound next() {
+				return list.getCompoundTagAt(currValue++);
+			}
+			
+		}
+		
 	}
 	
 }

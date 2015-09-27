@@ -5,11 +5,9 @@ import java.util.List;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.MathHelper;
 
 import com.google.common.base.Predicate;
 import com.himself12794.heroesmod.AbilitySets;
-import com.himself12794.heroesmod.HeroesMod;
 import com.himself12794.heroesmod.ability.AbilitySet;
 import com.himself12794.heroesmod.storage.AbilitiesEntity;
 import com.himself12794.powersapi.power.EffectType;

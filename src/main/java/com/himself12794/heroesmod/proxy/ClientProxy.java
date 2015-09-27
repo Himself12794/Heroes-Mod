@@ -9,8 +9,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 
-import com.himself12794.heroesmod.events.SoundHacking;
 import com.himself12794.heroesmod.gui.PowerOverlayGui;
+import com.himself12794.heroesmod.handlers.SoundHacking;
 import com.himself12794.heroesmod.item.ModItems;
 
 public class ClientProxy extends CommonProxy {

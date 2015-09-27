@@ -1,4 +1,4 @@
-package com.himself12794.heroesmod.events;
+package com.himself12794.heroesmod.handlers;
 
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.PositionedSoundRecord;

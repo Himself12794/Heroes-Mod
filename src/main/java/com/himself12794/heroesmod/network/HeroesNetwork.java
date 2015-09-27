@@ -4,6 +4,8 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 
 import com.himself12794.heroesmod.network.server.S01SpawnParticles;
+import com.himself12794.heroesmod.network.server.S02ExplosionParticles;
+import com.himself12794.heroesmod.network.server.S03SetTileEntity;
 
 
 public final class HeroesNetwork {
@@ -53,6 +55,10 @@ public final class HeroesNetwork {
 
 			wrapper.registerMessage( S01SpawnParticles.Handler.class,
 					S01SpawnParticles.class, ++currId, Side.CLIENT );
+			wrapper.registerMessage( S02ExplosionParticles.Handler.class,
+					S02ExplosionParticles.class, ++currId, Side.CLIENT );
+			wrapper.registerMessage( S03SetTileEntity.Handler.class,
+					S03SetTileEntity.class, ++currId, Side.CLIENT );
 			
 			messagesRegistered = true;
 		}
