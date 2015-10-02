@@ -29,9 +29,23 @@ repositories {
 }
 
 version = "0.9-rev1"
-group = "com.himself12794" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = "com.himself12794" 
 archivesBaseName = "Heroes-Mod"
 
+task writeNewPom << {
+    pom {
+        project {
+			repositories {
+				repository {
+					
+					id = "himself12794-develops"
+					url = "http://maven.himself12794-develops.com"
+				
+				}				
+			}
+        }
+    }.writeTo("pom.xml")
+}
 minecraft {
     version = "1.8-11.14.3.1514"
     runDir = "run"
