@@ -32,6 +32,10 @@ version = "0.9-rev1"
 group = "com.himself12794" 
 archivesBaseName = "Heroes-Mod"
 
+configurations {
+    deployerJars
+}
+
 uploadArchives {
     repositories {
         mavenDeployer {
