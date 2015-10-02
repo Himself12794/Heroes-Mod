@@ -32,21 +32,6 @@ version = "0.9-rev1"
 group = "com.himself12794" 
 archivesBaseName = "Heroes-Mod"
 
-configurations {
-    deployerJars
-}
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-			configuration = configurations.deployerJars
-            repository(url: "ftp://file.himself12794-develops.com") {
-				authentication(userName: "philip", password: "fire_fox120794")
-			}
-        }
-    }
-}
-
 minecraft {
     version = "1.8-11.14.3.1514"
     runDir = "run"
@@ -60,9 +45,30 @@ minecraft {
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 }
 
+configurations {
+    deployerJars
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    deployerJars "org.apache.maven.wagon:wagon-ssh:2.2"
+}
+
 dependencies {
 	compile "com.himself12794:powersAPI:1.1-rev2"
 	deployerJars "org.apache.maven.wagon:wagon-ftp:2.2"
+}
+
+uploadArchives {
+    repositories.mavenDeployer {
+		configuration = configurations.deployerJars
+		repository(url: "ftp://file.himself12794-develops.com") {
+			authentication(userName: theName, password: thePassword)
+		}
+    }
 }
 
 jar {
