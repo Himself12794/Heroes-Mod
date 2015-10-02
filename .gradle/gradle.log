@@ -5,37 +5,8 @@
  R4wk, ZeuX, IngisKahn, bspkrs
  MCP Data version : 9.10
 ****************************
-:deobfCompileDummyTask
-:deobfProvidedDummyTask
-:getVersionJson
-:extractUserdev UP-TO-DATE
-:extractMcpData SKIPPED
-:extractMcpMappings SKIPPED
-:genSrgs SKIPPED
-:downloadClient SKIPPED
-:downloadServer SKIPPED
-:splitServerJar SKIPPED
-:mergeJars SKIPPED
-:deobfMcSRG SKIPPED
-:getFernFlower SKIPPED
-:decompileMc SKIPPED
-:fixMcSources SKIPPED
-:applySourcePatches SKIPPED
-:remapMcSources SKIPPED
-:recompileMc FAILED
+:writeNewPom
 
-FAILURE: Build failed with an exception.
+BUILD SUCCESSFUL
 
-* What went wrong:
-Execution failed for task ':recompileMc'.
-> Unable to find a javac compiler;
-com.sun.tools.javac.Main is not on the classpath.
-Perhaps JAVA_HOME does not point to the JDK.
-It is currently set to "C:\Users\pwhiting\Java"
-
-* Try:
-Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
-
-BUILD FAILED
-
-Total time: 13.242 secs
+Total time: 3.323 secs

@@ -44,8 +44,30 @@ task writeNewPom << {
 				}				
 			}
         }
-    }.writeTo("pom.xml")
+	}.withXml {
+		asNode().appendNode("build").appendNode("plugins").with { 
+			appendNode("plugin").with {
+				appendNode("groupId", "org.apache.maven.plugins")
+				appendNode("artifactId", "maven-source-plugin")
+				appendNode("executions").with {
+					appendNode("execution").with {
+						appendNode("id", "attach-sources")
+						appendNode("goals").appendNode("goal", "jar")
+					}
+				}
+			}
+			appendNode("plugin").with {
+				appendNode("artifactId", "maven-compiler-plugin")
+				appendNode("version", "3.1")
+				appendNode("configuration").with {
+					appendNode("source", "1.7")
+					appendNode("target", "1.7")
+				}
+			}
+		}
+	}.writeTo('pom.xml')
 }
+
 minecraft {
     version = "1.8-11.14.3.1514"
     runDir = "run"
