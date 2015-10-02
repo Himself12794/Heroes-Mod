@@ -33,29 +33,25 @@ group = "com.himself12794"
 archivesBaseName = "Heroes-Mod"
 
 install {
-    pom {
-        project {
-			repositories {
-				repository {
-					
-					id = "himself12794-develops"
-					url = "http://maven.himself12794-develops.com"
-				
-				}
-				repository {
-				
-					id = "jcenter"
-					url = "https://jcenter.bintray.com/"
-				
-				}
-				repository {
-					
-					id = "forge"
-					url = "http://files.minecraftforge.net/maven"
-					
-				}
-			}
-        }
+	repositories {
+		repository {
+			
+			id = "himself12794-develops"
+			url = "http://maven.himself12794-develops.com"
+		
+		}
+		repository {
+		
+			id = "jcenter"
+			url = "https://jcenter.bintray.com/"
+		
+		}
+		repository {
+			
+			id = "forge"
+			url = "http://files.minecraftforge.net/maven"
+			
+		}
 	}
 }
 
