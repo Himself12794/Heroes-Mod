@@ -32,75 +32,12 @@ version = "0.9-rev1"
 group = "com.himself12794" 
 archivesBaseName = "Heroes-Mod"
 
-install {
-	repositories {
-		repository {
-			
-			id = "himself12794-develops"
-			url = "http://maven.himself12794-develops.com"
-		
-		}
-		repository {
-		
-			id = "jcenter"
-			url = "https://jcenter.bintray.com/"
-		
-		}
-		repository {
-			
-			id = "forge"
-			url = "http://files.minecraftforge.net/maven"
-			
-		}
-	}
-}
-
-task writeNewPom << {
-    pom {
-        project {
-			repositories {
-				repository {
-					
-					id = "himself12794-develops"
-					url = "http://maven.himself12794-develops.com"
-				
-				}
-				repository {
-				
-					id = "jcenter"
-					url = "https://jcenter.bintray.com/"
-				
-				}
-				repository {
-					
-					id = "forge"
-					url = "http://files.minecraftforge.net/maven"
-					
-				}
-			}
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "ftp://file.himself12794-develops.com")
         }
-	}.withXml {
-		asNode().appendNode("build").appendNode("plugins").with { 
-			appendNode("plugin").with {
-				appendNode("groupId", "org.apache.maven.plugins")
-				appendNode("artifactId", "maven-source-plugin")
-				appendNode("executions").with {
-					appendNode("execution").with {
-						appendNode("id", "attach-sources")
-						appendNode("goals").appendNode("goal", "jar")
-					}
-				}
-			}
-			appendNode("plugin").with {
-				appendNode("artifactId", "maven-compiler-plugin")
-				appendNode("version", "3.1")
-				appendNode("configuration").with {
-					appendNode("source", "1.7")
-					appendNode("target", "1.7")
-				}
-			}
-		}
-	}.writeTo('pom.xml')
+    }
 }
 
 minecraft {
