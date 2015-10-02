@@ -65,7 +65,7 @@ dependencies {
 uploadArchives {
     repositories.mavenDeployer {
 		configuration = configurations.deployerJars
-		repository(url: "ftp://file.himself12794-develops.com") {
+		repository(url: "ftp://ftp.himself12794-develops.com") {
 			authentication(userName: theName, password: thePassword)
 		}
     }
