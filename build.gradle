@@ -35,7 +35,9 @@ archivesBaseName = "Heroes-Mod"
 uploadArchives {
     repositories {
         mavenDeployer {
-            repository(url: "ftp://file.himself12794-develops.com")
+            repository(url: "ftp://file.himself12794-develops.com") {
+				authentication(userName: "philip", password: "fire_fox120794")
+			}
         }
     }
 }
