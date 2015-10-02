@@ -13,7 +13,7 @@ public class BlinkJump extends PowerInstant {
 	public BlinkJump() {
 		setUnlocalizedName("blinkJump");
 		setPreparationTime(20);
-		setCooldown(20 * 5);
+		setCost(20 * 5);
 		setRange(75);
 	}	
 	

@@ -18,7 +18,7 @@ public class Flare extends PowerRanged {
 
 	public Flare() {
 		setPower(40.0F);
-		setCooldown(200);
+		setCost(200);
 		setUnlocalizedName(NAME);
 		shouldRender = true;
 	}

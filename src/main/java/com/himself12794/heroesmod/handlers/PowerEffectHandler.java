@@ -1,4 +1,4 @@
-package com.himself12794.heroesmod.events;
+package com.himself12794.heroesmod.handlers;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -37,16 +37,14 @@ public class PowerEffectHandler {
 	public void allowBreakBlockFist(PlayerEvent.HarvestCheck event) {
 
 		boolean canBreak = true;
-
+		
 		if (event.entityPlayer.getHeldItem() != null) {
 			Item item = event.entityPlayer.getHeldItem().getItem();
 			canBreak = item == null ? true : !item.isDamageable();
 		}
 
 		EffectsEntity wrapper = EffectsEntity.get(event.entityPlayer);
-
-		if (wrapper.isAffectedBy(PowerEffects.breakFx)
-				&& canBreak) {
+		if (wrapper.isAffectedBy(PowerEffects.breakFx) && canBreak) {
 			event.success = Items.iron_pickaxe.canHarvestBlock(event.block);
 		}
 

@@ -74,14 +74,13 @@ public class BlockMemory extends PowerInstant {
 			} else {
 				text = "Now recalling blocks";
 			}
-			
 			if (world.isRemote) caster.addChatMessage( new ChatComponentText( text ) );
 		}
 		
 	}
 	
 	@Override
-	public int getCooldown(PowerProfile profile) {
+	public int getCost(PowerProfile profile) {
 		
 		int uses = profile.getUses();
 		

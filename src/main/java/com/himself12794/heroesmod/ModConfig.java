@@ -1,11 +1,12 @@
 package com.himself12794.heroesmod;
 
+import java.io.File;
 import java.util.Map;
 
+import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.config.ConfigCategory;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import com.google.common.collect.Maps;
@@ -24,9 +25,12 @@ public class ModConfig {
 	final ConfigCategory abilities;
 	private int flamethrowing;
 	private boolean enderSoundSwap;
+	private boolean registeredDimension;
+	private boolean explosionHealingEnabled;
+	private int customDimensionId;
 
-	ModConfig(FMLPreInitializationEvent event) {
-		mainConfig = new Configuration(event.getSuggestedConfigurationFile(), true);
+	public ModConfig(File file) {
+		mainConfig = new Configuration(file, true);
 		
 		generalModConfig = mainConfig.getCategory(Reference.NAME + " Config");
 		generalModConfig.setLanguageKey("heroesmod.config.general");
@@ -45,6 +49,8 @@ public class ModConfig {
 						"Griefing level for the flames power. 0=Entities, 1=Grass, 2=Grass and Leaves, 3=Burnable Objects, 4=Everything");
 		
 		enderSoundSwap = mainConfig.getBoolean("EnderSoundSwapEnabled", generalModConfig.getName(), true, "Swaps ender scream for banshee scream");
+		
+		explosionHealingEnabled = mainConfig.getBoolean("ExplosionHealingEnabled", generalModConfig.getName(), false, "The world heals from explosions");
 
 		for (AbilitySet set : AbilitySet.abilitySets.values()) {
 			
@@ -62,6 +68,15 @@ public class ModConfig {
 
 		if (mainConfig.hasChanged()) mainConfig.save();
 	}
+	
+	public void registerDimensionId() {
+		
+		if (!this.registeredDimension) {
+			customDimensionId = DimensionManager.getNextFreeDimId();
+			DimensionManager.registerDimension(customDimensionId, 1);
+		}
+		
+	}
 
 	@SubscribeEvent
 	public void configChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
@@ -72,12 +87,20 @@ public class ModConfig {
 
 	}
 	
+	public static int getCustomDimensionId() {
+		return get().customDimensionId;
+	}
+	
 	public static ModConfig get() {
 		return HeroesMod.config();
 	}
 	
 	public static int getFlamethrowingLevel() {
 		return get().flamethrowing;
+	}
+	
+	public boolean isExplosionHealingEnabled() {
+		return get().explosionHealingEnabled;
 	}
 	
 	public boolean isEnderSoundSwapEnabled() {

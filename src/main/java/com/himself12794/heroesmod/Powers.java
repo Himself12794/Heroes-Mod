@@ -44,7 +44,7 @@ public class Powers {
 
 	static {
 
-		if (HeroesMod.instance().isInitialized()) {
+		if (HeroesMod.getMod().isInitialized()) {
 
 			incinerate = PowersRegistry.lookupPower(Incinerate.class);
 			lightning = PowersRegistry.lookupPower(Lightning.class);

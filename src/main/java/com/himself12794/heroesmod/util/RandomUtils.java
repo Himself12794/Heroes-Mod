@@ -62,6 +62,18 @@ public final class RandomUtils {
 		return null;
 	}
 	
+	public static <T> T selectRandomItem(Collection<T> collection) {
+		if (collection.size() == 0) return null;
+		int choosen = new Random().nextInt(collection.size());
+		int curr = 0;
+		for (T item : collection) {
+			if (choosen == curr) return item;
+			++curr;
+		}
+		
+		return null;
+	}
+	
 	public static interface IWeightedItem {
 		
 		float getWeight();

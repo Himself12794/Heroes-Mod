@@ -11,7 +11,7 @@ import com.himself12794.powersapi.power.PowerBuff;
 import com.himself12794.powersapi.power.PowerEffectActivatorBuff;
 import com.himself12794.powersapi.storage.PowerProfile;
 
-public class PowersRegistraton {
+public class PowersRegistration {
 
 	public static void registerPowers() {
 
@@ -45,7 +45,7 @@ public class PowersRegistraton {
 		PowersAPI.registerPower(new PowerEffectActivatorBuff("speedBoost", 20 * 10, 0, PowerEffects.speedBoost, 20 * 30, 3){
 			
 			@Override
-			public int getCooldown(PowerProfile profile) {
+			public int getCost(PowerProfile profile) {
 				return profile.level == 1 ? 20 * 30 : (profile.level == 2 ? 20 * 15 : (profile.level == 3 ? 20 * 5 : 20 * 30));
 			}
 			
@@ -67,26 +67,6 @@ public class PowersRegistraton {
 				}
 				
 				return false;
-			}
-			
-			@Override
-			public String getInfo(PowerProfile profile) {
-				
-				/*if (profile.theEntity instanceof EntityPlayer) {
-					EntityPlayer player = (EntityPlayer)profile.theEntity;
-					
-					InventoryEnderChest enderInv = player.getInventoryEnderChest();
-					int totalSlots = enderInv.getSizeInventory();
-					int filledSlots = 0;
-					
-					for (int i = 0; i < totalSlots; i++) {
-						if (enderInv.getStackInSlot(i) != null) filledSlots++;
-					}
-					
-					//return "Ender Storage Space: " + filledSlots + "/" + totalSlots;					
-				}*/
-				
-				return null;
 			}
 			
 		});

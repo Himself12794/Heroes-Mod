@@ -1,8 +1,5 @@
 package com.himself12794.heroesmod.proxy;
 
-import java.lang.reflect.Method;
-
-import net.minecraft.crash.CrashReport;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -14,13 +11,14 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 
 import com.himself12794.heroesmod.HeroesMod;
+import com.himself12794.heroesmod.ModConfig;
 import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.heroesmod.Powers;
 import com.himself12794.heroesmod.ability.AbilitySet;
-import com.himself12794.heroesmod.events.PowerEffectHandler;
+import com.himself12794.heroesmod.handlers.PowerEffectHandler;
 import com.himself12794.heroesmod.item.ModItems;
 import com.himself12794.heroesmod.network.HeroesNetwork;
-import com.himself12794.heroesmod.power.PowersRegistraton;
+import com.himself12794.heroesmod.power.PowersRegistration;
 import com.himself12794.heroesmod.powerfx.PowerEffectsRegistration;
 import com.himself12794.heroesmod.storage.AbilitiesEntity;
 import com.himself12794.heroesmod.util.Reference;
@@ -31,6 +29,7 @@ public class CommonProxy {
 		
 		HeroesNetwork.init(NetworkRegistry.INSTANCE.newSimpleChannel( Reference.MODID + " NetChannel" ));
 		HeroesNetwork.registerMessages();
+		ModConfig.get().registerDimensionId();
 
 	}
 
@@ -39,6 +38,10 @@ public class CommonProxy {
 		ModItems.addItems();
 		
 		FMLCommonHandler.instance().bus().register( HeroesMod.config() );
+		FMLCommonHandler.instance().bus().register( HeroesMod.getMod().worldHealingHandler );
+		
+		MinecraftForge.EVENT_BUS.register( HeroesMod.getMod().worldHealingHandler );
+		
 	}
 
 	public void postinit(FMLPostInitializationEvent event) {
@@ -46,9 +49,7 @@ public class CommonProxy {
 		HeroesMod.apiInstance().propertiesHandler().registerPropertyClass(AbilitiesEntity.class, EntityPlayer.class, Reference.MODID + ":abilitiesWrapper");
 		
 		PowerEffectsRegistration.registerEffects();
-		
-		PowersRegistraton.registerPowers();
-		
+		PowersRegistration.registerPowers();
 		AbilitySet.registerAbilitySets();
 		
 		MinecraftForge.EVENT_BUS.register(new PowerEffectHandler());

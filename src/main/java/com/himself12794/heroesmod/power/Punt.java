@@ -17,7 +17,7 @@ public class Punt extends PowerInstant {
 
 		setPower(0.0F);
 		setMaxConcentrationTime(20 *5);
-		setCooldown(60);
+		setCost(60);
 		setUnlocalizedName("punt");
 		setRange(50);
 

@@ -76,7 +76,7 @@ public class PowerOverlayGui extends Gui {
 		}
 		
 		// Cooldown time line
-		int cooldown = profile.getCooldown();
+		int cooldown = profile.getCost();
 		String cooldownText = cooldown > 0 ? String.format("%.1f", cooldown / 20.0F) + "s" : "None";
 		drawString(fontRendererObj, "Cooldown Time: " + cooldownText, x, yPos, color );
 		yPos += 8;

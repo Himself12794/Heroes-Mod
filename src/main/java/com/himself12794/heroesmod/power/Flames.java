@@ -30,9 +30,10 @@ public class Flames extends PowerRanged {
 		setMaxConcentrationTime(5 * 20);
 		setMaxFunctionalState(3);
 		setPower(6.0F);
-		setCooldown(100);
+		setCost(100);
 		setDuration(8 * 20);
 		setPreparationTime(20);
+		setRange(1.0F);
 		setUnlocalizedName("flames");
 	}	
 	
@@ -61,7 +62,7 @@ public class Flames extends PowerRanged {
 				target.entityHit.setFire(burnState.burnsEntity() ? getDuration() / 20 : 1);
 				
 			} else if (burnState.burnsBlocks() && caster instanceof EntityPlayer){
-				setFireToPos(target.getBlockPos(), target.sideHit, (EntityPlayer) caster, world, burnState);
+				doBurn(target.getBlockPos(), target.sideHit, (EntityPlayer) caster, world, burnState);
 			} 
 			
 		}
@@ -139,7 +140,7 @@ public class Flames extends PowerRanged {
 		
 	}
 	
-	public void setFireToPos(BlockPos pos, EnumFacing side, EntityPlayer playerIn, World worldIn, FlamesType type) {
+	public void doBurn(BlockPos pos, EnumFacing side, EntityPlayer playerIn, World worldIn, FlamesType type) {
 		
 		if (UsefulMethods.getBlockAtPos(pos, worldIn) == Blocks.tnt) {
 			BlockTNT tnt = (BlockTNT)Blocks.tnt;

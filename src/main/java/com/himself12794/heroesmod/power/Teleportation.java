@@ -3,7 +3,6 @@ package com.himself12794.heroesmod.power;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
@@ -21,7 +20,7 @@ public class Teleportation extends PowerBuff {
 	public Teleportation() {
 		super("teleportation");
 		//setPreparationTime(40);
-		setCooldown(20 * 5);
+		setCost(20 * 5);
 		setMaxFunctionalState(1);
 	}
 	

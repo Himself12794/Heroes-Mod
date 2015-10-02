@@ -26,7 +26,6 @@ run
 !sounds.json
 !/src/*/*.json
 *.text
-*.properties
 /world/
 /saves/
 /mods/
