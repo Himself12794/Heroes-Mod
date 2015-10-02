@@ -17,6 +17,14 @@
       <id>himself12794-develops</id>
       <url>http://maven.himself12794-develops.com</url>
     </repository>
+    <repository>
+      <id>jcenter</id>
+      <url>https://jcenter.bintray.com/</url>
+    </repository>
+    <repository>
+      <id>forge</id>
+      <url>http://files.minecraftforge.net/maven</url>
+    </repository>
   </repositories>
   <build>
     <plugins>

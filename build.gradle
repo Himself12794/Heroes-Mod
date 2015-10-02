@@ -41,7 +41,19 @@ task writeNewPom << {
 					id = "himself12794-develops"
 					url = "http://maven.himself12794-develops.com"
 				
-				}				
+				}
+				repository {
+				
+					id = "jcenter"
+					url = "https://jcenter.bintray.com/"
+				
+				}
+				repository {
+					
+					id = "forge"
+					url = "http://files.minecraftforge.net/maven"
+					
+				}
 			}
         }
 	}.withXml {
