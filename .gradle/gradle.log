@@ -7,38 +7,35 @@
 ****************************
 :deobfCompileDummyTask
 :deobfProvidedDummyTask
-:eclipseClasspath
-:eclipseJdt
-:eclipseProject
 :getVersionJson
-:extractNatives SKIPPED
 :extractUserdev UP-TO-DATE
-:getAssetIndex UP-TO-DATE
-:getAssets
-Current status: 258/734   35%
-Current status: 269/734   36%
-Current status: 302/734   41%
-Current status: 423/734   57%
-Current status: 434/734   59%
-Current status: 478/734   65%
-Current status: 516/734   70%
-Current status: 523/734   71%
-Current status: 550/734   74%
-Current status: 564/734   76%
-Current status: 581/734   79%
-Current status: 592/734   80%
-Current status: 632/734   86%
-Current status: 716/734   97%
-Current status: 724/734   98%
-Current status: 726/734   98%
-Current status: 729/734   99%
-:makeStart
-[ant:javac] warning: [options] bootstrap class path not set in conjunction with -source 1.6
-[ant:javac] 1 warning
-:makeEclipseCleanRunClient
-:makeEclipseCleanRunServer
-:eclipse
+:extractMcpData SKIPPED
+:extractMcpMappings SKIPPED
+:genSrgs SKIPPED
+:downloadClient SKIPPED
+:downloadServer SKIPPED
+:splitServerJar SKIPPED
+:mergeJars SKIPPED
+:deobfMcSRG SKIPPED
+:getFernFlower SKIPPED
+:decompileMc SKIPPED
+:fixMcSources SKIPPED
+:applySourcePatches SKIPPED
+:remapMcSources SKIPPED
+:recompileMc FAILED
 
-BUILD SUCCESSFUL
+FAILURE: Build failed with an exception.
 
-Total time: 42.091 secs
+* What went wrong:
+Execution failed for task ':recompileMc'.
+> Unable to find a javac compiler;
+com.sun.tools.javac.Main is not on the classpath.
+Perhaps JAVA_HOME does not point to the JDK.
+It is currently set to "C:\Users\pwhiting\Java"
+
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
+
+BUILD FAILED
+
+Total time: 13.242 secs
