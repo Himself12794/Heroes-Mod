@@ -10,6 +10,7 @@ buildscript {
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.0-SNAPSHOT'
+		 deployerJars "org.apache.maven.wagon:wagon-ftp:2.2"
     }
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
