@@ -2,6 +2,7 @@ package com.himself12794.heroesmod.handlers;
 
 import java.util.Map;
 
+import net.minecraft.world.Explosion;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.event.world.ExplosionEvent;
 import net.minecraftforge.event.world.WorldEvent;
@@ -10,6 +11,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import com.google.common.collect.Maps;
 import com.himself12794.heroesmod.HeroesMod;
+import com.himself12794.heroesmod.ModConfig;
 import com.himself12794.heroesmod.network.HeroesNetwork;
 import com.himself12794.heroesmod.util.Reference;
 import com.himself12794.heroesmod.world.NoDropsExplosion;
@@ -58,7 +60,7 @@ public class WorldHealingHandler {
 	@SubscribeEvent
 	public void handleExplosion(ExplosionEvent.Start event) {
 		
-		if (!(event.explosion instanceof NoDropsExplosion) && !event.world.isRemote) {
+		if (event.explosion.getClass().equals(Explosion.class) && !event.world.isRemote && ModConfig.get().isExplosionHealingEnabled()) {
 			event.setCanceled(true);
 			
 			try {

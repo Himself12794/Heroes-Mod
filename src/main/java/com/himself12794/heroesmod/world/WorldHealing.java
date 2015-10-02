@@ -1,6 +1,7 @@
 package com.himself12794.heroesmod.world;
 
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -21,6 +22,7 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.himself12794.heroesmod.HeroesMod;
 import com.himself12794.heroesmod.network.HeroesNetwork;
+import com.himself12794.heroesmod.util.RandomUtils;
 import com.himself12794.heroesmod.util.Reference;
 import com.himself12794.heroesmod.util.UtilMethods;
 import com.himself12794.powersapi.util.UsefulMethods;
@@ -28,7 +30,7 @@ import com.himself12794.powersapi.util.UsefulMethods;
 public class WorldHealing extends WorldSavedData {
 
 	private static final int INIT_DELAY = 40;
-	private static final int HEAL_DELAY = 0;
+	private static final int DEFAULT_HEAL_DELAY = 0;
 
 	private final List<ExplosionEntry> explosions;
 	
@@ -43,7 +45,7 @@ public class WorldHealing extends WorldSavedData {
 	
 	public void doHeal(WorldServer world) {
 		
-		Set toRemove = Sets.newHashSet();
+		/*Set toRemove = Sets.newHashSet();
 		
 		for (ExplosionEntry entry : explosions) {
 			
@@ -53,14 +55,18 @@ public class WorldHealing extends WorldSavedData {
 				toRemove.add(entry);
 			}
 			
-		}
+		}*/
 		
-		for (Object entry : toRemove) {
+		Iterator<ExplosionEntry> itr = explosions.iterator();
+		
+		while (itr.hasNext()) {
+			ExplosionEntry entry = itr.next(); 
 			
-			if (explosions.contains(entry)){
-				explosions.remove(entry);
+			if (!entry.done) {
+				entry.doHeal(world);
+			} else {
+				itr.remove();
 			}
-			
 		}
 		
 	}
@@ -100,57 +106,10 @@ public class WorldHealing extends WorldSavedData {
 	
 	private static class ExplosionEntry {
 		
-		private final Map<BlockPos, IBlockState> blocks;
-		private final Map<BlockPos, TileEntity> tileEntities;
-		private int healDelay;
-		private int delayInit = INIT_DELAY;
-		private boolean done;
+		private static final Comparator<BlockPos> posComparator;
 		
-		private ExplosionEntry() {
-			blocks = Maps.newHashMap();
-			tileEntities = Maps.newHashMap();
-		}
-		
-		private ExplosionEntry(NoDropsExplosion ex) {
-
-			blocks = Maps.newHashMap(ex.getBlockStates());
-			tileEntities = Maps.newHashMap(ex.getTileEntities());
-			//orderBlocks();
-		}
-		
-		private void orderBlocks() {
-			
-			Map<BlockPos, IBlockState> airBlocks = Maps.newHashMap();
-			Map<BlockPos, IBlockState> fullBlocks = Maps.newHashMap();
-			Map<BlockPos, IBlockState> fallingBlocks = Maps.newHashMap();
-			Map<BlockPos, IBlockState> nonFullBlocks = Maps.newHashMap();
-			
-			for (Map.Entry<BlockPos, IBlockState> entry : blocks.entrySet()) {
-				
-				Block block = entry.getValue().getBlock();
-				
-				if (block == Blocks.air) airBlocks.put(entry.getKey(), entry.getValue());
-				else if (block instanceof BlockFalling) fallingBlocks.put(entry.getKey(), entry.getValue());
-	    		else if (block.isFullBlock()) fullBlocks.put(entry.getKey(), entry.getValue());
-	    		else nonFullBlocks.put(entry.getKey(), entry.getValue());
-				
-			}
-			
-			blocks.clear();
-			blocks.putAll(airBlocks);
-			blocks.putAll(fullBlocks);
-			blocks.putAll(fallingBlocks);
-			blocks.putAll(nonFullBlocks);
-			
-			HeroesMod.logger().info("Blocks have been ordered");
-			for (IBlockState state : blocks.values()) {
-				HeroesMod.logger().info(state.getBlock());
-			}
-		}
-		
-		private Map<BlockPos, IBlockState> orderByPos(Map<BlockPos, IBlockState> map) {
-			
-			Comparator<BlockPos> posComparator = new Comparator<BlockPos>() {
+		static {
+			posComparator = new Comparator<BlockPos>() {
 
 				@Override
 				public int compare(BlockPos o1, BlockPos o2) {
@@ -158,88 +117,101 @@ public class WorldHealing extends WorldSavedData {
 				}
 				
 			};
+		}
+		
+		private final List<Map<BlockPos, IBlockState>> blocks;
+		private final Map<BlockPos, TileEntity> tileEntities;
+		private int healDelay;
+		private int delayInit = INIT_DELAY;
+		private boolean done;
+		
+		private ExplosionEntry() {
+			blocks = Lists.newArrayList();
+			tileEntities = Maps.newHashMap();
+		}
+		
+		private ExplosionEntry(NoDropsExplosion ex) {
+
+			blocks = orderBlocks(ex.getBlockStates());
+			tileEntities = ex.getTileEntities();
+		}
+		
+		private static List<Map<BlockPos, IBlockState>> orderBlocks(Map<BlockPos, IBlockState> blocks) {			
+
+			List<Map<BlockPos, IBlockState>> order = Lists.newArrayList();
+			Map<BlockPos, IBlockState> fullBlocks = Maps.newHashMap();
+			Map<BlockPos, IBlockState> fallingBlocks = Maps.newTreeMap(posComparator);
+			Map<BlockPos, IBlockState> nonFullBlocks = Maps.newHashMap();
+			order.add(fullBlocks);
+			order.add(fallingBlocks);
+			order.add(nonFullBlocks);
 			
-			Map<BlockPos, IBlockState> newPositions = Maps.newTreeMap(posComparator);
-			newPositions.putAll(map);	
+			for (Map.Entry<BlockPos, IBlockState> entry : blocks.entrySet()) {
+				
+				Block block = entry.getValue().getBlock();
+				
+				if (block == Blocks.air) continue;
+				else if (block instanceof BlockFalling) fallingBlocks.put(entry.getKey(), entry.getValue());
+	    		else if (block.isFullBlock()) fullBlocks.put(entry.getKey(), entry.getValue());
+	    		else nonFullBlocks.put(entry.getKey(), entry.getValue());
+				
+			}
 			
-			return newPositions;
-			
+			return order;
 		}
 		
 		private void doHeal(WorldServer world) {
 			
 			if (healDelay <= 0 && !done && delayInit <= 0) {
-				BlockPos toRemove = null;
 				
-				Comparator<BlockPos> posComparator = new Comparator<BlockPos>() {
-
-					@Override
-					public int compare(BlockPos o1, BlockPos o2) {
-						return o1.compareTo(o2);
+				Iterator<Map<BlockPos, IBlockState>> itr = blocks.iterator();
+				
+				while (itr.hasNext()) {
+					
+					Map<BlockPos, IBlockState> theMap = itr.next();
+					Map.Entry<BlockPos, IBlockState> entry = RandomUtils.selectRandomItem(theMap.entrySet());
+				
+					if (entry == null) {
+						itr.remove();
+						continue;
 					}
 					
-				};
-				
-
-				List<Map<BlockPos, IBlockState>> order = Lists.newArrayList();
-				Map<BlockPos, IBlockState> fullBlocks = Maps.newHashMap();
-				Map<BlockPos, IBlockState> fallingBlocks = Maps.newTreeMap(posComparator);
-				Map<BlockPos, IBlockState> nonFullBlocks = Maps.newHashMap();
-				order.add(fullBlocks);
-				order.add(fallingBlocks);
-				order.add(nonFullBlocks);
-				
-				for (Map.Entry<BlockPos, IBlockState> entry : blocks.entrySet()) {
+					BlockPos toRemove = entry.getKey();
 					
-					Block block = entry.getValue().getBlock();
-					
-					if (block == Blocks.air) continue;
-					else if (block instanceof BlockFalling) fallingBlocks.put(entry.getKey(), entry.getValue());
-		    		else if (block.isFullBlock()) fullBlocks.put(entry.getKey(), entry.getValue());
-		    		else nonFullBlocks.put(entry.getKey(), entry.getValue());
-					
-				}
-				
-				out:
-				for (Map<BlockPos, IBlockState> theMap : order) {
-				
-					for (Map.Entry<BlockPos, IBlockState> entry : theMap.entrySet()) {
+					if (world.getBlockState(toRemove).getBlock().getMaterial().isReplaceable() && entry.getValue().getBlock() != Blocks.fire){ 
+						world.setBlockState(toRemove, entry.getValue());
 						
-						toRemove = entry.getKey();
-						if (world.getBlockState(toRemove).getBlock().getMaterial().isReplaceable()) { 
-							world.setBlockState(toRemove, entry.getValue());
+						if (tileEntities.containsKey(toRemove)) {
 							
-							if (tileEntities.containsKey(toRemove)) {
-								TileEntity entity = tileEntities.get(toRemove);
-								NBTTagCompound data = new NBTTagCompound();
-								entity.writeToNBT(data);
-								if (world.getTileEntity(toRemove) != null) {
-									world.getTileEntity(toRemove).readFromNBT(data);
-								} else {
-									HeroesNetwork.client().setTileEntity(entity);
-									world.setTileEntity(toRemove, entity);
-								}
+							TileEntity entity = tileEntities.get(toRemove);
+							NBTTagCompound data = new NBTTagCompound();
+							entity.writeToNBT(data);
+							
+							if (world.getTileEntity(toRemove) != null) {
+								world.getTileEntity(toRemove).readFromNBT(data);
+							} else {
+								world.setTileEntity(toRemove, entity);
 							}
+							
+							tileEntities.remove(toRemove);
 						}
-						
-						break out;
 					}
+					
+					theMap.remove(toRemove);
+					break;
+					
 				}
 				
-				if (toRemove != null) { 
-					blocks.remove(toRemove);
-					if (tileEntities.containsKey(toRemove)) 
-						tileEntities.remove(toRemove);
-				}
-				
-				healDelay = HEAL_DELAY;
-			} else if (healDelay > 0) --healDelay;
+				healDelay = DEFAULT_HEAL_DELAY;
+			} 
 			
+			if (healDelay > 0) --healDelay;
 			if (delayInit > 0) --delayInit;
-			if (blocks.entrySet().size() <= 0) done = true;
+			
+			done = blocks.size() == 0;
 		}
 
-		private NBTTagList getBlockMapAsNBTList() {
+		/*private NBTTagList getBlockMapAsNBTList() {
 			NBTTagList nbt = new NBTTagList();
 			
 			for (Map.Entry<BlockPos, IBlockState> entry : blocks.entrySet()) {
@@ -306,22 +278,21 @@ public class WorldHealing extends WorldSavedData {
 				tileEntities.put(pos, entity);
 				
 			}
-		}
+		}*/
 		
 		public void writeToNBT(NBTTagCompound nbt) {
 			
-			nbt.setTag("Blocks", getBlockMapAsNBTList());
-			nbt.setTag("TileEntities", getTileEntityMapAsNBTList());
-			nbt.setInteger("InitDelay", delayInit);
-			
+			//nbt.setTag("Blocks", getBlockMapAsNBTList());
+			//nbt.setTag("TileEntities", getTileEntityMapAsNBTList());
+			//nbt.setInteger("InitDelay", delayInit);
 			
 		}
 
 		public void readFromNBT(NBTTagCompound nbt) {
 				
-			setBlocksMap(nbt.getTagList("Blocks", 10));
-			setTileEntitiesMap(nbt.getTagList("TileEntities", 10));
-			delayInit = nbt.getInteger("InitDelay");
+			//setBlocksMap(nbt.getTagList("Blocks", 10));
+			//setTileEntitiesMap(nbt.getTagList("TileEntities", 10));
+			//delayInit = nbt.getInteger("InitDelay");
 		
 		}
 		

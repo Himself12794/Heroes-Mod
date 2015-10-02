@@ -26,6 +26,7 @@ public class ModConfig {
 	private int flamethrowing;
 	private boolean enderSoundSwap;
 	private boolean registeredDimension;
+	private boolean explosionHealingEnabled;
 	private int customDimensionId;
 
 	public ModConfig(File file) {
@@ -48,6 +49,8 @@ public class ModConfig {
 						"Griefing level for the flames power. 0=Entities, 1=Grass, 2=Grass and Leaves, 3=Burnable Objects, 4=Everything");
 		
 		enderSoundSwap = mainConfig.getBoolean("EnderSoundSwapEnabled", generalModConfig.getName(), true, "Swaps ender scream for banshee scream");
+		
+		explosionHealingEnabled = mainConfig.getBoolean("ExplosionHealingEnabled", generalModConfig.getName(), false, "The world heals from explosions");
 
 		for (AbilitySet set : AbilitySet.abilitySets.values()) {
 			
@@ -94,6 +97,10 @@ public class ModConfig {
 	
 	public static int getFlamethrowingLevel() {
 		return get().flamethrowing;
+	}
+	
+	public boolean isExplosionHealingEnabled() {
+		return get().explosionHealingEnabled;
 	}
 	
 	public boolean isEnderSoundSwapEnabled() {

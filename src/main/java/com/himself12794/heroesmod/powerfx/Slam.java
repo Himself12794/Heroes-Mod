@@ -3,6 +3,8 @@ package com.himself12794.heroesmod.powerfx;
 import net.minecraft.entity.EntityFlying;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
 
 import com.himself12794.heroesmod.Powers;
 import com.himself12794.heroesmod.network.HeroesNetwork;
@@ -10,6 +12,7 @@ import com.himself12794.heroesmod.util.EnumRandomType;
 import com.himself12794.heroesmod.util.Reference.Sounds;
 import com.himself12794.powersapi.power.EffectType;
 import com.himself12794.powersapi.power.Power;
+import com.himself12794.powersapi.util.UsefulMethods;
 
 public class Slam extends Lift {
 
@@ -43,12 +46,24 @@ public class Slam extends Lift {
 			if (power != Powers.nova) entity.playSound(Sounds.BIOTIC_EXPLOSION, 2.5F, 1.5F);
 			
 			double x = caster != null ? caster.getLookVec().xCoord : entity.getLookVec().xCoord;
-			double y = caster != null ? caster.getLookVec().xCoord : entity.getLookVec().yCoord;
+			double y = caster != null ? caster.getLookVec().yCoord : entity.getLookVec().yCoord;
 			double z = caster != null ? caster.getLookVec().zCoord : entity.getLookVec().zCoord;
 			
-			if (caster != entity) {
+			if (caster != null && caster != entity) {
+				
+				Vec3 target = UsefulMethods.getMouseOverExtendedUniversal(caster, 100.0F).hitVec;
+				Vec3 launchVector = target.subtract(entity.getPositionVector());
+				launchVector = launchVector.normalize();
+				
+				entity.motionX = 4.0D * launchVector.xCoord;
+				entity.motionY = 4.0D * launchVector.yCoord;
+				entity.motionZ = 4.0D * launchVector.zCoord;
+				
+			} else {
+				
 				entity.motionX = 4.0D * x;
 				entity.motionZ = 4.0D * z;
+				
 			}
 			
 		}

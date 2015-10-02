@@ -46,7 +46,7 @@ minecraft {
 }
 
 dependencies {
-	compile "com.himself12794:powersAPI:1.1-rev1"
+	compile "com.himself12794:powersAPI:1.1-rev2"
 }
 
 jar {

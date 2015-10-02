@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerCapabilities;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.BlockPos;
@@ -16,6 +17,7 @@ import com.himself12794.heroesmod.HeroesMod;
 import com.himself12794.heroesmod.Powers;
 import com.himself12794.heroesmod.network.HeroesNetwork;
 import com.himself12794.heroesmod.util.EnumRandomType;
+import com.himself12794.heroesmod.util.ReflectUtils;
 import com.himself12794.heroesmod.util.UtilMethods;
 import com.himself12794.powersapi.power.EffectType;
 import com.himself12794.powersapi.power.Power;
@@ -37,6 +39,8 @@ public class SpeedBoost extends PowerEffect {
 	
 	public boolean onUpdate(EntityLivingBase entity, int timeLeft, EntityLivingBase caster, Power power) {
 
+		if (!(entity instanceof EntityPlayer)) return false;
+		
 		PowerProfile profile = PowersEntity.get(entity).getPowerProfile(power);
 		int level = profile != null  && power == Powers.speedBoost ? (profile.level < 3 ? profile.level : 3) : 1;
 
@@ -47,14 +51,13 @@ public class SpeedBoost extends PowerEffect {
 		if (f3 > 0.45) entity.extinguish();
 				
 		if (entity.moveForward > 1.0 && entity.getActivePotionEffect(Potion.moveSlowdown) == null) entity.setSprinting(true);
-		try {
-			if (level >= 2) doRunOnWater(entity, timeLeft);
-		} catch (Exception e) {
-			HeroesMod.logger().error("An error occured in making the entity run over water", e);
-			return false;
-		}
+		
+		if (level >= 2) doRunOnWater(entity, timeLeft);
 		
 		if (level >= 3) {
+
+			ReflectUtils.setField(PlayerCapabilities.class, ((EntityPlayer)entity).capabilities, "speedOnGround", 0.5F);
+			
 			Vec3 look = entity.getLookVec();
 			Vec3 pos = entity.getPositionVector();
 			pos = pos.add(entity.getLookVec());
@@ -68,26 +71,17 @@ public class SpeedBoost extends PowerEffect {
 	
 	public void onRemoval(final EntityLivingBase entity, final EntityLivingBase caster, final Power power){
 		entity.stepHeight = 0.0F;
-		
-		Field speedInAir;
-		try {
-			speedInAir = EntityPlayer.class.getDeclaredField("speedInAir");
-			speedInAir.setAccessible(true);
-			speedInAir.set(entity, 0.02F);
-		} catch (Exception e) {
-			HeroesMod.logger().error("An error occurred in removing " + this.name, e);
-		}
+		ReflectUtils.setField(PlayerCapabilities.class, ((EntityPlayer)entity).capabilities, "speedOnGround", 0.1F);
+		ReflectUtils.setField(PlayerCapabilities.class, ((EntityPlayer)entity).capabilities, "flySpeed", 0.05F);
+		ReflectUtils.setField(EntityPlayer.class, entity, "speedInAir", 0.02F);
 	}
 	
-	private void doRunOnWater(EntityLivingBase entity, int timeLeft) throws Exception {
+	private void doRunOnWater(EntityLivingBase entity, int timeLeft) {
 		
 		if (entity instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer)entity;
 			
 			float speed = entity.moveForward;
-			
-			Field speedInAir = EntityPlayer.class.getDeclaredField("speedInAir");
-			speedInAir.setAccessible(true);
 			
 			BlockPos pos = player.getPosition();
 			if (player.worldObj.isAirBlock(pos) && player.worldObj.getBlockState(pos.down()).getBlock().getMaterial().isLiquid() && speed > 0.5) {
@@ -97,10 +91,11 @@ public class SpeedBoost extends PowerEffect {
 				HeroesNetwork.client().spawnParticles(EnumParticleTypes.WATER_BUBBLE, pos.getX(), pos.getY() - 0.5, pos.getZ(), 1.0F, 50, EnumRandomType.GAUSSIAN, null);
 				if (timeLeft % 7 == 0) player.playSound(sound, 0.5F, 0.75F);
 				player.motionY = 0.0;
-				speedInAir.set(player, 0.05F);
+				ReflectUtils.setField(PlayerCapabilities.class, ((EntityPlayer)entity).capabilities, "flySpeed", 0.5F);
+				ReflectUtils.setField(EntityPlayer.class, player, "speedInAir", 0.5F);
 				
-			} else {
-				speedInAir.set(player, 0.02F);
+			} else if (entity.isAirBorne && ((EntityPlayer)entity).capabilities.isFlying){
+				ReflectUtils.setField(EntityPlayer.class, player, "speedInAir", 0.02F);
 			}
 		}
 		
