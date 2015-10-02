@@ -64,7 +64,7 @@ publishing {
 publishing {
     repositories {
         maven {
-            url "sftp://ftp.himself12794-develops.com"
+            url "sftp://ftp.himself12794-develops.com:21"
 			credentials {
 				username = theName
 				password = thePassword
