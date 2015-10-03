@@ -5,7 +5,6 @@
  R4wk, ZeuX, IngisKahn, bspkrs
  MCP Data version : 9.10
 ****************************
-:generatePomFileForMavenJavaPublication
 :deobfCompileDummyTask
 :deobfProvidedDummyTask
 :compileApiJava UP-TO-DATE
@@ -21,24 +20,19 @@ Note: Recompile with -Xlint:unchecked for details.
 
 :processResources UP-TO-DATE
 :classes
-:jar UP-TO-DATE
-:publishMavenJavaPublicationToMavenRepository
-Upload sftp://ftp.himself12794-develops.com:18765/com/himself12794/Heroes-Mod/0.9-rev1/Heroes-Mod-0.9-rev1.jar
-Could not transfer artifact com.himself12794:Heroes-Mod:jar:0.9-rev1 from/to remote (sftp://himself1@ftp.himself12794-develops.com:18765): Could not write to resource 'com/himself12794/Heroes-Mod/0.9-rev1/Heroes-Mod-0.9-rev1.jar'
-Upload sftp://ftp.himself12794-develops.com:18765/com/himself12794/Heroes-Mod/0.9-rev1/Heroes-Mod-0.9-rev1.pom
-Could not transfer artifact com.himself12794:Heroes-Mod:pom:0.9-rev1 from/to remote (sftp://himself1@ftp.himself12794-develops.com:18765): Could not write to resource 'com/himself12794/Heroes-Mod/0.9-rev1/Heroes-Mod-0.9-rev1.pom'
-:publishMavenJavaPublicationToMavenRepository FAILED
+:jar
+:extractMcpData SKIPPED
+:extractMcpMappings SKIPPED
+:getVersionJson
+:extractUserdev UP-TO-DATE
+:genSrgs SKIPPED
+:reobfJar
+:extractRangemapSrc
+:retromapSources UP-TO-DATE
+:sourceJar UP-TO-DATE
+:uploadArchivesCould not find metadata com.himself12794:Heroes-Mod/maven-metadata.xml in remote (ftp://siteground193.com/public_html/maven)
 
-FAILURE: Build failed with an exception.
 
-* What went wrong:
-Execution failed for task ':publishMavenJavaPublicationToMavenRepository'.
-> Failed to publish publication 'mavenJava' to repository 'maven'
-   > Failed to deploy artifacts: Could not transfer artifact com.himself12794:Heroes-Mod:jar:0.9-rev1 from/to remote (sftp://himself1@ftp.himself12794-develops.com:18765): Could not write to resource 'com/himself12794/Heroes-Mod/0.9-rev1/Heroes-Mod-0.9-rev1.jar'
+BUILD SUCCESSFUL
 
-* Try:
-Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
-
-BUILD FAILED
-
-Total time: 13.031 secs
+Total time: 36.328 secs
