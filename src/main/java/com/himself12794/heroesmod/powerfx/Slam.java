@@ -3,7 +3,6 @@ package com.himself12794.heroesmod.powerfx;
 import net.minecraft.entity.EntityFlying;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 
 import com.himself12794.heroesmod.Powers;

@@ -4,7 +4,6 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
@@ -19,9 +18,6 @@ import net.minecraft.world.WorldServer;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
-import com.himself12794.heroesmod.HeroesMod;
-import com.himself12794.heroesmod.network.HeroesNetwork;
 import com.himself12794.heroesmod.util.RandomUtils;
 import com.himself12794.heroesmod.util.Reference;
 import com.himself12794.heroesmod.util.UtilMethods;

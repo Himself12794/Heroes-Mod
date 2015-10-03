@@ -1,7 +1,5 @@
 package com.himself12794.heroesmod.powerfx;
 
-import java.lang.reflect.Field;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,7 +11,6 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 
-import com.himself12794.heroesmod.HeroesMod;
 import com.himself12794.heroesmod.Powers;
 import com.himself12794.heroesmod.network.HeroesNetwork;
 import com.himself12794.heroesmod.util.EnumRandomType;

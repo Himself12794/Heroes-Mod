@@ -1,9 +1,9 @@
 [{
   "modid" : "HeroesMod",
   "name" : "Heroes Mod",
-  "version" : "0.8-rev11",
+  "version" : "0.9-rev2",
   "description": "An emulation of the powers from the TV Show Heroes",
-  "mcversion" : "1.8-11.14.1.1375",
+  "mcversion" : "1.8-11.14.1.1513",
   "authorList": [ "Himself12794" ],
   "useDependencyInformation" : true,
   "requiredMods": [ "Forge", "powersAPI" ]

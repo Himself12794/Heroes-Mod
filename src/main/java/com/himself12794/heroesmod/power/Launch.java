@@ -5,10 +5,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
-import com.himself12794.heroesmod.PowerEffects;
 import com.himself12794.heroesmod.world.BioticExplosion;
 import com.himself12794.powersapi.power.PowerBuff;
-import com.himself12794.powersapi.storage.EffectsEntity;
 import com.himself12794.powersapi.util.UsefulMethods;
 
 public class Launch extends PowerBuff {
