@@ -7,38 +7,32 @@
 ****************************
 :deobfCompileDummyTask
 :deobfProvidedDummyTask
-:eclipseClasspath
-:eclipseJdt
-:eclipseProject
+:compileApiJava UP-TO-DATE
+:processApiResources UP-TO-DATE
+:apiClasses UP-TO-DATE
+:sourceMainJava UP-TO-DATE
+:compileJavawarning: [options] bootstrap class path not set in conjunction with -source 1.6
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+1 warning
+
+:processResources UP-TO-DATE
+:classes
+:jar
+:extractMcpData SKIPPED
+:extractMcpMappings SKIPPED
 :getVersionJson
-:extractNatives SKIPPED
 :extractUserdev UP-TO-DATE
-:getAssetIndex UP-TO-DATE
-:getAssets
-Current status: 258/734   35%
-Current status: 269/734   36%
-Current status: 302/734   41%
-Current status: 423/734   57%
-Current status: 434/734   59%
-Current status: 478/734   65%
-Current status: 516/734   70%
-Current status: 523/734   71%
-Current status: 550/734   74%
-Current status: 564/734   76%
-Current status: 581/734   79%
-Current status: 592/734   80%
-Current status: 632/734   86%
-Current status: 716/734   97%
-Current status: 724/734   98%
-Current status: 726/734   98%
-Current status: 729/734   99%
-:makeStart
-[ant:javac] warning: [options] bootstrap class path not set in conjunction with -source 1.6
-[ant:javac] 1 warning
-:makeEclipseCleanRunClient
-:makeEclipseCleanRunServer
-:eclipse
+:genSrgs SKIPPED
+:reobfJar
+:extractRangemapSrc
+:retromapSources UP-TO-DATE
+:sourceJar UP-TO-DATE
+:uploadArchivesCould not find metadata com.himself12794:Heroes-Mod/maven-metadata.xml in remote (ftp://siteground193.com/public_html/maven)
+
 
 BUILD SUCCESSFUL
 
-Total time: 42.091 secs
+Total time: 36.328 secs
