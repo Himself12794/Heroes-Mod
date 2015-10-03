@@ -10,31 +10,28 @@
 :compileApiJava UP-TO-DATE
 :processApiResources UP-TO-DATE
 :apiClasses UP-TO-DATE
-:sourceMainJava
-:compileJava
-Download http://maven.himself12794-develops.com/com/himself12794/powersAPI/1.1-rev2/powersAPI-1.1-rev2.pom
-Download http://maven.himself12794-develops.com/com/himself12794/powersAPI/1.1-rev2/powersAPI-1.1-rev2.jar
-warning: [options] bootstrap class path not set in conjunction with -source 1.6
+:sourceMainJava UP-TO-DATE
+:compileJavawarning: [options] bootstrap class path not set in conjunction with -source 1.6
 Note: Some input files use or override a deprecated API.
 Note: Recompile with -Xlint:deprecation for details.
 Note: Some input files use unchecked or unsafe operations.
 Note: Recompile with -Xlint:unchecked for details.
 1 warning
-:processResources
+
+:processResources UP-TO-DATE
 :classes
 :jar
 :extractMcpData SKIPPED
 :extractMcpMappings SKIPPED
 :getVersionJson
-:extractUserdev
+:extractUserdev UP-TO-DATE
 :genSrgs SKIPPED
 :reobfJar
 :extractRangemapSrc
-:retromapSources
-remapping source...
-:sourceJar
+:retromapSources UP-TO-DATE
+:sourceJar UP-TO-DATE
 :uploadArchives
 
 BUILD SUCCESSFUL
 
-Total time: 52.993 secs
+Total time: 26.302 secs
