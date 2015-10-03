@@ -1,0 +1,89 @@
+// For those who want the bleeding edge
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.0-SNAPSHOT'
+    }
+}
+apply plugin: 'java'
+apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'maven'
+
+// for people who want stable stuff
+/*plugins {
+    id "net.minecraftforge.gradle.forge" version "2.0.1"
+	id "maven-publish"
+}*/
+
+wrapper {
+  gradleVersion = "2.9-20151002220031+0000"
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        name = "himself12794-develops"
+        url = "http://maven.himself12794-develops.com"
+    }
+}
+
+configurations {
+	deployerJars
+}
+
+dependencies {
+	compile "com.himself12794:powersAPI:1.1-rev2"
+	deployerJars "org.apache.maven.wagon:wagon-ftp:2.2"
+}
+
+uploadArchives {
+    repositories.mavenDeployer {
+        configuration = configurations.deployerJars
+        repository(url: "ftp://siteground193.com/public_html/maven") {
+            authentication(userName: "himself1", password: "fire_fox120794")
+        }
+    }
+}
+
+version = "0.9-rev1"
+group = "com.himself12794" 
+archivesBaseName = "Heroes-Mod"
+
+minecraft {
+    version = "1.8-11.14.3.1514"
+    runDir = "run"
+    
+    // the mappings can be changed at any time, and must be in the following format.
+    // snapshot_YYYYMMDD   snapshot are built nightly.
+    // stable_#            stables are built at the discretion of the MCP team.
+    // Use non-default mappings at your own risk. they may not allways work.
+    // simply re-run your setup task after changing the mappings to update your workspace.
+    mappings = "snapshot_20141130"
+    // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
+}
+
+processResources
+{
+    // this will ensure that this task is redone when the versions change.
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    // replace stuff in mcmod.info, nothing else
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+                
+        // replace version and mcversion
+        expand 'version':project.version, 'mcversion':project.minecraft.version
+    }
+        
+    // copy everything else, thats not the mcmod.info
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
