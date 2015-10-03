@@ -14,7 +14,6 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: "maven-publish"
 
-
 // for people who want stable
 /*plugins {
     id "net.minecraftforge.gradle.forge" version "2.0.1"
@@ -45,10 +44,6 @@ minecraft {
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 }
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
 	compile "com.himself12794:powersAPI:1.1-rev2"
 }
@@ -64,11 +59,7 @@ publishing {
 publishing {
     repositories {
         maven {
-            url "sftp://ftp.himself12794-develops.com:21"
-			credentials {
-				username = theName
-				password = thePassword
-			}
+            url "sftp://himself1@ftp.himself12794-develops.com:18765"
         }
     }
 }
