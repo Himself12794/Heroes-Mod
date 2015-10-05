@@ -21,6 +21,10 @@ Note: Recompile with -Xlint:unchecked for details.
 :processResources UP-TO-DATE
 :classes
 :jar
+:compileTestJava UP-TO-DATE
+:processTestResources UP-TO-DATE
+:testClasses UP-TO-DATE
+:test UP-TO-DATE
 :extractMcpData SKIPPED
 :extractMcpMappings SKIPPED
 :getVersionJson
@@ -30,8 +34,11 @@ Note: Recompile with -Xlint:unchecked for details.
 :extractRangemapSrc
 :retromapSources UP-TO-DATE
 :sourceJar UP-TO-DATE
+:assemble
+:check UP-TO-DATE
+:build
 :uploadArchives
 
 BUILD SUCCESSFUL
 
-Total time: 26.302 secs
+Total time: 27.997 secs
