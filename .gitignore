@@ -33,7 +33,6 @@ run
 /build/
 /config/
 /crash-reports/
-/build.gradle
 /eula.txt
 /options.txt
 /.settings/
