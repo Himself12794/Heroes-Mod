@@ -10,7 +10,7 @@ package com.himself12794.heroesmod.util;
 public abstract class Reference {
 	
     public static final String MODID = "HeroesMod";
-    public static final String VERSION = "0.9-rev3";
+    public static final String VERSION = "0.9-rev4";
     public static final String NAME = "Heroes Mod";
     public static final String MOD_AUTHOR = "Himself12794";
     public static final String CLIENT_PROXY = "com.himself12794.heroesmod.proxy.ClientProxy";

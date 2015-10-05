@@ -53,7 +53,7 @@ public class SpeedBoost extends PowerEffect {
 		
 		if (level >= 3) {
 
-			ReflectUtils.setField(PlayerCapabilities.class, ((EntityPlayer)entity).capabilities, "speedOnGround", 0.5F);
+			ReflectUtils.setField(((EntityPlayer)entity).capabilities, "walkSpeed", "field_149114_f", 0.5F);
 			
 			Vec3 look = entity.getLookVec();
 			Vec3 pos = entity.getPositionVector();
@@ -68,9 +68,9 @@ public class SpeedBoost extends PowerEffect {
 	
 	public void onRemoval(final EntityLivingBase entity, final EntityLivingBase caster, final Power power){
 		entity.stepHeight = 0.0F;
-		ReflectUtils.setField(PlayerCapabilities.class, ((EntityPlayer)entity).capabilities, "speedOnGround", 0.1F);
-		ReflectUtils.setField(PlayerCapabilities.class, ((EntityPlayer)entity).capabilities, "flySpeed", 0.05F);
-		ReflectUtils.setField(EntityPlayer.class, entity, "speedInAir", 0.02F);
+		ReflectUtils.setField(((EntityPlayer)entity).capabilities, "walkSpeed", "field_149114_f", 0.1F);
+		ReflectUtils.setField(((EntityPlayer)entity).capabilities, "flySpeed", "field_149116_e", 0.05F);
+		ReflectUtils.setField(entity, "speedInAir", "field_71102_ce", 0.02F);
 	}
 	
 	private void doRunOnWater(EntityLivingBase entity, int timeLeft) {
@@ -88,11 +88,11 @@ public class SpeedBoost extends PowerEffect {
 				HeroesNetwork.client().spawnParticles(EnumParticleTypes.WATER_BUBBLE, pos.getX(), pos.getY() - 0.5, pos.getZ(), 1.0F, 50, EnumRandomType.GAUSSIAN, null);
 				if (timeLeft % 7 == 0) player.playSound(sound, 0.5F, 0.75F);
 				player.motionY = 0.0;
-				ReflectUtils.setField(PlayerCapabilities.class, ((EntityPlayer)entity).capabilities, "flySpeed", 0.5F);
-				ReflectUtils.setField(EntityPlayer.class, player, "speedInAir", 0.5F);
+				ReflectUtils.setField(((EntityPlayer)entity).capabilities, "flySpeed", "field_149116_e", 0.5F);
+				ReflectUtils.setField(player, "speedInAir", "field_71102_ce", 0.5F);
 				
 			} else if (entity.isAirBorne && ((EntityPlayer)entity).capabilities.isFlying){
-				ReflectUtils.setField(EntityPlayer.class, player, "speedInAir", 0.02F);
+				ReflectUtils.setField(player, "speedInAir", "field_71102_ce", 0.02F);
 			}
 		}
 		

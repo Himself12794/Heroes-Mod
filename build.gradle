@@ -37,7 +37,7 @@ configurations {
 	deployerJars
 }
 
-version = "0.9-rev3"
+version = "0.9-rev4"
 group = "com.himself12794" 
 archivesBaseName = "Heroes-Mod"
 

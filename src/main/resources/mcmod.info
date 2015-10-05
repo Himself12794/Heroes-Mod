@@ -1,7 +1,7 @@
 [{
   "modid" : "HeroesMod",
   "name" : "Heroes Mod",
-  "version" : "0.9-rev3",
+  "version" : "0.9-rev4",
   "description": "An emulation of the powers from the TV Show Heroes",
   "mcversion" : "1.8-11.14.1.1513",
   "authorList": [ "Himself12794" ],
