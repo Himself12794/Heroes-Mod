@@ -25,9 +25,6 @@ import com.himself12794.powersapi.PowersAPI;
  */
 @Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION, useMetadata = true, guiFactory = Reference.GUI_FACTORY)
 public class HeroesMod {
-
-	@Mod.Instance("powersAPI")
-	private static PowersAPI apiInstance;
 	
 	@Mod.Instance(Reference.MODID)
 	private static HeroesMod instance;
@@ -82,10 +79,6 @@ public class HeroesMod {
 	
 	public static HeroesMod getMod() {
 		return instance;
-	}
-	
-	public static PowersAPI apiInstance() {
-		return apiInstance;
 	}
 	
 	public static CommonProxy proxy() {

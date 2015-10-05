@@ -22,6 +22,7 @@ import com.himself12794.heroesmod.power.PowersRegistration;
 import com.himself12794.heroesmod.powerfx.PowerEffectsRegistration;
 import com.himself12794.heroesmod.storage.AbilitiesEntity;
 import com.himself12794.heroesmod.util.Reference;
+import com.himself12794.powersapi.PowersAPI;
 
 public class CommonProxy {
 
@@ -46,7 +47,7 @@ public class CommonProxy {
 
 	public void postinit(FMLPostInitializationEvent event) {
 			
-		HeroesMod.apiInstance().propertiesHandler().registerPropertyClass(AbilitiesEntity.class, EntityPlayer.class, Reference.MODID + ":abilitiesWrapper");
+		PowersAPI.propertiesHandler().registerPropertyClass(AbilitiesEntity.class, EntityPlayer.class, Reference.MODID + ":abilitiesWrapper");
 		
 		PowerEffectsRegistration.registerEffects();
 		PowersRegistration.registerPowers();
