@@ -29,6 +29,7 @@ import net.minecraft.world.World;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import static com.himself12794.heroesmod.util.ReflectUtils.getField;
 
 /**
  * Blocks destroyed by this explosion don't drop anything.
@@ -58,19 +59,19 @@ public class NoDropsExplosion extends Explosion {
     private final Map<BlockPos, TileEntity> tileEntities;
 
 	public NoDropsExplosion(Explosion e) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-		super((World)get(e, "worldObj"), (Entity)get(e, "exploder"), (Double)get(e, "explosionX"), (Double)get(e, "explosionY"), (Double)get(e, "explosionZ"), (Float)get(e, "explosionSize"), (Boolean)get(e, "isFlaming"), (Boolean)get(e, "isSmoking"));
+		super((World)getField(e, "worldObj", "field_77287_j"), (Entity)getField(e, "exploder", "field_77283_e"), (Double)getField(e, "explosionX", "field_77284_b"), (Double)getField(e, "explosionY", "field_77285_c"), (Double)getField(e, "explosionZ", "field_77282_d"), (Float)getField(e, "explosionSize", "field_77280_f"), (Boolean)getField(e, "isFlaming", "field_77286_a"), (Boolean)getField(e, "isSmoking", "field_82755_b"));
 		
-		this.explosionRNG = (Random) get(this, "explosionRNG");
-        this.affectedBlockPositions = (List) get(this, "affectedBlockPositions");
-        this.field_77288_k = (Map) get(this, "field_77288_k");
-		this.worldObj = (World) get(this, "worldObj");
-		this.exploder = (Entity) get(this, "exploder");
-		this.explosionSize = (Float) get(this, "explosionSize");
-		this.explosionX = (Double) get(this, "explosionX");
-		this.explosionY = (Double) get(this, "explosionY");
-		this.explosionZ = (Double) get(this, "explosionZ");
-		this.isSmoking = (Boolean) get(this, "isSmoking");
-		this.isFlaming = (Boolean) get(this, "isFlaming");
+		this.explosionRNG = (Random) getField(this, "explosionRNG", "field_77290_i");
+        this.affectedBlockPositions = (List) getField(this, "affectedBlockPositions", "field_77281_g");
+        this.field_77288_k = (Map) getField(this, "field_77288_k", null);
+		this.worldObj = (World) getField(this, "worldObj", "field_77287_j");
+		this.exploder = (Entity) getField(this, "exploder", "field_77283_e");
+		this.explosionSize = (Float) getField(this, "explosionSize", "field_77280_f");
+		this.explosionX = (Double) getField(this, "explosionX", "field_77284_b");
+		this.explosionY = (Double) getField(this, "explosionY", "field_77285_c");
+		this.explosionZ = (Double) getField(this, "explosionZ", "field_77282_d");
+		this.isSmoking = (Boolean) getField(this, "isSmoking", "field_82755_b");
+		this.isFlaming = (Boolean) getField(this, "isFlaming", "field_77286_a");
 		this.position = new Vec3(explosionX, explosionY, explosionZ);
 		this.blocks = Maps.newHashMap();
 		this.tileEntities = Maps.newHashMap();
@@ -380,20 +381,6 @@ public class NoDropsExplosion extends Explosion {
     public Map<BlockPos, TileEntity> getTileEntities() {
     	return this.tileEntities;
     }
-    
-    private static void set(Explosion e, String name, Object value) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-    	
-		Field field = Explosion.class.getDeclaredField(name);
-		field.setAccessible(true);
-    	field.set(e, value);
-    }
-	
-	public static Object get(Explosion exp, String name) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-		
-		Field field = Explosion.class.getDeclaredField(name);
-		field.setAccessible(true);
-		return field.get(exp);
-	}
 
 
 
