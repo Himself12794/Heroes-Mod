@@ -25,6 +25,7 @@ public class EmphaticMimicry extends PowerEffect {
 		this.setType(EffectType.BENEFICIAL);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public boolean onUpdate(final EntityLivingBase entity, final int timeLeft, final EntityLivingBase caster, final Power initiatedPower){ 
 		
 		List<EntityPlayer> players = entity.worldObj.getPlayers(EntityPlayer.class, new Predicate<EntityPlayer>() {

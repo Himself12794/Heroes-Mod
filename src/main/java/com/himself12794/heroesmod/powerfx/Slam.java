@@ -23,6 +23,7 @@ public class Slam extends Lift {
 		setRequiresCaster();
 	}
 
+	@SuppressWarnings("unused")
 	@Override
 	public void onRemoval(EntityLivingBase entity, EntityLivingBase caster, Power power) {
 		

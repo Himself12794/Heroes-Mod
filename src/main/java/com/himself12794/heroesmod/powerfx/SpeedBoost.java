@@ -1,16 +1,5 @@
 package com.himself12794.heroesmod.powerfx;
 
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.PlayerCapabilities;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.Vec3;
-
 import com.himself12794.heroesmod.Powers;
 import com.himself12794.heroesmod.network.HeroesNetwork;
 import com.himself12794.heroesmod.util.EnumRandomType;
@@ -21,6 +10,16 @@ import com.himself12794.powersapi.power.Power;
 import com.himself12794.powersapi.power.PowerEffect;
 import com.himself12794.powersapi.storage.PowerProfile;
 import com.himself12794.powersapi.storage.PowersEntity;
+
+import net.minecraft.block.material.Material;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.BlockPos;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.Vec3;
 
 /**
  * A variety of cool effects. At level 1, just speed. At level 2, the ability 
@@ -55,7 +54,6 @@ public class SpeedBoost extends PowerEffect {
 
 			ReflectUtils.setField(((EntityPlayer)entity).capabilities, "walkSpeed", "field_149114_f", 0.5F);
 			
-			Vec3 look = entity.getLookVec();
 			Vec3 pos = entity.getPositionVector();
 			pos = pos.add(entity.getLookVec());
 			BlockPos block = new BlockPos(pos.xCoord, pos.yCoord, pos.zCoord);

@@ -106,8 +106,6 @@ public class Flames extends PowerRanged {
 				
 			}
 			
-			boolean positionInvalid = false;
-				
 			awaylabel:
 			
 			for (float j = 0.0F; j < 1.0F; j += 0.05F) {
@@ -120,7 +118,6 @@ public class Flames extends PowerRanged {
 							spell.prevPosZ + (spell.motionZ * j));
 					
 					if (UsefulMethods.getBlockAtPos(pos, world).getMaterial().isSolid()) {
-						positionInvalid = true;
 						break awaylabel;
 					}
 						

@@ -28,6 +28,7 @@ import com.himself12794.heroesmod.util.Reference.Sounds;
  */
 public class BioticExplosion extends Explosion {
 
+	@SuppressWarnings("unused")
 	private final Random explosionRNG;
 	private final World worldObj;
 	private final double explosionX;
@@ -35,6 +36,7 @@ public class BioticExplosion extends Explosion {
 	private final double explosionZ;
 	private final Entity exploder;
 	private final float explosionSize;
+	@SuppressWarnings("unused")
 	private final Vec3 position;
 	private float limit = 50.0F;
 
@@ -57,6 +59,7 @@ public class BioticExplosion extends Explosion {
 	/**
 	 * Does the first part of the explosion. Explosion cannot destroy blocks, but still damages through them.
 	 */
+	@SuppressWarnings({ "unchecked", "unused" })
 	public void doExplosionA() {
 		
 		float f3 = this.explosionSize * 2.0F;
@@ -66,7 +69,7 @@ public class BioticExplosion extends Explosion {
 		int l = MathHelper.floor_double(this.explosionY + (double) f3 + 1.0D);
 		int k1 = MathHelper.floor_double(this.explosionZ - (double) f3 - 1.0D);
 		int i1 = MathHelper.floor_double(this.explosionZ + (double) f3 + 1.0D);
-		List list = worldObj.getEntitiesWithinAABBExcludingEntity( this.exploder, new AxisAlignedBB((double) j, (double) j1, (double) k1, (double) k, (double) l, (double) i1));
+		List<Entity> list = worldObj.getEntitiesWithinAABBExcludingEntity( this.exploder, new AxisAlignedBB((double) j, (double) j1, (double) k1, (double) k, (double) l, (double) i1));
 		net.minecraftforge.event.ForgeEventFactory.onExplosionDetonate(worldObj, this, list, f3);
 		Vec3 vec3 = new Vec3(explosionX, explosionY, explosionZ);
 

@@ -2,17 +2,6 @@ package com.himself12794.heroesmod.storage;
 
 import java.util.Set;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.nbt.NBTTagString;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.world.World;
-
 import com.google.common.collect.Sets;
 import com.himself12794.heroesmod.AbilitySets;
 import com.himself12794.heroesmod.ability.AbilitySet;
@@ -24,6 +13,16 @@ import com.himself12794.powersapi.storage.EffectsEntity;
 import com.himself12794.powersapi.storage.PowersEntity;
 import com.himself12794.powersapi.storage.PropertiesBase;
 import com.himself12794.powersapi.util.UsefulMethods;
+
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagString;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.world.World;
 
 public class AbilitiesEntity extends PropertiesBase {
 
@@ -157,8 +156,6 @@ public class AbilitiesEntity extends PropertiesBase {
 			}
 			
 			for (int effect : set.getPassivePowersPotion()) {
-				
-				Potion potion = Potion.potionTypes[effect];
 				
 				PotionEffect potionEffect = new PotionEffect(effect, 5, 3, false, false);
 				theEntity.addPotionEffect(potionEffect);

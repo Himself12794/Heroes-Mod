@@ -32,6 +32,7 @@ public class S02ExplosionParticles implements IMessage {
 		affectedPos = Lists.newArrayList();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public S02ExplosionParticles(NoDropsExplosion explosion) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		affectedPos = explosion.func_180343_e();
 		isSmoking = explosion.isSmoking;

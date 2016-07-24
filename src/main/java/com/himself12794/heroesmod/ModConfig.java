@@ -19,7 +19,7 @@ public class ModConfig {
 	 * This bit of hackery allows as to set the default weight when we
 	 * initialize the ability, and have that be static even if the config changes
 	 */
-	private final Map defaultWeights = Maps.newHashMap();
+	private final Map<AbilitySet, Float> defaultWeights = Maps.newHashMap();
 	final Configuration mainConfig;
 	final ConfigCategory generalModConfig;
 	final ConfigCategory abilities;
@@ -38,7 +38,7 @@ public class ModConfig {
 		
 		abilities = mainConfig.getCategory("Ability Weights");
 		abilities.setLanguageKey("heroesmod.config.weights");
-		abilities.setComment("Determine weight of learning ability when first joining world. Higher value means higher chance");
+		abilities.setComment("Determine weight of learning an ability when first joining world. Higher value means higher chance");
 		
 		syncConfig();
 	}

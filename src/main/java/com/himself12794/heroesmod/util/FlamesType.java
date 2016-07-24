@@ -29,9 +29,9 @@ public enum FlamesType {
 	private final boolean burnsBlocks;
 	/** Whether or not the target should be set on fire, or instantly removed */
 	private final boolean incinerates;
-	private final List burnMaterials;	
+	private final List<?> burnMaterials;	
 	
-	FlamesType(int stateId, int permissionLevel, String title, String text, boolean burnsEntities, boolean burnsBlocks, boolean incinerates, List materials) {
+	FlamesType(int stateId, int permissionLevel, String title, String text, boolean burnsEntities, boolean burnsBlocks, boolean incinerates, List<?> materials) {
 		this.permissionLevel = permissionLevel;
 		this.stateId = stateId;
 		this.title = title;
@@ -42,7 +42,7 @@ public enum FlamesType {
 		this.burnMaterials = materials;
 	}
 	
-	FlamesType(int permissionLevel, String title, String text, boolean burnsEntities, boolean burnsBlocks, boolean incinerates, List materials) {
+	FlamesType(int permissionLevel, String title, String text, boolean burnsEntities, boolean burnsBlocks, boolean incinerates, List<?> materials) {
 		this(permissionLevel, permissionLevel, title, text, burnsEntities, burnsBlocks, incinerates, materials);
 	}
 	
@@ -89,8 +89,8 @@ public enum FlamesType {
 		return FlamesType.WAR_FLAMES;
 	}
 	
-	private static List getBurnableMaterials() {
-		List burnables = Lists.newArrayList();
+	private static List<Material> getBurnableMaterials() {
+		List<Material> burnables = Lists.newArrayList();
 		
 		for (Field field : Material.class.getFields()) {
 			int mods = field.getModifiers();

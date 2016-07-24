@@ -1,30 +1,27 @@
 package com.himself12794.heroesmod.gui;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.Gui;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
-import net.minecraftforge.fml.common.eventhandler.EventPriority;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
 import com.himself12794.powersapi.power.PowerEffectActivatorBuff;
 import com.himself12794.powersapi.storage.EffectsEntity;
 import com.himself12794.powersapi.storage.PowerProfile;
 import com.himself12794.powersapi.storage.PowersEntity;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
 public class PowerOverlayGui extends Gui {
 	
 	private Minecraft mc;
-	private RenderItem itemRender;
 	private FontRenderer fontRendererObj;
 
 	public PowerOverlayGui(Minecraft mc) {
 		super();
 		this.mc = mc;
-		this.itemRender = mc.getRenderItem();
 		this.fontRendererObj = mc.fontRendererObj;
 	}
 

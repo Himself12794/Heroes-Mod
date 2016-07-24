@@ -4,6 +4,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 
 public class Server {
 
+	@SuppressWarnings("unused")
 	private final SimpleNetworkWrapper network;
 
 	Server(SimpleNetworkWrapper network) {

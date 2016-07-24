@@ -51,7 +51,8 @@ public class SkillBook extends Item {
     	return stack;
     }
    
-    public void getSubItems(Item itemIn, CreativeTabs tab, List subItems) {
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public void getSubItems(Item itemIn, CreativeTabs tab, List subItems) {
         
     	NBTTagCompound primary = new NBTTagCompound();
     	primary.setString("ForPower", "primary");

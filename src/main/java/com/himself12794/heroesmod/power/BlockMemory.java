@@ -37,6 +37,7 @@ public class BlockMemory extends PowerInstant {
 
 	private static final class State {
 		private static final int SINGLE_REMEMBER = 0;
+		@SuppressWarnings("unused")
 		private static final int SINGLE_RECALL = 1;
 	}
 	

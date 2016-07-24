@@ -13,10 +13,12 @@ public final class RandomUtils {
 
 	private RandomUtils() {}
 	
+	@SafeVarargs
 	public static <T extends IWeightedItem> T selectRandomWeightedItem(T...items) {
 		return selectRandomWeightedItem(null, items);
 	}
 	
+	@SafeVarargs
 	public static <T extends IWeightedItem> T selectRandomWeightedItem(Random rand, T...items) {
 		return selectRandomWeightedItem(rand, Lists.newArrayList(items));
 	}
@@ -32,6 +34,7 @@ public final class RandomUtils {
 		return selectRandomWeightedItem(null, items);
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static <T extends IWeightedItem> T selectRandomWeightedItem(Random rand, Collection<T> items) {
 
 		if (rand == null) rand = new Random();

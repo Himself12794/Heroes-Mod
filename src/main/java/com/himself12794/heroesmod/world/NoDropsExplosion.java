@@ -1,12 +1,17 @@
 package com.himself12794.heroesmod.world;
 
-import java.lang.reflect.Field;
+import static com.himself12794.heroesmod.util.ReflectUtils.getField;
+
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 import java.util.Random;
+
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
@@ -25,11 +30,6 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
-
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
-import static com.himself12794.heroesmod.util.ReflectUtils.getField;
 
 /**
  * Blocks destroyed by this explosion don't drop anything.
@@ -51,19 +51,21 @@ public class NoDropsExplosion extends Explosion {
     private final Entity exploder;
     private final float explosionSize;
     /** A list of ChunkPositions of blocks affected by this explosion */
-    private final List affectedBlockPositions;
-    private final Map field_77288_k;
-    private final Vec3 position;
+    private final List<BlockPos> affectedBlockPositions;
+    private final Map<EntityPlayer, Vec3> field_77288_k;
+    @SuppressWarnings("unused")
+	private final Vec3 position;
     private boolean harmless;
     private final Map<BlockPos, IBlockState> blocks;
     private final Map<BlockPos, TileEntity> tileEntities;
 
+	@SuppressWarnings("unchecked")
 	public NoDropsExplosion(Explosion e) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		super((World)getField(e, "worldObj", "field_77287_j"), (Entity)getField(e, "exploder", "field_77283_e"), (Double)getField(e, "explosionX", "field_77284_b"), (Double)getField(e, "explosionY", "field_77285_c"), (Double)getField(e, "explosionZ", "field_77282_d"), (Float)getField(e, "explosionSize", "field_77280_f"), (Boolean)getField(e, "isFlaming", "field_77286_a"), (Boolean)getField(e, "isSmoking", "field_82755_b"));
 		
 		this.explosionRNG = (Random) getField(this, "explosionRNG", "field_77290_i");
-        this.affectedBlockPositions = (List) getField(this, "affectedBlockPositions", "field_77281_g");
-        this.field_77288_k = (Map) getField(this, "field_77288_k", null);
+        this.affectedBlockPositions = (List<BlockPos>) getField(this, "affectedBlockPositions", "field_77281_g");
+        this.field_77288_k = (Map<EntityPlayer, Vec3>) getField(this, "field_77288_k", null);
 		this.worldObj = (World) getField(this, "worldObj", "field_77287_j");
 		this.exploder = (Entity) getField(this, "exploder", "field_77283_e");
 		this.explosionSize = (Float) getField(this, "explosionSize", "field_77280_f");
@@ -89,9 +91,10 @@ public class NoDropsExplosion extends Explosion {
     /**
      * Does the first part of the explosion (destroy blocks)
      */
-    public void doExplosionA()
+    @SuppressWarnings({ "unchecked", "unused" })
+	public void doExplosionA()
     {
-        HashSet hashset = Sets.newHashSet();
+        HashSet<BlockPos> hashset = Sets.newHashSet();
         boolean flag = true;
         int j;
         int k;
@@ -149,7 +152,7 @@ public class NoDropsExplosion extends Explosion {
         int l = MathHelper.floor_double(this.explosionY + (double)f3 + 1.0D);
         int k1 = MathHelper.floor_double(this.explosionZ - (double)f3 - 1.0D);
         int i1 = MathHelper.floor_double(this.explosionZ + (double)f3 + 1.0D);
-        List list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this.exploder, new AxisAlignedBB((double)j, (double)j1, (double)k1, (double)k, (double)l, (double)i1));
+        List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this.exploder, new AxisAlignedBB((double)j, (double)j1, (double)k1, (double)k, (double)l, (double)i1));
         net.minecraftforge.event.ForgeEventFactory.onExplosionDetonate(this.worldObj, this, list, f3);
         Vec3 vec3 = new Vec3(this.explosionX, this.explosionY, this.explosionZ);
 
@@ -210,12 +213,12 @@ public class NoDropsExplosion extends Explosion {
             this.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, this.explosionX, this.explosionY, this.explosionZ, 1.0D, 0.0D, 0.0D, new int[0]);
         }
 
-        ListIterator iterator;
+        ListIterator<BlockPos> iterator;
         BlockPos blockpos;
 
         if (this.isSmoking)
         {
-        	List newBlocks = this.orderedBlocks();
+        	List<BlockPos> newBlocks = this.orderedBlocks();
             iterator = newBlocks.listIterator();
             
             for (;iterator.hasNext();iterator.next());
@@ -293,7 +296,7 @@ public class NoDropsExplosion extends Explosion {
     	final List<BlockPos> fullBlocks = Lists.newArrayList();
     	final List<BlockPos> nonFullBlocks = Lists.newArrayList();
     	
-    	Iterator iterator = affectedBlockPositions.iterator();
+    	Iterator<BlockPos> iterator = affectedBlockPositions.iterator();
     	while (iterator.hasNext()) {
     		BlockPos pos = (BlockPos) iterator.next();
     		Block block = worldObj.getBlockState(pos).getBlock();
@@ -310,7 +313,7 @@ public class NoDropsExplosion extends Explosion {
     	return airBlocks;
     }
     
-    public void doParticles(List affectedBlockPositions, boolean doParticles) {
+    public void doParticles(List<?> affectedBlockPositions, boolean doParticles) {
     	 if (this.explosionSize >= 2.0F && this.isSmoking)
          {
              this.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, this.explosionX, this.explosionY, this.explosionZ, 1.0D, 0.0D, 0.0D, new int[0]);
@@ -320,7 +323,7 @@ public class NoDropsExplosion extends Explosion {
              this.worldObj.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, this.explosionX, this.explosionY, this.explosionZ, 1.0D, 0.0D, 0.0D, new int[0]);
          }
 
-         Iterator iterator;
+         Iterator<?> iterator;
          BlockPos blockpos;
 
          if (this.isSmoking)

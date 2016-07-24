@@ -51,6 +51,7 @@ public final class UtilMethods {
 		return currLocF;
 	}
 	
+	@SuppressWarnings("unused")
 	public static double getTotalVelocity(Entity entity) {
 		double x = entity.motionX;
 		double y = entity.motionY;

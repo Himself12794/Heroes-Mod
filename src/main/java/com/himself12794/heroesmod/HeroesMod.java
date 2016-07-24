@@ -2,19 +2,18 @@ package com.himself12794.heroesmod;
 
 import java.io.File;
 
+import org.apache.logging.log4j.Logger;
+
+import com.himself12794.heroesmod.handlers.WorldHealingHandler;
+import com.himself12794.heroesmod.proxy.CommonProxy;
+import com.himself12794.heroesmod.util.Reference;
+
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.ModMetadata;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-
-import org.apache.logging.log4j.Logger;
-
-import com.himself12794.heroesmod.handlers.WorldHealingHandler;
-import com.himself12794.heroesmod.proxy.CommonProxy;
-import com.himself12794.heroesmod.util.Reference;
-import com.himself12794.powersapi.PowersAPI;
 
 /**
  * This mod is meant to emulate many of the different abilities found in the

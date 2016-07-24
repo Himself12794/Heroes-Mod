@@ -40,8 +40,6 @@ public class Flare extends PowerRanged {
 	@Override
 	public void onUpdate(EntityPower spell) {
 
-		World world = spell.worldObj;
-		
 		if (spell.getThrower().getDistanceToEntity(spell) > 100.0F) spell.setDead();
 		
 		if (spell.getThrower().getDistanceToEntity(spell) > 2.0F) {
