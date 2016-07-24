@@ -59,14 +59,14 @@ dependencies {
 	deployerJars "org.apache.maven.wagon:wagon-ftp:2.2"
 }
 
-uploadArchives {
+/*uploadArchives {
     repositories.mavenDeployer {
         configuration = configurations.deployerJars
         repository(url: "ftp://siteground193.com/public_html/maven") {
             authentication(userName: theName, password: thePassword)
         }
     }
-}
+}*/
 
 processResources
 {

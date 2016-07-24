@@ -26,6 +26,7 @@ run
 !sounds.json
 !/src/*/*.json
 *.text
+/run/
 /world/
 /saves/
 /mods/
@@ -37,3 +38,5 @@ run
 /options.txt
 /.settings/
 /screenshots/
+.classpath
+.project
